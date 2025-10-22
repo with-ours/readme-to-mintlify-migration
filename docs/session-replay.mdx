@@ -1,0 +1,234 @@
+---
+title: "Session Replay"
+description: "Record and replay visitor sessions to understand user behavior and optimize your website experience."
+---
+
+# Session Replay
+
+Go beyond events and actually see what your users did on their journey. Session Replay enables you to record and replay visitor sessions to understand user behavior and optimize your website experience. You can access replay sessions through recent events and event analytics to see all events from that session for a visitor along with their actual session replay.
+
+## Overview
+
+Session Replay provides:
+
+* **Complete session recordings** of visitor interactions on your website
+* **Event correlation** linking recorded sessions to specific events and analytics
+* **HIPAA-compliant recording** designed to support privacy and security for sensitive applications
+* **Automatic session management** with recording and server flushing handled automatically
+* **Privacy controls** with configurable masking and blocking options
+
+## Use Cases
+
+* **User behavior analysis** to understand how visitors navigate your site
+* **Conversion optimization** by identifying friction points in user journeys
+* **Support and troubleshooting** by replaying specific user sessions
+
+## Configuration
+
+### Enable Session Replay
+
+Session Replay must be enabled by your account team. Contact your account representative to activate this feature for your account.
+
+### Domain Whitelisting
+
+After enabling Session Replay, you need to whitelist the domains where recording will occur:
+
+* Add your website domain to the allowed domains list
+* For optimal performance, use the same custom domain as your CDP or SDK installation
+* Custom domains provide first-party trust and can help with compliance requirements
+
+> **Note:** If you have a [custom domain](/docs/custom-domains) configured for your Ours Privacy account, you can load Session Replay from your own first-party custom domain as well.
+
+## Installation
+
+You can install Session Replay in two ways:
+
+1. **Through the Ours Privacy CDP Web SDK** (recommended)
+2. **As a standalone SDK** (for advanced use cases)
+
+### Option 1: Install with Ours Privacy CDP Web SDK
+
+If you're already using the [Ours Privacy Web SDK](/docs/installation), you can add Session Replay by including your replay token in the initialization:
+
+<CodeGroup>
+  ```bash bash
+  ours("init", "{cdp_token}", {
+    session_replay: {
+      token: "replay_token",
+    },
+  });
+  ```
+</CodeGroup>
+
+Replace `{cdp_token}` with your CDP token and `replay_token` with the Session Replay token provided by your account team.
+
+### Option 2: Install with Google Tag Manager
+
+You can also load Session Replay through Google Tag Manager by adding the Session Replay script to your GTM container.
+
+### Option 3: Standalone SDK
+
+> **Note:** You do NOT need to use the standalone SDK if you're using the Ours Web SDK or Google Tag Manager. This option is only for advanced use cases where you need direct control over the Session Replay functionality.
+
+For advanced use cases, you can use the standalone Session Replay SDK:
+
+<CodeGroup>
+  ```bash bash
+  // Initialize the SDK
+  window.ours_replay.init({
+    session_id: "your_session_id",
+    visitor_id: "your_visitor_id",
+    maxRecordingMinutes: 30, // optional
+  });
+
+  // Start recording
+  window.ours_replay.start();
+
+  // Stop recording
+  window.ours_replay.stop();
+
+  // Flush data to server
+  await window.ours_replay.flush();
+  ```
+</CodeGroup>
+
+#### Standalone SDK Methods
+
+| Method                    | Description                         | Parameters       |
+| ------------------------- | ----------------------------------- | ---------------- |
+| `init(options)`           | Initialize the Session Replay SDK   | `InitOptions`    |
+| `start()`                 | Begin recording the current session | None             |
+| `stop(options)`           | Stop recording the current session  | `StopOptions`    |
+| `flush()`                 | Send recorded data to server        | None             |
+| `setSessionId(sessionId)` | Update the session ID               | `string \| null` |
+| `getStatus()`             | Get current recording status        | None             |
+
+#### Type Definitions
+
+<CodeGroup>
+  ```bash bash
+  export type InitOptions = {
+    maxRecordingMinutes?: number;
+    session_id: string;
+    visitor_id: string;
+  };
+
+  export type StopOptions = {
+    discard?: boolean;
+  };
+  ```
+</CodeGroup>
+
+## Privacy Settings
+
+Session Replay includes comprehensive privacy controls to protect sensitive information:
+
+### Default Privacy Settings
+
+Session Replay comes with these default privacy settings enabled:
+
+* **maskAllInputs**: `true` - Automatically masks all input fields
+* **recordCanvas**: `false` - Disables canvas recording by default
+* **collectFonts**: `true` - Collects font information for accurate rendering
+
+### Privacy Control Classes
+
+**HIGHLY RECOMMENDED:** Add these CSS classes to elements throughout your application to control what gets recorded and protect user privacy:
+
+<CodeGroup>
+  ```bash bash
+  <!-- Block element completely from recording -->
+  <div class="op-session-replay-block">Sensitive content</div>
+
+  <!-- Ignore element during recording -->
+  <div class="op-session-replay-ignore">Non-essential content</div>
+
+  <!-- Mask text content -->
+  <div class="op-session-replay-mask">Sensitive text</div>
+  ```
+</CodeGroup>
+
+**Important Privacy Controls to Implement:**
+
+* **Add `op-session-replay-block`** to any elements containing sensitive data (PII, PHI, payment info, passwords)
+* **Add `op-session-replay-mask`** to text elements that may contain personal information
+* **Add `op-session-replay-ignore`** to non-essential UI elements to reduce recording size
+* **Review all form inputs** - they are automatically masked, but consider additional blocking for highly sensitive fields
+
+## Data Retention
+
+* **Recording retention**: Session recordings are automatically removed after 90 days (default)
+* **Automatic cleanup**: No manual intervention required for data lifecycle management
+* **Custom retention**: Contact your account team to modify the retention period if needed
+
+## Accessing Session Replays
+
+Once Session Replay is configured and recording:
+
+1. **Navigate to your Ours Privacy dashboard**
+2. **View recent events** in your event analytics
+3. **Click on any event** to see associated session information
+4. **Access the session replay** to view the complete visitor session
+5. **Review all events** from that session along with the visual replay
+
+## Browser Support
+
+Session Replay supports all modern browsers:
+
+* **Chrome** (latest and previous major version)
+* **Firefox** (latest and previous major version)
+* **Edge** (latest and previous major version)
+* **Safari** (latest and previous major version)
+* **Mobile browsers** (iOS Safari, Chrome Mobile)
+
+## FAQs
+
+**How long are sessions recorded?**
+
+> Sessions are recorded for the duration of the visitor's session, with a default maximum of 30 minutes per session. This can be configured during setup.
+
+**What data is captured in session replays?**
+
+> Session replays capture user interactions, page navigation, form inputs (with privacy controls), and visual changes to the page. Sensitive data can be masked or blocked using privacy classes.
+
+**Is Session Replay HIPAA-compliant?**
+
+> Session Replay is designed to support HIPAA compliance with configurable privacy controls and secure data handling. Ours Privacy offers a Business Associate Agreement (BAA) for healthcare organizations. Work with your team to determine what works for your situation, and make sure your consent management is properly configured. For more details, see the [HHS guidance on HIPAA and online tracking](https://www.hhs.gov/hipaa/for-professionals/privacy/guidance/hipaa-online-tracking/index.html).
+
+**Can I control what gets recorded?**
+
+> Yes, you can use CSS classes to block, ignore, or mask specific elements and content during recording. You can also use the SDK to start and stop recording programmatically, which is useful for starting recording after consent is given or stopping when consent is withdrawn.
+
+**How do I access recorded sessions?**
+
+> Recorded sessions are accessible through your Ours Privacy dashboard by clicking on events in your analytics to view associated session replays.
+
+**Are recordings stored securely?**
+
+> Yes, all recordings are encrypted and stored securely with automatic cleanup after 90 days to help support compliance with privacy regulations.
+
+**Is Session Replay included in the CDP SLA?**
+
+> No, Session Replay is not included in the CDP SLA and is provided as a separate service.
+
+***
+
+[Maps Embed](/docs/maps)
+
+[Translation Widget HIPAA Compliant](/docs/translate)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Session Replay](#session-replay)
+
+  * * [Overview](#overview)
+    * [Use Cases](#use-cases)
+    * [Configuration](#configuration)
+    * [Installation](#installation)
+    * [Privacy Settings](#privacy-settings)
+    * [Data Retention](#data-retention)
+    * [Accessing Session Replays](#accessing-session-replays)
+    * [Browser Support](#browser-support)
+    * [FAQs](#faqs)

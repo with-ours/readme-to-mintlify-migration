@@ -1,0 +1,61 @@
+---
+title: "PHP SDK (server api)"
+description: "Quick start guide for the Ours Privacy PHP SDK."
+---
+
+# Ours Privacy PHP SDK Documentation
+
+This is a quick start guide for integrating the Ours Privacy PHP SDK into your server-side applications.
+
+## Installation
+
+Install the SDK via Composer:
+
+<CodeGroup>
+  ```bash bash
+  composer require oursprivacy/ingest-sdk
+  ```
+</CodeGroup>
+
+For more details, visit the [packagist repository](https://packagist.org/packages/oursprivacy/ingest-sdk) | [Github Repo](https://github.com/with-ours/ingest-sdk-php)
+
+## Usage
+
+Initialize the SDK and send events with just a few lines of code:
+
+<CodeGroup>
+  ```bash bash
+  <?php
+  require 'vendor/autoload.php';
+
+  use Ours\IngestSdk\OursPrivacyApi;
+
+  $ours = new OursPrivacyApi();
+
+  // Track an event
+  $ours->track('event name', ['value' => 1], ['first_name' => 'test']);
+
+  // Identify a user
+  $ours->identify(['first_name' => 'test']);
+  ```
+</CodeGroup>
+
+## Explore the API
+
+Want to see what the SDK can do? Try our [Interactive API Explorer](/reference/track#/) to experiment with endpoints and features in real time.
+
+***
+
+[Node.js SDK (server api)](/docs/nodejs)
+
+[Python SDK (server api)](/docs/python)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Privacy PHP SDK Documentation](#ours-privacy-php-sdk-documentation)
+
+  * * [Installation](#installation)
+    * [Usage](#usage)
+    * [Explore the API](#explore-the-api)

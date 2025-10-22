@@ -1,0 +1,146 @@
+---
+title: "TikTok Ads Destination"
+---
+
+## TikTok Ads Features
+
+The Ours TikTok Ads feature enables you to track conversions and other key interactions in a HIPAA-compliant, privacy-first way. By routing all events through our server-to-server Conversion API, Ours ensures that TikTok never directly accesses your clients' browsers, IP addresses, or other PII and PHI.
+
+Ours automatically captures TikTok click ids from the URL query string and saves them for dispatching future events.
+
+With Ours, you can confidently leverage TikTok Ads to reach and engage audiences while maintaining strict control over client data. This setup lets you optimize campaigns with secure, privacy-safe data, meeting regulatory standards without compromising on ad performance.
+
+## Configuring TikTok Ads
+
+To add a destination, click on [Destinations](https://app.oursprivacy.com/) from your Ours platform. Click the **Add destination** button and select TikTok Ads.
+
+### Copy your Pixel ID and Access Token
+
+Under `Tools` > `Events`, select 'Events API' and copy in the Pixel ID and 'Generated access token' to Ours.
+
+![](/images/docs/b5d70ef299f61a8e218044e57dd2272f4bdb3078b28d6064bdc6cadb1f4538d1-Screenshot_2024-10-14_at_9.03.25_PM.png)
+
+## Tracking Events
+
+To track events in TikTok Ads through Ours, you'll need to first create and allow the events you want to send. TikTok offers 17 standard web events that you can send, which include interactions like "Add to Cart," "Purchase," and "Sign Up." For a full list of these standard events, [refer to TikTok's official documentation.](https://business-api.tiktok.com/portal/docs?id=1740858531237890)
+
+If you choose a name matching one of TikTok's standard events (like "AddToCart" or "CompletePayment"), Ours will automatically map and send it as that specific event type. Otherwise, you're free to allow events with any custom name.
+
+## User Properties
+
+TikTok accepts hashed user properties via their API. By default, Ours will only send this data if:
+
+* You send properties like `email` and `firstName` to use
+* You configure the destination to send user data to TikTok Ads
+
+This enables you to cleanly separate sensitive user data and control what is shared with TikTok. If you choose to enable this option, Ours will hash these properties before sending them, ensuring that any PII remains protected and compliant with privacy standards. This setup allows you to use TikTok Ads effectively while maintaining strict data security practices.
+
+## Common TikTok Events and Their Properties
+
+Just like with Facebook, TikTok also has a set of standard events with additional optional properties that can enhance tracking effectiveness and analytics insights. When implementing TikTok events in a privacy-forward context, ensure no PII/PHI is included in event properties. Our platform redacts and hashes all user properties sent in events to maintain compliance.
+
+View them here: [https://ads.tiktok.com/help/article/supported-standard-events?lang=en](https://ads.tiktok.com/help/article/supported-standard-events?lang=en)
+
+***
+
+### Purchase
+
+Triggered when a purchase is made or a checkout flow is completed. For example, a person lands on a confirmation or thank-you page.
+
+**Properties** `currency` (required) `value` (required) `contents` `content_type` `content_id`
+
+**Example**
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'Purchase', { value: 100, currency: 'USD' });
+  ```
+</CodeGroup>
+
+***
+
+### AddToCart
+
+Triggered when a product is added to the shopping cart. For example, a person clicks on an add-to-cart button.
+
+**Properties** `contents` (required for catalog ads) `content_id` `content_type` `currency` `value`
+
+**Example**
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'AddToCart', { contents: [{ id: 'prod123', quantity: 1 }] });
+  ```
+</CodeGroup>
+
+***
+
+### InitiateCheckout
+
+Triggered when a person begins the checkout flow before completing the purchase. For example, a person clicks on a checkout button.
+
+**Properties**
+
+`content_id` `contents` `currency` `num_items` `value`
+
+**Example**
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'InitiateCheckout', { contents: [{ id: 'prod123', quantity: 1 }] });
+  ```
+</CodeGroup>
+
+***
+
+### CompletePayment
+
+Triggered when a payment is completed. For example, a person finishes the final step in a payment process.
+
+**Properties**
+
+`currency` `value`
+
+**Example**
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'CompletePayment', { value: 75, currency: 'USD' });
+  ```
+</CodeGroup>
+
+***
+
+### ViewContent
+
+Triggered when a person views content that's important to the business. For example, viewing a specific product page.
+
+**Properties** `content_id` \`
+
+***
+
+[The Trade Desk](/docs/the-trade-desk)
+
+[Viant](/docs/viant)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [TikTok Ads Features](#tiktok-ads-features)
+
+  * [Configuring TikTok Ads](#configuring-tiktok-ads)
+
+  * * [Copy your Pixel ID and Access Token](#copy-your-pixel-id-and-access-token)
+
+  * [Tracking Events](#tracking-events)
+
+  * [User Properties](#user-properties)
+
+  * [Common TikTok Events and Their Properties](#common-tiktok-events-and-their-properties)
+
+  * * [Purchase](#purchase)
+    * [AddToCart](#addtocart)
+    * [InitiateCheckout](#initiatecheckout)
+    * [CompletePayment](#completepayment)
+    * [ViewContent](#viewcontent)

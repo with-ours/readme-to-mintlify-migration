@@ -1,0 +1,104 @@
+---
+title: "Customer.io Integration"
+description: "Learn how to integrate Ours Privacy with Customer.io to send events and update profiles for behavioral email automation, while maintaining privacy and HIPAA compliance."
+---
+
+# Customer.io Integration
+
+Customer.io is a behavioral email and messaging automation platform that helps businesses send targeted, personalized messages based on user actions and data. With this integration, you can send events to Customer.io to trigger automated sequences and campaigns, and update user profiles for personalized messaging, enabling data-driven customer communication and lifecycle marketing.
+
+## Requirements
+
+* A Customer.io account
+* API key and Site ID from Customer.io Settings
+
+![](/images/docs/d14af563f72a7f18308840d926a45eb10fd4b00f4fd570910f9334a68d664720-Xnapper-2025-07-18-08.07.46.jpg)
+
+## Setup
+
+1. Navigate to your Customer.io Settings and find "API Credentials"
+2. Create a new API key with the appropriate permissions
+3. Copy the API key and Site ID into your Ours Privacy integration settings
+
+## Data Mapping Actions
+
+The Customer.io integration supports two main action types that you can configure in the mapper UI:
+
+### Identify Actions (Profile Updates)
+
+Use Identify actions to create or update customer profiles in Customer.io. This is useful for:
+
+* Setting customer attributes and properties
+* Updating customer information
+* Preparing profiles for email campaigns
+
+**Required Fields:** one of
+
+* `id` - The ID of a customer profile, analogous to a "person" in the UI.
+* `email` - Customer's email address (used as the primary identifier)
+* `cio_id` - The Customer.io ID of a customer profile
+
+### Event Actions
+
+Use Event actions to send behavioral events to Customer.io. This triggers:
+
+* Automated email sequences
+* Campaign workflows
+* Behavioral targeting
+
+**Required Fields:** one of
+
+* `id` - The ID of a customer profile, analogous to a "person" in the UI.
+* `email` - Customer's email address (used as the primary identifier)
+* `cio_id` - The Customer.io ID of a customer profile
+
+## Common Use Cases
+
+### Profile Updates
+
+When a visitor signs up or updates their information, you can automatically update their Customer.io profile with details like:
+
+* Name and contact information
+* Company details
+* Subscription preferences
+* Custom attributes
+
+### Event Triggers
+
+Send events to trigger automated email sequences, such as:
+
+* Welcome emails when someone signs up
+* Abandoned cart reminders
+* Product recommendations based on browsing behavior
+* Re-engagement campaigns for inactive users
+
+### Example Mapping
+
+![](/images/docs/1ef911d0bc9eb2c5438a1556e0975d6d1f01d4d2192197b5194be8d44eddef68-Xnapper-2025-07-18-08.44.31.jpg)
+
+## Privacy and Compliance
+
+This integration is designed to send data to Customer.io while maintaining privacy and HIPAA compliance standards. Please ensure you have proper safeguards in place before sending data to Customer.io.
+
+## Additional Information
+
+For more information about Customer.io and its capabilities, visit the [Customer.io website](https://customer.io).
+
+***
+
+[Braze Integration](/docs/braze)
+
+[HubSpot Integration](/docs/hubspot)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Customer.io Integration](#customerio-integration)
+
+  * * [Requirements](#requirements)
+    * [Setup](#setup)
+    * [Data Mapping Actions](#data-mapping-actions)
+    * [Common Use Cases](#common-use-cases)
+    * [Privacy and Compliance](#privacy-and-compliance)
+    * [Additional Information](#additional-information)

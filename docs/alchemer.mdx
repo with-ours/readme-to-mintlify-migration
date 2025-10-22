@@ -1,0 +1,105 @@
+---
+title: "Alchemer Integration"
+description: "Learn how to integrate Ours with Alchemer to track survey responses and custom events effortlessly while maintaining privacy and HIPAA compliance."
+---
+
+# Ours Integration with Alchemer
+
+This guide will walk you through integrating **Ours** with your Alchemer account. You’ll learn how to track survey responses and custom events seamlessly while ensuring **HIPAA-compliant analytics** for privacy-conscious applications.
+
+## Alchemer Redirect (easy integration)
+
+The simplest way to integrate Ours with Alchemer is to set up a redirect after survey completion. Here's how:
+
+1. Make sure your Ours tracking script is installed on your website.
+2. Link from your website to an Alchemer survey.
+3. Set up a custom thank-you page in Alchemer to redirect back to your website.
+
+On your thank-you page, fire this Ours event:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'SurveyCompleted');
+  ```
+</CodeGroup>
+
+This method requires no complex integration and provides basic tracking. Configure the redirect in your Alchemer survey settings.
+
+![](/images/docs/d8d4dba1ed58f8d9a5e2b629fbdee7ba37e64fcf0173cdf6f8015076f72c65fd-Xnapper-2024-12-13-13.15.54.jpg)
+
+***
+
+## Ours Alchemer Source (custom integration)
+
+For more advanced tracking and to access survey response details, you can set up a custom integration with Alchemer. Follow these steps:
+
+1. **Create a New Source**:
+
+   * In the Ours app, navigate to **Sources** and create a new source.
+   * Select **Alchemer** from the options and copy the Webhook URL provided.
+
+2. **Add Webhook in Alchemer**:
+
+   * Go to your Alchemer survey settings.
+   * Add a new webhook action on a survey page (not the first page) and paste the Ours Webhook URL.
+   * Choose the HTTP POST method for larger data transmission.
+
+3. **Submit a Test Survey**:
+
+   * Complete a test survey to ensure data is sent to Ours.
+   * Check the Ours app for pre-populated variables from the survey payload.
+
+4. **Map Survey Fields**:
+
+   * Use the field mapping interface in Ours to map Alchemer survey data to Ours attributes.
+   * Include at least the **Ours visitor ID** and optionally an email address for user association.
+
+![](/images/docs/2070f2a20e78736bf737c4d70febabf727772264862ab50fee96a477d6dcc1fa-webhook-fields-to-pass.png)
+
+***
+
+### Advanced Source Integration
+
+To link Ours visitor data with Alchemer survey responses:
+
+1. **Add a Hidden Field in Alchemer**:
+
+   * Set up a hidden field in your survey to capture the **Ours User ID**.
+
+2. **Pass Visitor ID via URL**:
+
+   * When linking to the Alchemer survey, append the Ours User ID as a URL parameter. Example:
+
+<CodeGroup>
+  ```bash bash
+  <a href="https://survey.alchemer.com/s3/your-survey-id?ours_user_id={{ours_user_id}}">Start Survey</a>
+  ```
+</CodeGroup>
+
+3. **Map Hidden Field**:
+   * Map the hidden field in the Ours app to the visitor ID for accurate user tracking.
+
+***
+
+### Key Benefits of the Ours Alchemer Integration
+
+* **HIPAA Compliance**: Ideal for healthcare and other privacy-sensitive industries.
+* **Custom Event Flexibility**: Track survey responses, interactions, and more.
+* **Enhanced Data Accuracy**: Server-side integration ensures reliable analytics.
+
+For further assistance, contact [\[email protected\]](/cdn-cgi/l/email-protection#3b484e4b4b54494f7b544e49484b49524d5a584215585456).
+
+***
+
+[Facebook Lead Ads Integration](/docs/facebook-lead-ads)
+
+[CallTrackingMetrics Integration](/docs/call-tracking-metrics)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Integration with Alchemer](#ours-integration-with-alchemer)
+
+  * * [Alchemer Redirect (easy integration)](#alchemer-redirect-easy-integration)
+    * [Ours Alchemer Source (custom integration)](#ours-alchemer-source-custom-integration)

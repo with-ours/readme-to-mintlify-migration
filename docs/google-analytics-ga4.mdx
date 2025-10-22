@@ -1,0 +1,243 @@
+---
+title: "Google Analytics (GA4)"
+description: "Set up Google Analytics (GA4) with HIPAA compliance for healthcare, offering secure patient insights while maintaining data privacy."
+---
+
+## Overview
+
+Ours Privacy's Google Analytics (GA4) integration automatically tracks standard events (such as page views and form submissions) and custom events, all without the need for custom code. We've heard clients say the integration works so well they can hardly tell a difference after switching over.
+
+At its core, the Ours Privacy Google Analytics integration allows you to redact PHI before data is sent to Google. You can modify IP addresses, remove email addresses, and curtail the amount of data shared from URLs before sending data over.
+
+What makes Ours Privacy unique is that we have modifiers that allow you to use synthetic data instead of just redacting data. For example, we utilize a set of static IP addresses that geolocate to the same state, county, or region as your users. This approach allows for accurate geographic reporting while protecting user privacy.
+
+## Privacy Features
+
+Ours Privacy ensures that all data sent to Google Analytics remains compliant with privacy regulations, including HIPAA. Key privacy features include:
+
+* **IP Redaction**: User IP addresses are redacted and replaced with an IP address from the same geographical region, preserving location accuracy without exposing personal information.
+* **Server Proxying**: All events are proxied through Ours Privacy servers, preventing Google Analytics from installing cookies on client browsers or accessing user IP addresses.
+
+## Setup and Configuration
+
+### Adding Google Analytics as a Destination
+
+To add a destination:
+
+1. Navigate to the [Destinations](https://app.oursprivacy.com/) page in your Ours Privacy platform.
+2. Click **Add destination** and select Google Analytics as the destination type.
+
+### Finding Your Measurement ID
+
+1. Go to Settings > Data streams > Open your data stream.
+2. Copy the Measurement ID (e.g., `G-B37DJMM3H3`).
+
+### Setting Global Properties
+
+You can set global event properties and user properties to be included with every event sent to GA4. This is similar to GA4's initialization, where you can define properties added to every event or user properties included with the first event in a session.
+
+To set global properties, include them in your initialization call:
+
+<CodeGroup>
+  ```bash bash
+  ours('init', '{{token}}', {
+    default_event_properties: {
+      // These properties will be added to every event
+      environment: 'production',
+      app_version: '1.0.0'
+    },
+    default_user_custom_properties: {
+      // These user properties will be included in the first event of each session
+      // They will be visible at: visitor.custom_properties.user_type and visitor.custom_properties.subscription_tier
+      user_type: 'premium',
+      subscription_tier: 'enterprise'
+    }
+  });
+  ```
+</CodeGroup>
+
+The same configuration is available in GTM through the Ours Privacy tag configuration.
+
+By default, Ours Privacy will:
+
+1. Include the `custom_properties` on the visitor for each event.
+2. Include the event properties on each event.
+
+You will need to modify your GA4 mappers to send user properties only on `page_view`. No modifications are necessary to include event properties on every event, as this is the default behavior.
+
+## Event Tracking
+
+### Standard Google Analytics Events
+
+> Also commonly referred to as "Enhanced Measurement Events"
+
+The Ours Privacy GA4 integration automatically tracks enhanced measurement events such as `page_view` and `scroll` by default. You do not need to re-instrument these events. To learn more about all of these events, refer to the [Google Analytics Enhanced Measurement documentation](https://support.google.com/analytics/answer/9216061?hl=en).
+
+These events will show up in your Ours Privacy Recent Events dashboard. In general, they look the same as any other event you would track on the platform.
+
+### Event Property Limitations
+
+When sending events to GA4, please note the following limitations:
+
+* Each event can have a maximum of 20 event properties.
+* Each event property value must be fewer than 1,000 characters.
+
+### Custom and Recommended Events
+
+To track custom events or [recommended GA4 events](https://developers.google.com/analytics/devguides/collection/ga4/reference/events?client_type=gtag), follow these steps:
+
+1. **Allow the Event**: Add the event name to your Event Allowlist in the Ours Privacy dashboard.
+2. **Track the Event**: Use the `ours('track', 'EventName')` function to send the event.
+3. **Optionally Rename Event**: Use the Ours Privacy renaming function to rename and obfuscate your events in GA4.
+
+> **Note:** Google Analytics limits event names to 40 characters. Event names longer than 40 characters will be truncated in Google Analytics.
+
+> **Note:** Events such as `page_view` and `scroll` are treated specially by Google Analytics. Renaming these events may impact your reporting.
+
+### Product Item Info Object
+
+When sending purchase or e-commerce data to Google Analytics 4 (GA4), you need to define a **Product Item Info Object** for each item in the purchase. This object contains detailed information about each product being purchased and is required for GA4's recommended e-commerce events such as `purchase`, `add_to_cart`, and `begin_checkout`.
+
+**Fields in the Product Item Info Object:**
+
+| Field        | Description                                                     | Example Value |
+| ------------ | --------------------------------------------------------------- | ------------- |
+| `item_id`    | Unique identifier for the product or item.                      | `test`        |
+| `item_name`  | Name or description of the product.                             | `Testing`     |
+| `item_price` | Price of the product (numeric, do not include currency symbol). | `12`          |
+| `quantity`   | Number of units of the product being purchased.                 | `1`           |
+
+**Example Usage:**
+
+When sending a purchase event, include an array of product item objects in the event properties:
+
+<CodeGroup>
+  ```bash bash
+  ours("track", "purchase", {
+    currency: "USD",
+    value: 12,
+    items: [
+      {
+        item_id: "test",
+        item_name: "Testing",
+        item_price: 12,
+        quantity: 1
+      }
+      // ...add more items as needed
+    ]
+  });
+  ```
+</CodeGroup>
+
+You then need to map the Items in your Google Analytics Purchase event mapper to wherever you include your items in your event properties.
+
+> **Note:**
+>
+> * The `items` data is required for GA4 purchase and e-commerce events.
+> * Each object in the array should include all the fields above for best reporting in GA4.
+> * The field names must match exactly as shown for GA4 to recognize them.
+
+### Tracking GA4 Recommended Events
+
+GA4 provides a set of **recommended** events that are reported differently, such as `add_payment_info`, `purchase`, and `tutorial_complete`.
+
+To send these events:
+
+1. Allow the recommended event name for your GA4 destination.
+2. Track the event through Ours Privacy with any required event properties via the Web SDK, Google Tag Manager, or any other source.
+
+[See GA4's recommended events here.](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference/events)
+
+#### Example
+
+**Using Google Tag Manager (GTM):**
+
+![](/images/docs/c9ab65128a6e54fa60f12da7f306e5430ddb9d15b46389312b07cd56bfd00707-Xnapper-2025-02-10-11.15.46.jpg)
+
+**Using the JavaScript SDK:**
+
+<CodeGroup>
+  ```bash bash
+  ours("track", "add_payment_info", {
+    currency: "USD",
+    value: 10.5,
+    coupon: "test 123",
+  });
+  ```
+</CodeGroup>
+
+### Consent and Google Analytics
+
+If you are implementing consent, you will frequently want to refire events that happen on page load after consent status changes.
+
+Typically, this entails refiring the `page_view` event that is automatically tracked by the [Ours Privacy Web SDK](/docs/web-sdk-javascript#track-web-events-track_web_events).
+
+If you are refiring a `page_view` event and have Google Analytics enabled, you should likely define the following `event_properties` on that event so that Google Analytics properly counts a new session and/or new first visit.
+
+**Custom Event Properties For Google Analytics `page_view` Events**
+
+* `is_first_visit`: Expects `0` or `1` to flag if this is the first visit for a user
+* `is_new_session`: Expects `0` or `1` to flag if the session is new
+* `is_engaged_session`: Expects `0` or `1` to flag if the session is engaged
+
+## Monitoring and Debugging
+
+### Debug View and Realtime Reports
+
+Ours Privacy supports both the **Realtime report** and **DebugView** in Google Analytics 4.
+
+You should see events populate in the Realtime report. If you have just enabled your Google Analytics destination, please allow 15–30 minutes for the Realtime report to become active.
+
+To access DebugView, you can either use GTM preview mode (click **Preview** and launch debug mode in GTM) or append `?ours_debug_mode=true` to your URL's query parameters.
+
+***Example of Google Analytics debug view:***
+
+![](/images/docs/77d864800f6ba0b26b18868d8356efac489cf78d68f1bae268c576692409bf7d-Screenshot_2025-05-23_at_8.26.58_AM.png)
+
+### Troubleshooting
+
+1. **Remove All Universal Analytics (UA) Scripts**
+
+   Universal Analytics (UA) was deprecated in July 2023. Please ensure all UA scripts are removed before installing Ours Privacy.
+
+2. **Remove GA4 Tracking for the Account Connect via Ours Privacy**
+
+   Since Ours Privacy automatically tracks page views and other events, you must remove any existing GA4 tracking scripts for the specific account connected to Ours Privacy to prevent duplicate event counts.
+
+3. **Consider Removing Other GA4 Accounts**
+
+   If you have multiple GA4 accounts on the same page, we recommend removing them as well. This reduces the chance of conflicts and increase the compliance of your website.
+
+***
+
+[Amplitude Destination](/docs/destination-amplitude)
+
+[Google Analytics Measurement Protocol](/docs/google-analytics-measurement-protocol)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Overview](#overview)
+
+  * [Privacy Features](#privacy-features)
+
+  * [Setup and Configuration](#setup-and-configuration)
+
+  * * [Adding Google Analytics as a Destination](#adding-google-analytics-as-a-destination)
+    * [Finding Your Measurement ID](#finding-your-measurement-id)
+    * [Setting Global Properties](#setting-global-properties)
+
+  * [Event Tracking](#event-tracking)
+
+  * * [Standard Google Analytics Events](#standard-google-analytics-events)
+    * [Event Property Limitations](#event-property-limitations)
+    * [Custom and Recommended Events](#custom-and-recommended-events)
+    * [Product Item Info Object](#product-item-info-object)
+    * [Tracking GA4 Recommended Events](#tracking-ga4-recommended-events)
+    * [Consent and Google Analytics](#consent-and-google-analytics)
+
+  * [Monitoring and Debugging](#monitoring-and-debugging)
+
+  * * [Debug View and Realtime Reports](#debug-view-and-realtime-reports)
+    * [Troubleshooting](#troubleshooting)

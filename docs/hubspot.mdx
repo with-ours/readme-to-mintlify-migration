@@ -1,0 +1,60 @@
+---
+title: "HubSpot Integration"
+description: "Learn how to integrate Ours with HubSpot to update contacts based on events with emails, while maintaining privacy and HIPAA compliance."
+---
+
+The HubSpot integration allows you to create or update contacts in your HubSpot CRM based on visitor events. This integration requires an email address to be associated with the visitor for proper contact identification.
+
+## Requirements
+
+* A HubSpot account
+* Email address associated with the visitor in Ours Privacy
+* (optional) - Custom fields configured in HubSpot (if you want to send custom data)
+
+## Setup
+
+1. Navigate to your HubSpot Settings and find "Private Apps"
+2. Create a new "Private App" with the `crm.objects.contacts.write`, `crm.schemas.contacts.write`, `crm.schemas.contacts.read`, and `crm.objects.contacts.read` scopes
+3. Copy the API key into your Ours integration settings
+
+![](/images/docs/d14dc28f3d2ab28d62cc93da3cf6257175d4c479a9366dcb3f9988f788bd6e95-Xnapper-2025-03-31-11.00.36.jpg)
+
+## Custom Fields
+
+You can send custom fields to HubSpot using the property names from your HubSpot account. To find the correct property names:
+
+1. Go to HubSpot's Properties Center
+2. Export a CSV of your properties
+3. Use the property names from the CSV in your Ours integration settings
+
+![](/images/docs/ffd2833acaa273d09bf6c31d82de0fb573a54c402325984fa6b0d5434cbef788-Xnapper-2025-03-31-10.37.41.jpg)
+
+## Data Mapping
+
+When configuring the integration, you can map Ours events to HubSpot contact properties. The integration will:
+
+* Create a new contact if one doesn't exist with the provided email
+* Update existing contacts if they match the email address
+* Send custom field data to the specified HubSpot properties
+
+![](/images/docs/a9890989b4b3b5e6cf1b7a2fcfd825382801530d371535d3264d7d7979192d98-Xnapper-2025-03-31-11.02.43.jpg)
+
+## Privacy and Compliance
+
+This integration is designed to send data over to HubSpot. Please make sure you have the proper safeguards in place before sending data to HubSpot.
+
+***
+
+[Customer.io Integration](/docs/customer-io)
+
+[Mailchimp Integration](/docs/mailchimp)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Requirements](#requirements)
+  * [Setup](#setup)
+  * [Custom Fields](#custom-fields)
+  * [Data Mapping](#data-mapping)
+  * [Privacy and Compliance](#privacy-and-compliance)

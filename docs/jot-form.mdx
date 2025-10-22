@@ -1,0 +1,108 @@
+---
+title: "JotForm Integration"
+description: "Learn how to integrate Ours with JotForm to track form submissions and custom events effortlessly while maintaining privacy and HIPAA compliance."
+---
+
+# Ours Integration with JotForm
+
+This guide will walk you through integrating **Ours** with your JotForm account. You’ll learn how to track form submissions and custom events seamlessly while ensuring **HIPAA-compliant analytics** for privacy-conscious applications.
+
+## JotForm Redirect (easy integration)
+
+The easiest way to integrate Ours with JotForm is to use a redirect within JotForm. To do this:
+
+* Make sure your Ours tracking script is installed on your website
+* Link from your website to JotForm
+* Setup a custom redirect page in your JotForm that is on your website
+
+On your Redirect Page, fire this Ours event:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'ThankYouPage', {value: 100});
+  ```
+</CodeGroup>
+
+This will require no custom integration or embedding of JotForm. If you need more control over your tracking, the following guide will help you through various options.
+
+You can set the redirect page here:
+
+![](/images/docs/511afa897f7dae4a31277b89f25e800753f65d5c94283a39bd3fa322f161dde0-Xnapper-2024-12-09-09.10.14.jpg)
+
+### Ours JotForm Source (custom integration)
+
+If you need the content of the form submission, you'll want to use our Custom JotForm integration.
+
+To set this up, navigate to "Sources" and create a new JotForm source.
+
+Then, copy/paste the Webhook URL into your JotForm form settings:
+
+![](/images/docs/04ecd094e98691435a55b0c4e5175bea9db6fcfcd0de3bd009f9b030e524b25e-Xnapper-2024-12-11-12.33.49.jpg)
+
+You'll then want to submit the form so that Ours pre-populates variables/form fields for you.
+
+Next, You'll want to map your form fields to Ours attributes.
+
+![](/images/docs/ed36a80279184d53ed3c6e7e9906ec5fd52672df7c170cdef45e0df86dc5032a-Xnapper-2024-12-11-12.34.09.jpg)
+
+### Advanced Ours JotForm Integration
+
+If you can, it helps to pass the Ours visitor id to JotForm.
+
+To do this, add a hidden field that you can pre-populate with the visitor id.
+
+![](/images/docs/3326c67eabc0cc112b9266cda87c2b80508d51616666f5de840f86f9bc7804a2-Xnapper-2024-12-09-09.12.40.jpg)
+
+Then, redirect or embed the form on your website and pass the visitor id to JotForm. Example:
+
+<CodeGroup>
+  ```bash bash
+  <a
+    id='jot-form-signup-form'
+    href="https://jotform.com/form/123456789"
+    >View Form
+  </a>
+
+  <script>
+  const link = document.getElementById('jot-form-signup-form');
+  link.setAttribute('href', 'https://form.jotform.com/243398111653154?ours_user_id='+localStorage.getItem('ours_device_id'));
+  </script>
+  ```
+</CodeGroup>
+
+You'll then want to map that hidden field to the Ours visitor id in the Ours mapper settings.
+
+That's it 🎉!
+
+Pros:
+
+* You can get more of your JotForm data into Ours
+* Your JotForm analytics integration will be more accurate as this is a server-side integration
+
+Cons:
+
+* You'll need to setup a webhook mapper to map the form fields into Ours
+* You'll want to pass the visitor id to JotForm via the URL to properly identify the user
+
+### Key Benefits of the Ours Jotform Integration:
+
+* **HIPAA Compliance**: Ideal for healthcare and other privacy-sensitive industries.
+* **Custom Event Flexibility**: Easily track submissions, field interactions, and more.
+* **No IP Exposure**: Ensures user privacy by proxying events securely.
+
+***
+
+If you need further assistance, contact us at [\[email protected\]](/cdn-cgi/l/email-protection#7e0d0b0e0e110c0a3e110b0c0d0e0c17081f1d07501d1113).
+
+***
+
+[Formstack Integration](/docs/formstack)
+
+[HubSpot Source Integration](/docs/hubspot-source)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Integration with JotForm](#ours-integration-with-jotform)
+  * * [JotForm Redirect (easy integration)](#jotform-redirect-easy-integration)

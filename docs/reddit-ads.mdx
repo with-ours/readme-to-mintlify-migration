@@ -1,0 +1,89 @@
+---
+title: "Reddit Ads Destination"
+---
+
+## Reddit Ads Features
+
+The Ours Reddit Ads feature enables you to track conversions and other key events through a HIPAA-compliant, [server-to-server Conversions API](https://business.reddithelp.com/s/article/Conversions-API). By routing all events through our servers, Ours ensures that Reddit never directly accesses your clients' browsers, IP addresses, or other personally identifiable information (PII) and protected health information (PHI).
+
+Ours automatically captures Reddit click ids from the URL query string and saves them for dispatching future events.
+
+This setup allows you to optimize your Reddit Ads campaigns with accurate, privacy-safe data, while remaining compliant with strict healthcare and privacy regulations. With Ours, you can confidently use Reddit Ads without compromising on data protection or client confidentiality..
+
+## Configuring Reddit Ads
+
+To add a destination, click on [Destinations](https://app.oursprivacy.com/) from your Ours platform. Click the **Add destination** button and select Reddit Ads.
+
+### Copy your pixel ID
+
+1. Navigate to the events section of Reddit Ads and Copy your Pixel ID into Ours
+
+![](/images/docs/75df28a091e52150f15620c902f8b18d7204eb14e459560baa4ab3d31dfd38a5-Screenshot_2024-11-04_at_2.47.35_PM.png)
+
+### Copy your Access Token
+
+* Next copy in your conversion API (CAPI) access token
+
+![](/images/docs/550a31d9764df3239b54045d3aad4db5fa4de396bf151810dd11b41305049667-Screenshot_2024-11-04_at_2.47.39_PM.png)
+
+## Tracking Events
+
+To track events in Reddit Ads through Ours, you'll first need to create and allow the events you want to send. Reddit's Conversions API supports a range of standard events including "PageVisit," "ViewContent," "AddToCart," "Purchase," and more. For the full list of standard events, please refer to [Reddit's Supported Conversion Events](https://business.reddithelp.com/s/article/supported-conversion-events#supported-conversion-events).
+
+If you select a standard Reddit event name (such as "AddToCart" or "Lead"), Ours will automatically map and send it to Reddit as that specific event. You can also create custom event names, like "Promotion," which Ours will pass through to Reddit as a custom event.
+
+Once your events are added to the allow list, use the Ours API to trigger these events from your app or site. For instance, to track a page visit, add the following code:
+
+```
+ours('track', 'Purchase');
+```
+
+## User Properties
+
+Reddit does accept hashed user properties via their API. By default, Ours will only send this data if:
+
+* You send properties like `email` and `firstName` to use
+* You configure the destination to send user data to Reddit Ads
+
+This enables you to cleanly separate sensitive user data and control what is shared with Reddit. If you choose to enable this option, Ours will hash these properties before sending them, ensuring that any PII remains protected and compliant with privacy standards. This setup allows you to use Reddit Ads effectively while maintaining strict data security practices.
+
+## When It Dispatches
+
+Our Reddit integration dispatches events automatically when the required data properties are present. Specifically:
+
+1. **Necessary Properties**: An event will be dispatched if it includes both the Reddit Project API Key and Project Token. Additionally, the visitor must have a unique identifier (`rdt_cid`) to ensure the event is eligible for dispatch to Reddit.
+
+2. **Event Type**: Dispatch occurs only if the event matches a recognized action type within your Reddit configuration.
+
+3. **Automatic Retry**: If the Reddit API returns an error that suggests retrying (such as a temporary API issue), the system will automatically attempt to re-dispatch the event.
+
+This configuration ensures that events are only dispatched to Reddit when all necessary configuration and visitor data are present, providing reliable tracking of ad interactions.
+
+## Get Started Today
+
+Implement Ours Privacy effortlessly with our simple copy-and-paste installation script. Begin optimizing your ads and tracking analytics without compromising privacy.
+
+***
+
+[Quora Ads Destination](/docs/quora-ads-capi)
+
+[Snapchat Ads](/docs/snapchat-ads)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Reddit Ads Features](#reddit-ads-features)
+
+  * [Configuring Reddit Ads](#configuring-reddit-ads)
+
+  * * [Copy your pixel ID](#copy-your-pixel-id)
+    * [Copy your Access Token](#copy-your-access-token)
+
+  * [Tracking Events](#tracking-events)
+
+  * [User Properties](#user-properties)
+
+  * [When It Dispatches](#when-it-dispatches)
+
+  * [Get Started Today](#get-started-today)

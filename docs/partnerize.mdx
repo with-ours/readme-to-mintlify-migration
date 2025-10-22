@@ -1,0 +1,105 @@
+---
+title: "Partnerize Destination"
+---
+
+## Partnerize Features
+
+The Ours Partnerize destination enables you to track conversions and other key events through a secure, server-to-server integration. By routing all events through our servers, we ensure that sensitive data remains protected while accurately tracking your affiliate marketing performance.
+
+## Configuring Partnerize
+
+To add a destination, click on [Destinations](https://app.oursprivacy.com/) from your Ours platform. Click the **Add destination** button and select Partnerize as the destination type.
+
+### Required Settings
+
+| Setting          | Description                                     |
+| ---------------- | ----------------------------------------------- |
+| Program ID       | Your Partnerize Program ID                      |
+| Integration Type | The type of integration (defaults to 'DYNAMIC') |
+
+## Default Event Mapping
+
+The Partnerize destination includes a default mapping for essential conversion tracking fields:
+
+| Field      | Description                  | Source                              |
+| ---------- | ---------------------------- | ----------------------------------- |
+| Order ID   | Unique order identifier      | `event.event_properties.order_id`   |
+| Click ID   | Partnerize click tracking ID | `visitor.clid`                      |
+| Item ID    | Product or item identifier   | `event.event_properties.item_id`    |
+| Item Price | Product or item price        | `event.event_properties.item_price` |
+
+## Required Fields
+
+The following fields are required for successful conversion tracking:
+
+* Program ID (from settings)
+* Order ID
+* Click ID
+* Item ID
+* Item Price
+
+If any of these fields are missing, the event will not be dispatched and an error will be logged.
+
+## Tracking Events
+
+To track events through Partnerize, you'll need to ensure your events include the required fields. Here's an example of tracking a purchase event:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'Purchase', {
+    order_id: '12345',
+    item_id: 'PROD-123',
+    item_price: 99.99
+  });
+  ```
+</CodeGroup>
+
+## When It Dispatches
+
+Our Partnerize integration dispatches events automatically when the required data properties are present. Specifically:
+
+1. **Required Fields**: An event will only be dispatched if all required fields (Program ID, Order ID, Click ID, Item ID, and Item Price) are present.
+
+2. **Retry Logic**: The system includes automatic retry logic for temporary failures, but will stop retrying after 5 attempts to prevent infinite loops.
+
+3. **Integration Type**: The integration type can be customized in the settings, defaulting to 'DYNAMIC' if not specified.
+
+## Error Handling
+
+The destination implements robust error handling:
+
+* Missing required fields will trigger a non-retryable error
+* Events that have been retried more than 5 times will be marked as non-retryable
+* Error messages clearly indicate which required fields are missing
+
+## Best Practices
+
+1. **Click ID Tracking**: Ensure your implementation properly captures and stores Partnerize click IDs
+2. **Order IDs**: Use unique order IDs for each transaction
+3. **Testing**: Validate your integration by checking the Partnerize dashboard for successful conversions
+4. **Error Monitoring**: Regularly monitor for any error messages in your Ours dashboard
+
+## Get Started Today
+
+Implement Ours Privacy effortlessly with our simple copy-and-paste installation script. Begin tracking your affiliate marketing conversions without compromising privacy.
+
+***
+
+[Nextdoor Ads](/docs/nextdoor)
+
+[Pinterest Ads Destination](/docs/pinterest)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Partnerize Features](#partnerize-features)
+  * [Configuring Partnerize](#configuring-partnerize)
+  * * [Required Settings](#required-settings)
+  * [Default Event Mapping](#default-event-mapping)
+  * [Required Fields](#required-fields)
+  * [Tracking Events](#tracking-events)
+  * [When It Dispatches](#when-it-dispatches)
+  * [Error Handling](#error-handling)
+  * [Best Practices](#best-practices)
+  * [Get Started Today](#get-started-today)

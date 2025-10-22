@@ -1,0 +1,132 @@
+---
+title: "Ours Integration with Shopify"
+description: "Learn how to set up a custom pixel in Shopify using our analytics script."
+---
+
+# Shopify Integration Guide
+
+This guide will help you set up a custom pixel in Shopify using our analytics script. This approach allows you to track various events without the need for a dedicated Shopify app. It publishes all [Shopify Standard Events](https://shopify.dev/docs/api/web-pixels-api/standard-events/checkout_started) to Ours.
+
+## Setup Instructions
+
+1. **Access Your Shopify Admin:**
+
+   * Log in to your Shopify admin panel.
+
+2. **Begin setting up the Shopify Customer event**
+
+   * Navigate to `Settings` > `Customer events`
+   * Click on `Add custom pixel` and give it a name
+
+3. **Choose an installation option for Ours Privacy:**
+
+   * *Install using Google Tag Manager (GTM)*
+
+     * Login to `tagmanager.google.com`
+     * Navigate to `Admin` > `Install Google Tag Manager`
+     * Copy the code block from the first section into the Customer event Custom pixel you created in Shopify
+     * Delete the lines that start with `<!--` and the `<script>` and `</script>` tags at the beginning and end of the snippet
+
+   * *Install using Ours Privacy Javascript SDK*
+
+     * Login to `app.oursprivacy.com`
+     * Click `Copy Web SDK`
+     * Paste the copied code into the Customer event Custom pixel you created in Shopify
+     * Delete `<script>` and `</script>` at beginning and end of the copied code snippet
+
+4. **Subscribe to all Shopify events:**
+
+   * Add the following code that matches your installation option to the end of the Customer event Custom pixel you created in Shopify:
+
+### GTM Pixel Setup
+
+<CodeGroup>
+  ```bash bash
+  // Step 1. Install GTM
+  // paste your GTM code here
+
+  // Step 2. Insert this snippet
+  analytics.subscribe("all_standard_events", function(event) {
+    var name = event.name;
+    var data = event.data;
+    var checkout = data && data.checkout;
+    var shippingAddress = checkout && checkout.shippingAddress;
+    var billingAddress = checkout && checkout.billingAddress;
+    var address = shippingAddress || billingAddress; // Fallback to billing if shipping is unavailable
+
+    if (!window.dataLayer) {
+      window.dataLayer = [];
+    }
+
+    window.dataLayer.push({
+      event: name,
+      rawData: data,
+      email: checkout ? checkout.email : "",
+      first_name: address ? address.firstName : "",
+      last_name: address ? address.lastName : "",
+      phone_number: address ? address.phone : "",
+      city: address ? address.city : "",
+      state: address ? address.provinceCode : "",
+      zip: address ? address.zip : "",
+      country: address ? address.countryCode : "",
+      currency: checkout ? checkout.currencyCode : "",
+      value: checkout ? checkout.totalPrice : ""
+    });
+  });
+  ```
+</CodeGroup>
+
+### Javascript SDK Pixel Setup
+
+<CodeGroup>
+  ```bash bash
+  // Step 1. Install Ours Privacy
+  // paste your Ours install code here
+
+  // Step 2. Insert this snippet
+  analytics.subscribe("all_standard_events", (event) => {
+    ours("track", event.name, event.data);
+  });
+  ```
+</CodeGroup>
+
+Congrats, Ours is now capturing all of your standard Shopify events.
+
+## Events Captured
+
+| Event Name                         | Description                                                       |
+| ---------------------------------- | ----------------------------------------------------------------- |
+| `checkout_completed`               | Triggered when a checkout is completed.                           |
+| `payment_info_submitted`           | Triggered when payment information is submitted.                  |
+| `checkout_shipping_info_submitted` | Triggered when shipping information is submitted during checkout. |
+| `checkout_address_info_submitted`  | Triggered when address information is submitted during checkout.  |
+| `checkout_contact_info_submitted`  | Triggered when contact information is submitted during checkout.  |
+| `checkout_started`                 | Triggered when a checkout process is started.                     |
+| `product_added_to_cart`            | Triggered when a product is added to the cart.                    |
+| `cart_viewed`                      | Triggered when the cart is viewed.                                |
+| `page_viewed`                      | Triggered when a page is viewed.                                  |
+| `product_viewed`                   | Triggered when a product is viewed.                               |
+| `search_submitted`                 | Triggered when a search is submitted.                             |
+| `collection_viewed`                | Triggered when a collection is viewed.                            |
+
+## Additional Resources
+
+For more detailed instructions on setting up custom pixels in Shopify, refer to the [Shopify Custom Pixel Guide](https://help.shopify.com/en/manual/promoting-marketing/pixels/custom-pixels).
+
+There are similar instructions here: [Shopify Custom Pixel Setup](https://help.shopify.com/en/manual/promoting-marketing/pixels/custom-pixels/gtm-tutorial)
+
+***
+
+[Ours Integration with WordPress](/docs/wordpress-integration)
+
+[Ours Privacy Integration with Vite + React Router](/docs/vite-react-router-integration)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Shopify Integration Guide](#shopify-integration-guide)
+
+  * * [Setup Instructions](#setup-instructions)
+    * [Events Captured](#events-captured)
+    * [Additional Resources](#additional-resources)

@@ -1,0 +1,70 @@
+---
+title: "Web Scanner"
+description: "Monitor third-party scripts on your website with weekly automated scans to maintain privacy compliance."
+---
+
+# Web Scanner
+
+Our Web Scanner allows you to monitor third-party scripts present on your website with weekly automated scans. This tool is especially useful for identifying scripts that may affect your site's privacy posture or compliance with privacy regulations.
+
+## How It Works
+
+When you add a URL to the Web Scanner, it:
+
+* **Performs an initial scan** of the homepage and a few additional linked pages to get started.
+
+* **Scans pages from multiple sources** every Monday morning:
+
+  * Links discovered during crawling
+  * URLs found in any discovered sitemaps
+
+* **Detects third-party scripts** on each page it visits.
+
+* **Collects cookies and localStorage identifiers** set by third-party scripts and services on your website.
+
+* **Crawls within domain scope**: It follows a hierarchical domain rule:
+
+  * If you configure `example.com`, it will crawl `example.com`, `app.example.com`, `blog.example.com`, etc.
+  * If you configure `app.example.com`, it will only crawl `app.example.com` and its subdomains, NOT `example.com`
+  * It will not follow links to completely different domains outside your organization's control.
+
+## What to Expect
+
+* **Scans run weekly**, beginning early Monday morning.
+* **Pages are discovered** through crawling links found on each page.
+* **Only publicly accessible pages** on your domain will be scanned.
+* **Scan data is retained for 90 days**. If you need access to older data, contact our team.
+
+![](/images/docs/4e4b730856b85427ab1e06961665ab8f3352cd4ca1ba2369f5592f3180e746af-Xnapper-2025-08-05-15.43.46.jpg)
+
+## Limitations & Recommendations
+
+* While our scanner makes a best effort to detect all third-party scripts, **we recommend you verify results** with your IT team for full visibility.
+* The scanner is intended for general monitoring. It should not be relied on as a full security audit or compliance certification.
+* Make sure that the pages you want scanned are easily discoverable from your homepage.
+* **Need to scan more pages?** You can configure the maximum number of pages to crawl in your monitor settings.
+
+## Questions?
+
+If you have questions about scan coverage, third-party scripts, or how to interpret results, please reach out to our support team. We're happy to help.
+
+***
+
+*Note: Information gathered from the Web Scanner is generally accurate, but not guaranteed to be exhaustive. Always verify coverage manually if precision is required.*
+
+***
+
+[Web Analytics](/docs/web-analytics)
+
+[Account Management Features](/docs/account-management-features)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Web Scanner](#web-scanner)
+
+  * * [How It Works](#how-it-works)
+    * [What to Expect](#what-to-expect)
+    * [Limitations & Recommendations](#limitations--recommendations)
+    * [Questions?](#questions)

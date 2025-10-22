@@ -1,0 +1,73 @@
+---
+title: "Snowflake"
+description: "Store your event and dispatch data in Snowflake through S3 integration"
+---
+
+## Snowflake Data Warehouse Integration
+
+The Snowflake Data Warehouse integration provides a powerful solution for storing and analyzing your event, dispatch, and visitor data. We utilize S3 as an intermediary storage layer, allowing you to easily import the data into Snowflake's cloud data platform.
+
+## How the Integration Works
+
+* **Daily S3 Deposits**: Events and dispatches are automatically deposited into your S3 bucket on a daily basis
+* **Visitor Updates**: Visitor data contains records where the last seen timestamp is greater than or equal to yesterday, requiring upsert processing
+* **Complete Data**: All events and dispatches from your account are included in the deposits
+* **Efficient Loading**: Snowflake's COPY command efficiently loads data from S3
+* **Scalable Analytics**: Snowflake's architecture enables fast querying of large datasets
+
+## Data Organization
+
+Please reference our S3 documentation for how the data in S3 is organized in a partitioned structure.
+
+## Data Processing Considerations
+
+### Events and Dispatches
+
+Events and dispatches are complete daily snapshots containing all data for that day. Each day's parquet files contain all events and dispatches that occurred on that specific date.
+
+### Visitors
+
+Visitor data contains records that have been recently updated. This means you'll need to implement an upsert process to merge this incremental data into your Snowflake tables:
+
+1. **Read the parquet files** from the visitors directory for the current day
+2. **Identify existing records** in your Snowflake table using visitor identifiers
+3. **Update existing records** with new information from the parquet files
+4. **Insert new records** for visitors that don't exist in your table
+5. **Handle conflicts** based on your business logic (e.g., latest timestamp wins)
+
+This incremental approach ensures you have the most up-to-date visitor information while maintaining data consistency across your Snowflake tables.
+
+## Setting Up Snowflake Access to S3
+
+Snowflake provides several methods to access S3 data. We recommend reviewing their [official documentation](https://docs.snowflake.com/en/user-guide/data-load-s3) for detailed setup instructions.
+
+## Best Practices
+
+* Implement appropriate access controls
+* Monitor your S3 and Snowflake usage
+* Take advantage of the partitioning structure for efficient loading
+
+***
+
+[LiveRamp](/docs/live-ramp)
+
+[Domo](/docs/domo)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Snowflake Data Warehouse Integration](#snowflake-data-warehouse-integration)
+
+  * [How the Integration Works](#how-the-integration-works)
+
+  * [Data Organization](#data-organization)
+
+  * [Data Processing Considerations](#data-processing-considerations)
+
+  * * [Events and Dispatches](#events-and-dispatches)
+    * [Visitors](#visitors)
+
+  * [Setting Up Snowflake Access to S3](#setting-up-snowflake-access-to-s3)
+
+  * [Best Practices](#best-practices)

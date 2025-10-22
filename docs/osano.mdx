@@ -1,0 +1,146 @@
+---
+title: "Osano Implementation Guide"
+description: "Learn how to integrate Osano with Ours Privacy for seamless consent management and compliance with privacy regulations worldwide."
+---
+
+# Osano Implementation Guide
+
+Osano and Ours Privacy work together to provide a comprehensive consent management solution that supports healthcare, GDPR, CCPA, and other privacy regulations. This guide explains the capabilities, operating modes, and integration patterns available when using Osano as your Consent Management Platform (CMP).
+
+## Overview
+
+Osano controls when the Ours Privacy SDK loads and provides granular consent data that flows through your entire data pipeline. This approach delivers:
+
+* **Regulatory Compliance**: Full support for GDPR, CCPA, CPRA, LGPD, and healthcare regulations
+* **Granular Control**: Category-based and vendor-specific consent management
+* **Complete Audit Trail**: Visibility into every consent decision and change
+* **Flexible Integration**: Works with any Osano configuration or consent strategy
+
+## Operating Modes
+
+Ours Privacy supports three distinct operating modes for consent management with Osano, each offering different levels of data collection and consent enforcement:
+
+### Mode 1: Strict Consent Mode (Zero Data Collection)
+
+Ours Privacy SDK is **not loaded** until explicit consent is granted through Osano, ensuring zero data collection before user permission.
+
+**How it works:**
+
+* Osano controls when the Ours Privacy SDK loads
+* No data is sent to Ours Privacy until consent is granted
+* Complete control over tracking initiation
+* Zero data collection before user permission
+
+### Mode 2: Mapper-Controlled Mode (Recommended)
+
+Ours Privacy loads immediately and collects all events, but the mapping layer **stops dispatch** to destinations based on consent conditions.
+
+**How it works:**
+
+* Ours Privacy SDK loads immediately and collects all events
+* Consent status is passed as event properties
+* Ours Privacy mappers conditionally route events to destinations based on consent
+* Events without proper consent are filtered out at the mapping layer
+
+## Choosing the Right Mode
+
+The choice between these modes depends on your organization's privacy requirements, compliance needs, and technical architecture. We recommend:
+
+* **Consult with your privacy officer and/or legal team** to determine the appropriate consent management approach for your use case
+* **Reach out to us** to start a conversation about privacy and consent management strategies
+
+Our team can help you evaluate your specific requirements and recommend the best approach for your organization.
+
+## Implementing Consent Events and Mapping
+
+We recommend firing a "consent\_change" event when consent is granted or changed. This allows you to track consent decisions and use them in your mapping logic.
+
+### Firing Consent Events
+
+Use Osano's web SDK to get the consent status or grab their cookie string if it contains the allowed/denied categories. Then pass this information into event properties and visitor properties:
+
+<CodeGroup>
+  ```bash bash
+  // Get consent status from Osano
+  const consentStatus = {
+    marketing: true,
+    analytics: false,
+    functional: false,
+    necessary: true,
+  }; // Example object grab the real one with the Osano web sdk.
+
+  // Track consent change event
+  ours(
+    "track",
+    "consent_change",
+    {
+      // Event properties
+      ...consentStatus,
+      cmp_vendor: "osano",
+    },
+    {
+      // Visitor properties - consent object
+      consent: consentStatus,
+    }
+  );
+  ```
+</CodeGroup>
+
+### Implementing Mapper Logic
+
+For each destination, you should create a "stop" mapper that prevents dispatch if the required consent isn't granted. You can also use logic builders for more granular control.
+
+![](/images/docs/d31b848c085109e0f8df7f193478005e526f63569ada66bca4f8f29dee682860-Xnapper-2025-08-25-21.34.49.jpg)
+
+**Example: Stop mapper for marketing destinations**
+
+* **Condition**: `visitor.consent.marketing != true`
+* **Action**: Stop dispatch
+
+**Example: Stop mapper for analytics destinations**
+
+* **Condition**: `visitor.consent.analytics != true`
+* **Action**: Stop dispatch
+
+**Example: Advanced logic with event properties**
+
+* **Condition**: `event.consent_marketing == true && visitor.consent.marketing == true`
+* **Action**: Allow dispatch to marketing destinations
+
+This approach ensures that:
+
+* Consent decisions are tracked and stored on the visitor
+* Destinations only receive data when appropriate consent is granted
+* You have granular control over data flow based on consent status
+* Compliance is maintained throughout your data pipeline
+
+## Conclusion
+
+Integrating Osano with Ours Privacy enables:
+
+* **Full Regulatory Compliance**: Support for GDPR, CCPA, CPRA, and healthcare regulations
+* **Granular Consent Control**: Category-based and vendor-specific consent management
+* **Complete Audit Trail**: Visibility into every consent decision and change
+* **Flexible Integration**: Works with any Osano configuration or consent strategy
+
+The Ours Privacy platform respects these consent properties throughout your data pipeline, ensuring compliance while maintaining data integrity and user privacy.
+
+For additional support or questions about Osano integration, contact our support team at [\[email protected\]](/cdn-cgi/l/email-protection#54272124243b2620143b21262724263d2235372d7a373b39).
+
+***
+
+[TrustArc Implementation Guide](/docs/trust-arc)
+
+[OneTrust Implementation Guide](/docs/onetrust)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Osano Implementation Guide](#osano-implementation-guide)
+
+  * * [Overview](#overview)
+    * [Operating Modes](#operating-modes)
+    * [Choosing the Right Mode](#choosing-the-right-mode)
+    * [Implementing Consent Events and Mapping](#implementing-consent-events-and-mapping)
+    * [Conclusion](#conclusion)

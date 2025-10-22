@@ -1,0 +1,94 @@
+---
+title: "Overview"
+description: "An overview of Ours Privacy's Web, React Native, and Server SDKs, including setup, OpenAPI details, and testing resources."
+---
+
+# Ours Privacy SDK Overview
+
+Welcome to the overview of our SDKs! This page will walk you through the differences between our **Web** and **React Native** SDKs and our **server ingest** methods, and introduce you to our available tools and testing resources.
+
+It should help you decide which SDK is best for your use case.
+
+***
+
+## Web and React Native SDKs
+
+[Web SDK Docs](/docs/web-sdk-javascript) | [React Native SDK Docs](/docs/react-native-sdk)
+
+The key difference between our Web/React Native SDKs and our server SDKs is that these **client-based SDKs have automated tracking**.
+
+Both the Web and React Native SDKs automatically track certain default properties, including:
+
+* Page URLs
+* Query parameters (such as click IDs)
+* Other context-based data (e.g., referrer, user agent)
+
+**Web SDK Installation Options:**
+
+* **Script Tag**: Traditional installation via HTML `<script>` tag (recommended for most websites)
+* **NPM Package**: Modern installation via `npm install ours-web-sdk` (recommended for React/Vue/Next.js apps)
+
+Additional points:
+
+* The Web SDK is used under the hood by our Google Tag Manager (GTM) integration.
+* These SDKs expose easy-to-use methods (e.g., `ours('track', 'Event Name')`) and handle batching, retrying, and default property hydration for you.
+* They generally assume they are running on the end user's device.
+
+***
+
+## Server Ingest API
+
+Our server-side ingest API assumes that you are sending requests from a server on behalf of a user.
+
+This API is described by an **OpenAPI** specification, and we provide **first-party SDKs** in several languages. These SDKs allow you to send data, track events, and identify users or accounts directly from your server-side code.
+
+### Available Server SDKs
+
+* **Node.js**
+* **PHP**
+* **Python**
+
+More SDKs are coming soon. You can find the full list in the sidebar of our documentation.
+
+### Ingest API Testing Center
+
+Before fully integrating with our server ingest methods, you can experiment and validate your payloads using our **[Ingest API Testing Center](/reference/track)**. This tool lets you:
+
+* Construct and send requests to our ingest endpoint
+* Inspect real-time responses
+* Verify your event payloads
+* Familiarize yourself with our OpenAPI specification
+
+***
+
+## Next Steps
+
+1. **Web & React Native SDKs**
+
+   * Continue exploring the guides for our Web and React Native SDKs to set up automatic tracking for your website or mobile apps.
+
+2. **Server-Side SDKs**
+
+   * Check out our first-party SDKs for Node.js, PHP, Python, and more (in the sidebar) to integrate directly from your server or backend services.
+
+3. **Ingest API Testing Center**
+
+   * Use the [Testing Center](/reference/track) to try out event payloads, get a feel for the API, and ensure everything is working before going live.
+
+If you have any questions or need further guidance, feel free to explore the rest of our documentation or reach out to our support team.
+
+***
+
+[Enterprise SAML Single Sign-On (SSO)](/docs/enterprise-single-sign-on)
+
+[Web SDK Documentation](/docs/web-sdk-javascript)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Privacy SDK Overview](#ours-privacy-sdk-overview)
+
+  * * [Web and React Native SDKs](#web-and-react-native-sdks)
+    * [Server Ingest API](#server-ingest-api)
+    * [Next Steps](#next-steps)

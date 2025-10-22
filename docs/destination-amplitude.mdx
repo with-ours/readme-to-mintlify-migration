@@ -1,0 +1,64 @@
+---
+title: "Overview"
+---
+
+## Amplitude Features
+
+The Ours Amplitude integration empowers you to leverage Amplitude's powerful analytics capabilities while maintaining strict control over PII and PHI. By routing data through Ours, you have the flexibility to redact sensitive health information entirely or selectively allow fields for enhanced security. This integration helps you optimize user insights and engagement metrics on Amplitude, all within a HIPAA-compliant framework that keeps your clients' data safe and private.
+
+## Adding Amplitude as a destination
+
+To add a destination, click on [Destinations](https://app.oursprivacy.com/) from your Ours platform. Click the **Add destination** button and select Amplitude as the destination type to add.
+
+Then, copy and paste your **Amplitude API Key** into the Ours destination configuration tool and press **Save**.
+
+### Find your Amplitude API Key
+
+**If you've previously configured Amplitude:**
+
+1. Log into your Amplitude account
+2. Navigate to **Settings**, then **Organization Settings**, then **Projects**
+3. Choose the relevant project, and you will find your **API key** under the project's **general** settings
+
+**If you haven't previously set up your Amplitude account**, you will find your API key under "Other ways to install" when getting started on Amplitude.
+
+### Sending User Properties to Amplitude
+
+All events in your Allow List configured to send to this destination will be sent with their event data, including any tracked event properties. Toggling this ON will also send any tracked [user properties](/docs/visitor-properties-overview). Toggling this OFF will not send any tracked user properties.
+
+## When It Dispatches
+
+Our Amplitude integration dispatches events automatically when the required data properties are present. Specifically:
+
+1. **Necessary Properties**: An event will be dispatched if the destination includes a valid Amplitude Project Token and configuration. Additionally, visitor data must be available to ensure that Amplitude can process the event correctly.
+
+2. **Event Type**: Dispatch occurs for all configured event types, allowing you to track a wide range of user interactions within Amplitude.
+
+3. **Automatic Retry**: If the system encounters a retryable error, such as a temporary network issue or API problem, it will automatically attempt to re-dispatch the event. Non-retryable errors, such as missing configuration details, will prevent further retries.
+
+This setup ensures that events are only dispatched to Amplitude when necessary data is present, enabling reliable tracking and insights within your Amplitude dashboard.
+
+## Get Started Today
+
+Implement Ours Privacy effortlessly with our simple copy-and-paste installation script. Begin optimizing your ads and tracking analytics without compromising privacy.
+
+***
+
+[X Ads Conversion API (Twitter ads)](/docs/x-ads)
+
+[Google Analytics (GA4)](/docs/google-analytics-ga4)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Amplitude Features](#amplitude-features)
+
+  * [Adding Amplitude as a destination](#adding-amplitude-as-a-destination)
+
+  * * [Find your Amplitude API Key](#find-your-amplitude-api-key)
+    * [Sending User Properties to Amplitude](#sending-user-properties-to-amplitude)
+
+  * [When It Dispatches](#when-it-dispatches)
+
+  * [Get Started Today](#get-started-today)

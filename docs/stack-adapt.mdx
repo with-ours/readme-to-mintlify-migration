@@ -1,0 +1,95 @@
+---
+title: "StackAdapt Ads Destination"
+---
+
+## StackAdapt Ads Features
+
+The Ours StackAdapt Ads feature allows you to:
+
+* Track conversions, remarketing and other key events through a secure, server-to-server API.
+* Map event data to StackAdapt conversion actions seamlessly.
+* Comply with StackAdapt's privacy and security requirements while gaining actionable insights into your ad performance.
+
+## Supported Features
+
+Ours supports both Retargeting events and Conversion events. You can set them up under the same StackAdapt destination in Ours simply by mapping Ours event names to the correct StackAdapt Pixel Conversion UniqueId.
+
+## Configure Universal Pixel Id In Ours Privacy
+
+While logged in, please [visit the documentation](https://docs.stackadapt.com/pixel#your-stackadapt-universal-pixel-id). You will find your Universal Pixel ID on the documentation page while logged in. Alternatively, you can copy the Universal Pixel ID out of the "install" code at the end of any StackAdapt "create conversion action" flow.
+
+## Configure StackAdapt Ads Destination
+
+1. **Campaign Setup**:
+
+   * In the StackAdapt app, go to your campaign.
+
+   * Click on the **Creative** tab and add `sacid={SA_POSTBACK_ID}` to your Click URL.
+
+     * You can add other query params (like `utm_term`) here as well
+     * You will need to make sure all parameters **start** with a `?` and are separated by a `&`
+       * Example: `example.com?sacid={SA_POSTBACK_ID}&utm_term=testing`
+     * You will see a Parameter table show up when formatted correctly
+
+2. **Create Conversion Events**:
+
+   * Go to the StackAdapt Pixel page, click **Create New**, and select **Conversion Event**.
+   * Choose **StackAdapt Pixel** (leave the install location and activation method)
+   * Select **Universal Pixel** as the install method.
+   * Name your event and fill out any other relevant fields.
+   * For the "Rules", you need to select "Event" and set the Event Key to `event_name`. The value will be the event name you are sending over to StackAdapt.
+
+![](/images/docs/85439346308f36636144414fd354decaab78426d6da3b38144cb0b2ec8870ac3-Screenshot_2025-06-02_at_1.24.45_PM.png)
+
+## Tracking Events
+
+To track events in StackAdapt Ads through Ours, you’ll first need to create and allow the events you want to send. Once your events are allowed, use the Ours API to trigger these events from your app or site. For instance, to track a page visit, add the following code:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'page_view');
+  ```
+</CodeGroup>
+
+## User Properties
+
+StackAdapt does not accept user properties via their API. Ensure that no PII/PHI is included in any event properties.
+
+## When It Dispatches
+
+Our StackAdapt integration dispatches events automatically when the required data properties are present. Specifically:
+
+1. **Necessary Properties**: An event will be dispatched if the destination includes valid authentication data and a StackAdapt Conversion Event ID.
+
+   1. Event Name > Not Modified
+   2. IP Address > Not Modified
+   3. User Agent > Not Modified (Required for Conversion tracking)
+
+2. **Event Type**: Dispatch occurs for all configured event types, with the event details sent in a format compatible with StackAdapt's tracking.
+
+3. **Automatic Retry**: If the system encounters a retryable error (e.g., a temporary network or API issue), it will automatically attempt to re-dispatch the event. Non-retryable errors, such as missing or invalid configuration details, will prevent further retries.
+
+This setup ensures that events are only dispatched to StackAdapt when the required configuration and visitor data are available, enabling effective tracking of conversions within StackAdapt Ads.
+
+## Get Started Today
+
+Implement Ours Privacy effortlessly with our simple copy-and-paste installation script. Begin optimizing your ads and tracking analytics without compromising privacy.
+
+***
+
+[Spotify Ads Destination](/docs/spotify)
+
+[Taboola](/docs/taboola)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [StackAdapt Ads Features](#stackadapt-ads-features)
+  * [Supported Features](#supported-features)
+  * [Configure Universal Pixel Id In Ours Privacy](#configure-universal-pixel-id-in-ours-privacy)
+  * [Configure StackAdapt Ads Destination](#configure-stackadapt-ads-destination)
+  * [Tracking Events](#tracking-events)
+  * [User Properties](#user-properties)
+  * [When It Dispatches](#when-it-dispatches)
+  * [Get Started Today](#get-started-today)

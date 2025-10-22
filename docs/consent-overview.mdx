@@ -1,0 +1,231 @@
+---
+title: "Overview"
+description: "Learn how to integrate and configure consent management with Ours Privacy using your Consent Management Platform (CMP) and event properties."
+---
+
+Ours Privacy gives you flexibility
+
+Your Consent Management Platform (CMP) should control when the Ours Privacy SDK loads and pass consent choices (like accepted categories and vendor status) to us as part of your events.
+
+You should then pass event properties and visitor properties through to Ours Privacy that allow you to control in the Ours Privacy app which destinations get "dispatched" too based on the visitors current consent.
+
+## Integration Model
+
+Ours Privacy supports two distinct operating modes for consent management:
+
+### Mode 1: Strict Consent Mode (Zero Data Collection)
+
+* **CMP First:** Your CMP controls when the Ours Privacy SDK loads
+* **No SDK Loading:** Ours Privacy SDK is not loaded until explicit consent is granted
+* **Zero Data Collection:** No data is sent to Ours Privacy before user permission
+* **Complete Control:** Your CMP has full control over tracking initiation
+
+### Mode 2: Mapper-Controlled Mode
+
+* **Always Load SDK:** Ours Privacy SDK loads immediately and collects all events
+* **Pass Consent as Event Properties:** Your CMP's consent status and categories are passed as event properties
+* **Mapper Enforcement:** Ours Privacy mappers conditionally route events to destinations based on consent
+* **Granular Control:** Events without proper consent are filtered out at the mapping layer
+
+## Global Consent Center
+
+The **Global Consent Center** is a powerful tool that supports both integration modes by providing centralized consent management. Instead of configuring consent logic individually in each destination's mappers, you can create category-based rules that evaluate consent properties and control dispatch across multiple destinations simultaneously.
+
+* **Centralized Rules:** Create consent categories (e.g., "Ads", "Analytics") with custom logic
+* **Destination Assignment:** Assign multiple destinations to each category
+* **Simplified Management:** Configure consent logic once per category instead of per destination
+* **Priority Control:** Set rule priorities to control evaluation order
+
+## Choosing the Right Mode
+
+The choice between these modes depends on your organization's privacy requirements, compliance needs, and technical architecture:
+
+* **Mode 1 (Strict Consent)**: Best for organizations requiring zero data collection before explicit consent
+* **Mode 2 (Mapper-Controlled)**: Ideal for granular control with destination-specific consent logic
+
+The Global Consent Center can be used with either mode to simplify consent management across multiple destinations.
+
+We recommend:
+
+* **Consult with your privacy officer and/or legal team** to determine the appropriate consent management approach for your use case
+* **Reach out to us** to start a conversation about privacy and consent management strategies
+
+You can pass consent information as event properties either:
+
+* As part of each event (e.g., in the `ours('track', ...)` call)
+* Or as [default event properties](/docs/web-sdk-javascript#default-event-properties-default_event_properties) attached to every event via the SDK's initialization.
+
+**Example: Attach consent globally:**
+
+<CodeGroup>
+  ```bash bash
+  ours("init", "<ours web api key>", {
+    default_event_properties: {
+      consent_marketing: true,
+      consent_analytics: false,
+      cmp_vendor: "onetrust",
+    },
+  });
+  ```
+</CodeGroup>
+
+**Example: Attach consent to a single event:**
+
+<CodeGroup>
+  ```bash bash
+  ours(
+    "track",
+    "form_submit",
+    {
+      // Send in consent properties as event_properties for reference during dispatch
+      marketing: true,
+      analytics: false,
+    },
+    // Optionally set visitor properties so consent status is saved on the visitor
+    {
+      email: "[email protected]",
+      consent: {
+        marketing: true,
+        analytics: false,
+      },
+    }
+  );
+  ```
+</CodeGroup>
+
+**Example Mapper Logic For Above Event**
+
+With consent properties like `marketing` or `analytics` attached to your events, you can use Ours Privacy mappers to conditionally control where each event is sent.
+
+For example:
+
+* If `consent_analytics` is false, prevent the event from being forwarded to tools like Google Analytics or Amplitude.
+* If `consent_marketing` is true, allow the same event to be forwarded to Facebook Ads or HubSpot.
+* You can also drop the event entirely if no valid consent is present — all using a few lines of logic in your mapping UI or API.
+
+These mappings can be configured per destination, giving you granular control over how each destination handles consented or non-consented data.
+
+## Why This Model?
+
+* **Flexibility:** You can use any CMP and any consent categories.
+* **Transparency:** Consent status is visible on every event, making compliance and downstream mapping easy.
+* **Simplicity:** No need to configure or maintain consent logic in the SDK.
+
+## Mapping and Routing
+
+* Use the Ours Privacy mapping layer to stop, transform, or route events based on the consent properties you attach.
+* For example, you can prevent events with `analytics: false` from being sent to analytics destinations.
+
+## Best Practices
+
+* **Load Order:** Load your CMP first. You can load the Ours Privacy SDK either after consent or immediately — depending on your compliance strategy.
+* **Global Properties:** Use [default event properties](/docs/web-sdk-javascript#default-event-properties-default_event_properties) to attach consent status to every event.
+* **Single Initialization:** Avoid initializing the SDK multiple times on the same page.
+
+## Re-sending Critical Events After Consent Changes
+
+When implementing consent management, you may need to re-send critical events that occurred before consent was granted. This is especially important for analytics destinations that rely on specific events for accurate reporting.
+
+### Common Critical Events to Re-send
+
+**Google Analytics `page_view` Events:**
+
+* **Why:** GA4 uses `page_view` events to establish sessions and track user journeys
+* **When:** After analytics consent is granted, re-send the `page_view` event with proper session properties
+* **How:** Include these event properties to ensure proper GA4 session tracking:
+  <CodeGroup>
+    ```bash bash
+    ours("track", "page_view", {
+      is_first_visit: 1, // 0 or 1 to flag if this is the first visit
+      is_new_session: 1, // 0 or 1 to flag if the session is new
+      is_engaged_session: 1, // 0 or 1 to flag if the session is engaged
+      consent_analytics: true, // Your consent status
+    });
+    ```
+  </CodeGroup>
+
+**Other Critical Events:**
+
+* **Form submissions** that occurred before consent
+* **E-commerce events** (purchases, add to cart, etc.)
+* **Conversion events** that are essential for business metrics
+
+### Implementation Strategy
+
+Before implementing event re-sending, we recommend:
+
+* **Consult with your privacy officer and/or legal team** to ensure your approach complies with applicable privacy regulations and your organization's policies
+* **Reach out to us** to discuss your specific use case and get guidance on the best implementation approach
+
+Once you have the appropriate approvals, follow these steps:
+
+1. **Store Events Temporarily:** Keep track of critical events that occur before consent
+2. **Listen for Consent Changes:** Monitor your CMP for consent status updates
+3. **Re-send with Consent Properties:** Re-send stored events with current consent status
+4. **Use Mapper Logic:** Configure your Ours Privacy mappers to handle re-sent events appropriately
+
+### EventReplay Library
+
+The EventReplay library provides a lightweight solution for capturing events before Ours Privacy loads and replaying them once consent is granted. This library helps ensure no critical events are lost during the consent decision process.
+
+**Key Features:**
+
+* **Pre-consent Event Capture:** Automatically buffers events that occur before Ours Privacy SDK loads
+* **Automatic Replay:** Sends buffered events to Ours Privacy once the SDK is available
+* **Consent-aware Replay:** Supports category-specific event replay based on consent changes
+* **Flexible Storage:** Uses localStorage or sessionStorage with fallback to memory
+
+**Implementation:**
+
+The library provides two main components:
+
+* **EventReplay:** For capturing events before Ours Privacy loads
+* **EventReplay Consent:** For handling consent changes and category-specific replay
+
+For detailed implementation examples and code samples, see the [EventReplay documentation](https://gist.github.com/tylerzey/f6cb5caf963b1edbaf5a821975ddcabd).
+
+## Conclusion
+
+By letting your CMP control SDK loading and passing consent status as event properties, you ensure maximum flexibility and compliance. The Ours Privacy platform will respect these properties throughout your data pipeline.
+
+Whether you always load Ours Privacy or delay until consent, the platform respects consent properties at every step of the data pipeline. Choose the integration mode that best fits your organization's needs:
+
+* **Strict Consent Mode** for zero data collection before consent
+* **Mapper-Controlled Mode** for granular destination-specific control
+
+The Global Consent Center can be used with either mode to simplify consent management across multiple destinations.
+
+For detailed information about the Global Consent Center, see the [Global Consent Center documentation](/docs/global-consent-center).
+
+***
+
+[Feathery Integration](/docs/feathery)
+
+[Ours Privacy Cookie Consent Management](/docs/ours-privacy-cmp)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Integration Model](#integration-model)
+
+  * * [Mode 1: Strict Consent Mode (Zero Data Collection)](#mode-1-strict-consent-mode-zero-data-collection)
+    * [Mode 2: Mapper-Controlled Mode](#mode-2-mapper-controlled-mode)
+
+  * [Global Consent Center](#global-consent-center)
+
+  * [Choosing the Right Mode](#choosing-the-right-mode)
+
+  * [Why This Model?](#why-this-model)
+
+  * [Mapping and Routing](#mapping-and-routing)
+
+  * [Best Practices](#best-practices)
+
+  * [Re-sending Critical Events After Consent Changes](#re-sending-critical-events-after-consent-changes)
+
+  * * [Common Critical Events to Re-send](#common-critical-events-to-re-send)
+    * [Implementation Strategy](#implementation-strategy)
+    * [EventReplay Library](#eventreplay-library)
+
+  * [Conclusion](#conclusion)

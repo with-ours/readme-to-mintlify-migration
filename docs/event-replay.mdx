@@ -1,0 +1,84 @@
+---
+title: "Event Replay"
+description: "Learn how to use the Event Replay feature in Ours to resend historical events with precise control over deduplication, mapping, and destination processing."
+---
+
+The **Event Replay** feature in Ours allows you to resend historical events to destinations with precise control.
+
+Whether you need to replay events formatted differently to a destination, resend previously missed events, or reprocess data with updated mappings, Event Replay ensures that your data flows correctly to its intended destinations.
+
+***
+
+## How Event Replay Works
+
+1. **Query and Select Events**
+
+   * Ours queries and selects the events to replay
+
+   * Different destinations have varying limitations on how old events can be. Destinations also have varying limitations on how old of click IDs you can send over.
+
+   * **Date Range Limitations**:
+
+     * **Facebook**: Events can only be backfilled for up to **7 days**.
+     * **Reddit**: Events must be within the last **7 days**.
+     * **Google Analytics**: Events are enabled in real-time only.
+
+2. **Dispatch Through Destinations Configuration**
+
+   * Replayed events are dispatched through your current destinations and mappers
+
+   * You can send events to one (or many) destinations during the replay
+
+   * If you need modified mappings that differ from the mappings used for events being sent from your current events:
+
+     1. Set up a **new destination**.
+     2. Configure the mappers for the replayed events
+     3. Have the events replayed through that new Destinations with the correct mappers
+
+3. **Options**
+
+   * Deduplication Id: You will need to decide if you want us to send the events with a new deduplication ID or with the old deduplication ID. If the events were never sent to that destination, you likely can re-use the deduplication ID. If the events were sent, and we're sending them formatted differently, we should likely generate a new deduplication ID.
+   * Event Time: If you want us to set the time parameter in the API call to now (instead of when the event occurred), let us know.
+
+![](/images/docs/011021101cc182e222153105ea9aa9fb1675c40509d07b967f50d6c095762a17-Xnapper-2025-01-29-13.52.03.jpg)
+
+***
+
+## Starting an Event Replay
+
+1. **Go to the Destination Page**
+
+   * Navigate to the **Destinations** section in the Ours dashboard.
+   * Select the destination where you need to replay events.
+
+2. **Click "Start an Event Replay"**
+
+   * This will open a guided flow where you can:
+
+     * Select the event names to replay.
+     * Define the time range (up to **90 days**).
+     * Choose deduplication settings.
+
+3. **Confirm and Run the Replay**
+
+   * We will verify and confirm your settings with you before sending the replayed events.
+
+***
+
+## Summary
+
+Event Replay allows you to resend historical events with control over mapping, deduplication, and destination processing. Whether correcting past tracking issues or reprocessing data with updated configurations, Event Replay ensures that your events reach the right destinations efficiently.
+
+***
+
+[Error Handling](/docs/error-handling)
+
+[Bot Detection and Filtering](/docs/bot-detection)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [How Event Replay Works](#how-event-replay-works)
+  * [Starting an Event Replay](#starting-an-event-replay)
+  * [Summary](#summary)

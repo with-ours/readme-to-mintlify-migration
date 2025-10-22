@@ -1,0 +1,150 @@
+---
+title: "Google BigQuery"
+description: "Store your event and dispatch data in Google BigQuery through S3 or Google Storage integration"
+---
+
+## Google BigQuery Data Warehouse Integration
+
+The Google BigQuery Data Warehouse integration provides a powerful solution for storing and analyzing your event, dispatch, and visitor data. We utilize S3 or Google Cloud Storage as an intermediary storage layer, allowing you to easily import the data into BigQuery using Google's transfer integrations, enabling efficient querying and analysis of your complete event dataset.
+
+## How the Integration Works
+
+* **Daily Cloud Storage Deposits**: Events and dispatches are automatically deposited into your S3 bucket or Google Cloud Storage bucket on a daily basis
+* **Visitor Updates**: Visitor data contains records where the last seen timestamp is greater than or equal to yesterday, requiring upsert processing
+* **Complete Data**: All events and dispatches from your account are included in the deposits
+* **Flexible Import**: You can configure BigQuery to read directly from your S3 bucket or Google Cloud Storage bucket
+* **Efficient Querying**: BigQuery's SQL-based querying engine allows for fast, in-place analysis of your data
+* **Scalable Storage**: BigQuery's infrastructure handles large volumes of data efficiently
+
+### More Information
+
+* [Read more about S3 to BigQuery transfer](https://cloud.google.com/bigquery/docs/s3-transfer)
+* [Read more about Google Cloud Storage to BigQuery transfer](https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-parquet)
+
+## Data Organization
+
+### Source Structure
+
+```
+your-bucket/
+  ├── events/
+  │   └── YYYY/
+  │       └── MM/
+  │           └── DD/
+  │               └── *.parquet
+  ├── dispatches/
+  │   └── YYYY/
+  │       └── MM/
+  │           └── DD/
+  │               └── *.parquet
+  └── visitors/
+      └── YYYY/
+          └── MM/
+              └── DD/
+                  └── *.parquet
+```
+
+## Data Processing Considerations
+
+### Events and Dispatches
+
+Events and dispatches are complete daily snapshots containing all data for that day. Each day's parquet files contain all events and dispatches that occurred on that specific date.
+
+### Visitors
+
+Visitor data contains records that have been recently updated. This means you'll need to implement an upsert process to merge this incremental data into your BigQuery tables:
+
+1. **Read the parquet files** from the visitors directory for the current day
+2. **Identify existing records** in your BigQuery table using visitor identifiers
+3. **Update existing records** with new information from the parquet files
+4. **Insert new records** for visitors that don't exist in your table
+5. **Handle conflicts** based on your business logic (e.g., latest timestamp wins)
+
+This incremental approach ensures you have the most up-to-date visitor information while maintaining data consistency across your BigQuery tables.
+
+## Getting Started
+
+To set up the Google BigQuery integration:
+
+1. Contact your account manager to enable the integration and provide you with the required permissions for your cloud storage bucket
+2. Configure your S3 bucket or Google Cloud Storage bucket to receive the daily data deposits
+3. Set up BigQuery access to your cloud storage using one of the methods below
+
+Once configured, your event, dispatch, and visitor data will be automatically deposited into your cloud storage bucket daily, ready for import into BigQuery. Remember to implement the appropriate upsert logic for visitor data to maintain data consistency in your target systems.
+
+## Setting Up BigQuery Access to Cloud Storage
+
+BigQuery provides integration options for both S3 and Google Cloud Storage:
+
+### Amazon S3 Integration
+
+BigQuery can connect to your S3 bucket to import data directly using the BigQuery Data Transfer Service. For detailed setup instructions, refer to [BigQuery's S3 transfer documentation](https://cloud.google.com/bigquery/docs/s3-transfer).
+
+### Google Cloud Storage Integration
+
+BigQuery also supports Google Cloud Storage for data import. For detailed setup instructions, refer to [BigQuery's Google Cloud Storage documentation](https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-parquet).
+
+### Simple Getting Started Guide
+
+> **Note**: This is the simplest way to get started without daily partitioning. The Ours Privacy data sync is well-configured for partitioning. For advanced partitioning options, see the [BigQuery transfer documentation](https://cloud.google.com/bigquery/docs/s3-transfer).
+
+Follow these steps to set up your BigQuery integration:
+
+1. **Create a table in BigQuery**:
+
+   * Download a sample file from your cloud storage bucket
+   * Upload it to BigQuery to create your initial table structure
+
+2. **Configure data transfer**:
+
+   * Set up the BigQuery Data Transfer Service to automatically populate your table daily
+
+     * The File format is "PARQUET"
+
+     * The source URI will depend on your cloud storage provider
+
+       * Note: If you want to sync dispatches and visitors, you will have to setup separate data transfers for each data type (events, dispatches, and visitors).
+       * Note: You can introduce data parameters to the source URI by following the [BigQuery partitioning documentation](https://cloud.google.com/bigquery/docs/s3-transfer). But, the easiest way to get setup is to just configure the wildcard pattern.
+
+Below are examples of the table creation and data transfer configuration interfaces:
+
+**Example: Table creation via file upload**
+
+![](/images/docs/0c56f331c89fb5bb66463f0da2a3ef31ea1e6312e48627040405d4e150ac9dcd-Xnapper-2025-06-19-14.40.17.jpg)
+
+**Example: Data transfer configuration**
+
+![](/images/docs/2b1a7606efb8dd6e02d45b7ceabe4dfd1d40ffaa6d245d802f9a04976c8152f7-Xnapper-2025-06-19-14.38.01.jpg)
+
+***
+
+[Amazon S3 Data Warehouse](/docs/s3-data-warehouse)
+
+[Google Storage](/docs/google-storage)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Google BigQuery Data Warehouse Integration](#google-bigquery-data-warehouse-integration)
+
+  * [How the Integration Works](#how-the-integration-works)
+
+  * * [More Information](#more-information)
+
+  * [Data Organization](#data-organization)
+
+  * * [Source Structure](#source-structure)
+
+  * [Data Processing Considerations](#data-processing-considerations)
+
+  * * [Events and Dispatches](#events-and-dispatches)
+    * [Visitors](#visitors)
+
+  * [Getting Started](#getting-started)
+
+  * [Setting Up BigQuery Access to Cloud Storage](#setting-up-bigquery-access-to-cloud-storage)
+
+  * * [Amazon S3 Integration](#amazon-s3-integration)
+    * [Google Cloud Storage Integration](#google-cloud-storage-integration)
+    * [Simple Getting Started Guide](#simple-getting-started-guide)

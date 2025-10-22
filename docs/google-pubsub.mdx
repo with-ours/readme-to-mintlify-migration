@@ -1,0 +1,57 @@
+---
+title: "Google PubSub"
+---
+
+## Google Pub/Sub Integration Setup
+
+The Google Pub/Sub integration with Ours Privacy offers a reliable, real-time event streaming solution, enabling you to pass event data securely to your Google Cloud infrastructure as it's generated. With Pub/Sub, you can build scalable, event-driven applications and connect Ours Privacy data directly to your Google Cloud ecosystem.
+
+Google Pub/Sub provides a fully managed, serverless messaging service, allowing you to route, process, and analyze data in real-time, with built-in privacy compliance for sensitive user information.
+
+## How Google Pub/Sub Integration Works
+
+When configured with Ours Privacy, Google Pub/Sub receives event data in real-time from our platform and publishes it to your specified topics. These events can then be consumed by various Google Cloud services or applications, allowing you to trigger workflows, run analytics, or execute automations instantly as new data arrives.
+
+## Getting Started with Google Pub/Sub Integration
+
+To start using Google Pub/Sub with Ours Privacy, please contact your account manager. They will guide you through the setup process to ensure a secure and privacy-compliant data stream.
+
+Once configured, your Ours Privacy events will stream to Google Pub/Sub in real-time, providing a robust, scalable solution for managing and processing event data across your Google Cloud infrastructure.
+
+## Event Format
+
+Events published to your Pub/Sub topic will be in the following format:
+
+<CodeGroup>
+  ```bash bash
+  {
+    "event": "Order Completed",
+    "event_properties": {
+      "order_id": "12345",
+      "total": 99.99
+    },
+    ... etc
+  }
+  ```
+</CodeGroup>
+
+## Best Practices
+
+* Ensure your Pub/Sub topic has appropriate access policies (you will need to contact a member of the Ours Privacy team for this)
+* Consider using message attributes for filtering and routing
+
+***
+
+[AWS SNS](/docs/aws-sns)
+
+[HTTP API Destination](/docs/http-destination)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Google Pub/Sub Integration Setup](#google-pubsub-integration-setup)
+  * [How Google Pub/Sub Integration Works](#how-google-pubsub-integration-works)
+  * [Getting Started with Google Pub/Sub Integration](#getting-started-with-google-pubsub-integration)
+  * [Event Format](#event-format)
+  * [Best Practices](#best-practices)

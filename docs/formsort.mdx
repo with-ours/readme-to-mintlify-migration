@@ -1,0 +1,113 @@
+---
+title: "Formsort Integration"
+description: "Learn how to integrate Ours with Formsort to track form submissions and custom events effortlessly while maintaining privacy and HIPAA compliance."
+---
+
+# Ours Integration with Formsort
+
+This guide will walk you through integrating **Ours** with your Formsort account. You’ll learn how to track form submissions and custom events seamlessly while ensuring **HIPAA-compliant analytics** for privacy-conscious applications.
+
+## Formsort Redirect (easy integration)
+
+The simplest way to integrate Ours with Formsort is to set up a redirect within Formsort. Here's how:
+
+1. Make sure your Ours tracking script is installed on your website.
+2. Link from your website to Formsort.
+3. Set up a custom thank-you page in Formsort to redirect back to your website.
+
+On your thank-you page, fire this Ours event:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'FormSubmitted', { conversion: true });
+  ```
+</CodeGroup>
+
+This method requires no complex integration and provides basic tracking. Configure the redirect in your Formsort settings:
+
+![](/images/docs/3743e9071c438c0e86d906a10e03a131f03515e6da16ed07c31d2683c1f1bdfd-formsort-redirect.jpg)
+
+***
+
+## Ours Formsort Source (custom integration)
+
+For more advanced tracking and to access form submission details, you can use the Ours custom Formsort integration:
+
+1. **Create a New Source**:
+
+   * In the Ours app, navigate to **Sources** and create a new source.
+   * Select **Formsort** from the options and copy the Webhook URL provided.
+
+2. **Add Webhook in Formsort**:
+
+   * Paste the Webhook URL into Formsort under the integration settings for your flow.
+
+![](/images/docs/edefb96114e0226cb8ccb7b5e89db665167bc831ce40fdead8843c18df953718-Xnapper-2024-12-11-13.11.25.jpg)
+
+3. **Submit a Test Form**:
+
+   * Fill out your form to ensure data is sent to Ours.
+   * Check the Ours app for pre-populated variables from the form payload.
+
+4. **Map Form Fields**:
+
+   * Use the field mapping interface in Ours to map Formsort data to Ours attributes.
+   * Include at least the **Ours visitor ID** and optionally an email address for user association.
+
+![](/images/docs/c82886f899c5784cbcd9853a3a23232d02707586a99a269805fbb0bdfd6038fa-Xnapper-2024-12-11-12.57.18.jpg)
+
+***
+
+### Advanced Source Integration
+
+To link Ours visitor data with Formsort submissions:
+
+1. **Add a Hidden Field in Formsort**:
+
+   * Set up a hidden field in your form to capture the **Ours User ID**.
+
+2. **Pass Visitor ID via URL**:
+
+   * When linking to the Formsort form, append the Ours User ID as a URL parameter.
+
+<CodeGroup>
+  ```bash bash
+  <a id='form-link' href="https://formsort.com/form/123?ours_user_id={{ours_user_id}}">Start Form</a>
+
+  <script>
+  const link = document.getElementById('form-link');
+  link.setAttribute('href', 'https://formsort.com/form/123?ours_user_id='+localStorage.getItem('ours_device_id'));
+  </script>
+  ```
+</CodeGroup>
+
+You'll then want to map that hidden field to the Ours visitor id in the Ours mapper settings.
+
+That's it 🎉!
+
+![](/images/docs/081429b95c186fdc771af2b5dba4c06443d7d1cb258a03b396f1ccbbe6fb1d5d-Xnapper-2024-12-11-12.57.34.jpg)
+
+### Key Benefits of the Ours Formsort Integration:
+
+* **HIPAA Compliance**: Ideal for healthcare and other privacy-sensitive industries.
+* **Custom Event Flexibility**: Easily track submissions, field interactions, and more.
+* **No IP Exposure**: Ensures user privacy by proxying events securely.
+
+***
+
+If you need further assistance, contact us at [\[email protected\]](/cdn-cgi/l/email-protection#dcafa9acacb3aea89cb3a9aeafacaeb5aabdbfa5f2bfb3b1).
+
+***
+
+[Typeform Integration](/docs/typeform)
+
+[GoHighLevel Integration](/docs/gohighlevel)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Integration with Formsort](#ours-integration-with-formsort)
+
+  * * [Formsort Redirect (easy integration)](#formsort-redirect-easy-integration)
+    * [Ours Formsort Source (custom integration)](#ours-formsort-source-custom-integration)

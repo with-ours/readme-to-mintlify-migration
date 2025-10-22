@@ -1,0 +1,63 @@
+---
+title: "Warehouse Destinations"
+description: "Send your event data to data warehouses and storage solutions in daily batches"
+---
+
+Warehouse Destinations are designed for batch delivery of your event, dispatch, and visitor data, typically once per day after all events have settled. Unlike Programmatic Destinations that send events in real-time, Warehouse Destinations collect and process your data in daily batches, ensuring you have complete, accurate data for analysis.
+
+## How Warehouse Destinations Work
+
+1. **Event Collection**: Throughout the day, events are collected and stored in our platform
+
+2. **Settlement Period**: Events are allowed to settle and complete any necessary processing
+
+3. **Daily Rollup**: Once per day, typically in the early morning, we:
+
+   * Aggregate all events and dispatches from the previous day
+   * Collect visitor records that have been recently updated
+   * Process and format the data according to your destination's requirements
+   * Package the data into appropriate file formats
+   * Deliver the complete dataset to your configured destination
+
+## Common Use Cases
+
+* Data warehousing and analytics
+* Long-term data storage
+* Data lake ingestion
+* Machine learning model training
+* Historical data analysis
+* Compliance and audit requirements
+
+## Available Destinations
+
+* Amazon S3
+* Google BigQuery
+* Snowflake
+* LiveRamp
+* Databricks
+
+## Clean Rooms
+
+Warehouse Destinations are particularly well-suited for clean room environments, where data privacy and security are paramount.
+
+## Best Practices
+
+* Consider data retention policies in your destination
+* Use appropriate security protections around your data
+* Monitor delivery status and data quality
+
+***
+
+[HTTP API Destination](/docs/http-destination)
+
+[Amazon S3 Data Warehouse](/docs/s3-data-warehouse)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [How Warehouse Destinations Work](#how-warehouse-destinations-work)
+  * [Common Use Cases](#common-use-cases)
+  * [Available Destinations](#available-destinations)
+  * [Clean Rooms](#clean-rooms)
+  * [Best Practices](#best-practices)

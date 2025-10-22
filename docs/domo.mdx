@@ -1,0 +1,150 @@
+---
+title: "Domo"
+description: "Store your event and dispatch data in Domo through S3 or Google Storage integration"
+---
+
+## Domo Data Warehouse Integration
+
+The Domo Data Warehouse integration provides a powerful solution for storing and analyzing your event, dispatch, and visitor data. We utilize S3 or Google Cloud Storage as an intermediary storage layer, allowing you to easily import the data into Domo's cloud-based business intelligence platform.
+
+## How the Integration Works
+
+* **Daily Cloud Storage Deposits**: Events and dispatches are automatically deposited into your S3 bucket or Google Cloud Storage bucket on a daily basis
+* **Visitor Updates**: Visitor data contains records where the last seen timestamp is greater than or equal to yesterday, requiring upsert processing
+* **Complete Data**: All events and dispatches from your account are included in the deposits
+* **Flexible Import**: You can configure Domo to read directly from your S3 bucket or Google Cloud Storage bucket
+* **Real-time Analytics**: Domo's platform enables fast querying and visualization of your data
+
+## Data Organization
+
+The data in your cloud storage bucket is organized in a partitioned structure:
+
+```
+your-bucket/
+  ├── events/
+  │   └── YYYY/
+  │       └── MM/
+  │           └── DD/
+  │               └── *.parquet
+  ├── dispatches/
+  │   └── YYYY/
+  │       └── MM/
+  │           └── DD/
+  │               └── *.parquet
+  └── visitors/
+      └── YYYY/
+          └── MM/
+              └── DD/
+                  └── *.parquet
+```
+
+This partitioning by year/month/day makes it easy to:
+
+* Query specific time periods efficiently
+* Manage data retention policies
+* Process historical data in batches
+* Use partition projections for optimized querying
+
+## Data Processing Considerations
+
+### Events and Dispatches
+
+Events and dispatches are complete daily snapshots containing all data for that day. Each day's parquet files contain all events and dispatches that occurred on that specific date.
+
+### Visitors
+
+Visitor data contains records that have been recently updated. This means you'll need to implement an upsert process to merge this incremental data into your Domo datasets:
+
+1. **Read the parquet files** from the visitors directory for the current day
+2. **Identify existing records** in your Domo dataset using visitor identifiers
+3. **Update existing records** with new information from the parquet files
+4. **Insert new records** for visitors that don't exist in your dataset
+5. **Handle conflicts** based on your business logic (e.g., latest timestamp wins)
+
+This incremental approach ensures you have the most up-to-date visitor information while maintaining data consistency across your Domo analytics infrastructure.
+
+## Getting Started
+
+To set up the Domo Data Warehouse integration:
+
+1. Contact your account manager to enable the integration and provide you with the required permissions for your cloud storage bucket
+2. Configure your S3 bucket or Google Cloud Storage bucket to receive the daily data deposits
+3. Set up Domo access to your cloud storage using one of the methods below
+
+Once configured, your event, dispatch, and visitor data will be automatically deposited into your cloud storage bucket daily, ready for import into Domo. Remember to implement the appropriate upsert logic for visitor data to maintain data consistency in your target systems.
+
+## Setting Up Domo Access to Cloud Storage
+
+Domo provides integration options for both S3 and Google Cloud Storage:
+
+### Amazon S3 Integration
+
+Domo can connect to your S3 bucket to import data directly. For detailed setup instructions, refer to [Domo's S3 documentation](https://domo-support.domo.com/s/article/360043433313?language=en_US).
+
+### Google Cloud Storage Integration
+
+Domo also supports Google Cloud Storage for data import. For detailed setup instructions, refer to [Domo's Google Cloud Storage documentation](https://domo-support.domo.com/s/article/360043436393?language=en_US).
+
+## Data Import Process
+
+Once configured, Domo will automatically:
+
+1. **Monitor your cloud storage bucket** for new parquet files
+2. **Import new data** on a scheduled basis (typically daily)
+3. **Process the data** according to your configured data flows
+4. **Update your datasets** with the latest information
+5. **Refresh your dashboards** and reports automatically
+
+## Key Features
+
+Domo's integration enables powerful data processing capabilities:
+
+* **Automated Data Pipelines**: Set up scheduled data imports from your cloud storage
+* **Data Transformation**: Transform and clean your data using Domo's data flow tools
+* **Real-time Dashboards**: Create interactive dashboards and reports
+* **Data Governance**: Implement data quality checks and monitoring
+* **Collaboration**: Share insights and reports with your team
+* **Mobile Access**: Access your analytics on any device
+
+## Best Practices
+
+* Ensure your cloud storage bucket has appropriate access policies (you will need to contact a member of the Ours Privacy team for this)
+* Consider setting up lifecycle policies to manage data retention
+* Use Domo's data flow tools to transform and clean your data
+* Take advantage of the partitioning structure for efficient data loading
+* Monitor your data import schedules and data quality
+* Set up alerts for data pipeline failures or anomalies
+
+***
+
+[Snowflake](/docs/snowflake)
+
+[Ours Sources](/docs/Ours)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Domo Data Warehouse Integration](#domo-data-warehouse-integration)
+
+  * [How the Integration Works](#how-the-integration-works)
+
+  * [Data Organization](#data-organization)
+
+  * [Data Processing Considerations](#data-processing-considerations)
+
+  * * [Events and Dispatches](#events-and-dispatches)
+    * [Visitors](#visitors)
+
+  * [Getting Started](#getting-started)
+
+  * [Setting Up Domo Access to Cloud Storage](#setting-up-domo-access-to-cloud-storage)
+
+  * * [Amazon S3 Integration](#amazon-s3-integration)
+    * [Google Cloud Storage Integration](#google-cloud-storage-integration)
+
+  * [Data Import Process](#data-import-process)
+
+  * [Key Features](#key-features)
+
+  * [Best Practices](#best-practices)

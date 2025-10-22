@@ -1,0 +1,144 @@
+---
+title: "Google Analytics Measurement Protocol"
+description: "Send server-to-server and offline events to Google Analytics 4 using the Measurement Protocol with HIPAA compliance for healthcare data."
+---
+
+## Overview
+
+The Google Analytics Measurement Protocol destination allows you to send server-to-server and offline events directly to Google Analytics 4. This is particularly useful for tracking events that occur outside of standard web interactions, such as webhook events, server-side processing, or offline conversions.
+
+**Important Note:** For standard web tracking, we recommend using the [Google Analytics (GA4) destination](/docs/google-analytics-ga4) instead. The Measurement Protocol destination is specifically designed for server-to-server and offline event tracking scenarios.
+
+## When to Use Measurement Protocol
+
+Use the Google Analytics Measurement Protocol destination when you need to:
+
+* Send events from webhooks or server-side processes
+* Track offline conversions or interactions
+* Associate server events with existing web sessions
+* Send events from devices or systems where standard GA4 tracking isn't available
+* Bridge online and offline user behavior
+
+## Setup and Configuration
+
+### Adding Google Analytics Measurement Protocol as a Destination
+
+To add a destination:
+
+1. Navigate to the [Destinations](https://app.oursprivacy.com/) page in your Ours Privacy platform.
+2. Click **Add destination** and select **Google Analytics Measurement Protocol** as the destination type.
+
+### Required Configuration
+
+You'll need to provide two key pieces of information:
+
+#### 1. Measurement ID
+
+1. Go to your Google Analytics 4 property
+2. Navigate to **Admin** > **Data Streams**
+3. Select your web stream
+4. Copy the **Measurement ID** (format: `G-XXXXXXXXXX`)
+
+#### 2. API Secret
+
+1. In the same data stream settings
+2. Scroll down to **Measurement Protocol API secrets**
+3. Click **Create** to generate a new secret
+4. Copy the generated **Secret value**
+
+## Event Mapping Requirements
+
+When configuring events for the Measurement Protocol destination, you'll be asked to map two critical identifiers:
+
+### Session ID (sid)
+
+The session ID helps Google Analytics associate your server events with specific user sessions. This should be mapped to a field that contains the session identifier from your web tracking.
+
+### Client ID (cid)
+
+The client ID is the unique identifier for a user across sessions. This should be mapped to a field that contains the client identifier from your web tracking.
+
+## Associating Server Events with Web Sessions
+
+To properly associate server events with existing web sessions in Google Analytics, ensure you have a way to link webhook events to existing visitors. This typically involves:
+
+1. **Capturing identifiers from web sessions**: Store the `client_id` and `session_id` from your web tracking
+2. **Including these identifiers in server events**: When sending events via webhooks or server-side processes, include the same `client_id` and `session_id`
+3. **Mapping in Ours Privacy**: Configure the destination to map these fields correctly
+
+### Example Implementation
+
+When a user completes a web form that triggers a server-side webhook:
+
+<CodeGroup>
+  ```bash bash
+  // Ours Privacy mapping to associate back to same session id and client id:
+  {
+    "event_name": "form_processed",
+    "client_id": "{{visitor.cid}}",
+    "session_id": "{{visitor.sid}}"
+  }
+  ```
+</CodeGroup>
+
+## Event Tracking
+
+### Standard and Custom Events
+
+You can send any standard GA4 events or custom events through the Measurement Protocol. Common use cases include:
+
+* **Purchase events**: Track offline purchases or server-processed transactions
+* **Lead events**: Track form submissions processed server-side
+* **Custom events**: Track any business-specific interactions
+
+### Event Property Limitations
+
+When sending events via Measurement Protocol, please note the following limitations:
+
+* Each event can have a maximum of 20 event properties
+* Each event property value must be fewer than 1,000 characters
+* Event names are limited to 40 characters
+
+[See all restrictions here](https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag)
+
+## Best Practices
+
+1. **Use the standard GA4 destination for web events**: Reserve the Measurement Protocol for server-side and offline events only
+2. **Maintain consistent identifiers**: Ensure `client_id` and `session_id` are consistent between web and server events
+3. **Send events promptly**: For session attribution, send Measurement Protocol events within 24 hours of the session start
+4. **Validate your setup**: Use Google Analytics DebugView to verify events are being received correctly
+
+***
+
+[Google Analytics (GA4)](/docs/google-analytics-ga4)
+
+[Mixpanel Destination](/docs/mixpanel)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Overview](#overview)
+
+  * [When to Use Measurement Protocol](#when-to-use-measurement-protocol)
+
+  * [Setup and Configuration](#setup-and-configuration)
+
+  * * [Adding Google Analytics Measurement Protocol as a Destination](#adding-google-analytics-measurement-protocol-as-a-destination)
+    * [Required Configuration](#required-configuration)
+
+  * [Event Mapping Requirements](#event-mapping-requirements)
+
+  * * [Session ID (sid)](#session-id-sid)
+    * [Client ID (cid)](#client-id-cid)
+
+  * [Associating Server Events with Web Sessions](#associating-server-events-with-web-sessions)
+
+  * * [Example Implementation](#example-implementation)
+
+  * [Event Tracking](#event-tracking)
+
+  * * [Standard and Custom Events](#standard-and-custom-events)
+    * [Event Property Limitations](#event-property-limitations)
+
+  * [Best Practices](#best-practices)

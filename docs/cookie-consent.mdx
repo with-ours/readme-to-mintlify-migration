@@ -1,0 +1,632 @@
+---
+title: "Cookie Consent Management Platform (CMP)"
+description: "HIPAA-compliant cookie consent management platform for privacy compliance (GDPR, CCPA, HIPAA) and developer-friendly cookie management."
+---
+
+## Introduction
+
+Ours Privacy’s Cookie Consent Management Platform is built to give you:
+
+* **HIPAA-compliant consent management**: Ensure your site meets HIPAA, GDPR, and CCPA requirements for privacy and consent.
+* **Complete control over consent collection**: Customize categories, vendors, regions, and UI text.
+* **Custom domains**: Deploy your consent banner and scripts on your own branded domain for trust and compliance.
+* **Easy installation**: Just one script in your `<head>`.
+* **Compliance out of the box**: Supports major frameworks like GDPR, CCPA, and HIPAA.
+* **Advanced blocking**: Manual and automatic script blocking.
+* **Region-specific rules and translations**: Geolocation-based consent modes, legal language, and automatic translation for global compliance.
+* **Versioned configurations**: Roll out new rules safely and maintain a history of consent changes.
+* **Developer-friendly integration**: Access and listen to consent states in your JavaScript layer.
+* **Privacy-first**: No unnecessary tracking and deep integrations with the Ours Privacy CDP mapping layer.
+* **GCP (Global Consent Protocol)**: The Ours Privacy Cookie Consent Platform supports GCP out of the box. You can configure your treatment of GCP per region.
+
+***
+
+## Installation & Quick Start
+
+Setting up your CMP is fast and easy. Just follow these steps:
+
+1. **Copy your install script** In your configuration under **Install & Setup**, you'll see an installation script tag like:
+
+   <CodeGroup>
+     ```bash bash
+     <script src="https://cdn.oursprivacy.com/cmp-init?token=YOUR_TOKEN_HERE"></script>
+     ```
+   </CodeGroup>
+
+2. **Paste it into your website’s`<head>`** Add the script tag as high as possible in your site's `<head>`. This ensures it runs before other tracking scripts and can manage consent blocking correctly.
+
+3. **Publish your configuration** Make sure you've saved and published your CMP configuration in the dashboard.
+
+4. **Verify the banner** Load your site and confirm that the consent banner/modal displays correctly. Test acceptance, rejection, and preference management to ensure it meets your requirements.
+
+> Important: Place the script before any other analytics or advertising tags so it can block them if the user hasn't consented.
+>
+> Note: If you have a [custom domain](/docs/custom-domains) configured for your Ours Privacy account, you can load the Ours Privacy consent management platform from your own first-party custom domain as well.
+
+***
+
+## Styling & Customization
+
+Ours Privacy CMP offers extensive customization options to match your website's branding and user experience. You can control everything from colors and fonts to layout and button styles, ensuring your consent banner feels like a natural part of your site.
+
+### Visual Customization Options
+
+The CMP provides several ways to control the appearance:
+
+* **Theme Selection**: Choose from multiple pre-built themes including light, dark, and minimal designs
+* **Color Customization**: Set primary colors, background colors, text colors, and accent colors
+* **Typography**: Control font families, sizes, and weights for all text elements
+* **Layout Options**: Choose between banner, modal, or floating button layouts
+* **Button Styling**: Customize button shapes, sizes, colors, and hover effects
+* **Border & Shadow**: Add borders, rounded corners, and shadow effects
+* **Responsive Design**: All themes automatically adapt to mobile and desktop screens
+
+### Text & Content Customization
+
+Beyond visual styling, you have complete control over all text content:
+
+* **Banner Headlines**: Customize the main title and description text
+* **Button Labels**: Set custom text for "Accept All," "Reject All," "Preferences," and other buttons
+* **Category Descriptions**: Write clear explanations for each cookie category
+* **Legal Text**: Customize privacy policy links and legal disclaimers
+* **Regional Translations**: Provide different text for different geographic regions
+* **Accessibility**: Ensure all text meets accessibility standards
+
+### Try Before You Configure
+
+Want to see how different customization options look before implementing them on your site? The Ours Privacy CMP allows you to configure themes, change colors, adjust borders all with simple settings or CSS Variables. You can preview all of this in app in on the "Design" tab of your CMP.
+
+* **Demo different themes** and see how they look in real-time
+* **Test color combinations** and typography options
+* **Preview layouts** on different screen sizes
+* **Experiment with text content** and translations
+* **Compare different consent modes** (opt-in vs opt-out)
+* **Test regional variations** and compliance scenarios
+
+The playground lets you experiment with all customization options without affecting your live site, making it easy to find the perfect configuration for your brand and compliance needs.
+
+### Example: Consent Platform Theme
+
+Ours Privacy CMP offers a variety of theme options to match your website’s branding and user experience needs.
+
+The examples below should have varied the modal can be styled:
+
+![](/images/docs/e2f2f732d1db02e661d49ccee9d2c7754554410ce9a8d50a2fb3f9e1f65c155c-Screenshot_2025-08-05_at_8.23.00_PM.png) ![](/images/docs/765572188d32a5618982b5f40477f0d933289ab44851cf42bba095274268ad39-Screenshot_2025-08-05_at_8.22.52_PM.png)
+
+***
+
+## General Settings
+
+Your **General Settings** section is the central place to configure everything about how your CMP works, looks, and enforces consent. It includes:
+
+* **Categories**: Define the types of cookies and trackers you need consent for, like "Necessary," "Analytics," or "Advertising."
+* **Vendors & Trackers**: Maintain a list of known vendors and domains that need to be blocked or managed, with category assignments.
+* **Consent Modal & UI Text**: Customize all text, labels, and translations shown to visitors in your consent banner and preferences modal.
+* **Default Consent Settings**: Set the default consent mode (opt-in or opt-out), regional overrides, automatic page refreshing, and versioning.
+
+Each of these helps you:
+
+* **Collect clear, granular consent** for each purpose and vendor.
+* **Ensure compliance** with laws like GDPR, CCPA, and HIPAA.
+* **Provide a branded, clear experience** with customizable text and design.
+* **Keep your site privacy-friendly** by preventing unauthorized tracking before consent.
+
+Below you'll find details on each part:
+
+***
+
+### Categories
+
+Define the categories users see when managing their consent. Examples include:
+
+* **Necessary** (cannot be disabled)
+* **Analytics**
+* **Advertising**
+* **Custom categories** you define
+
+Categories allow granular consent collection and make sure your site aligns with legal requirements for purpose-based consent.
+
+![](/images/docs/0390b42ae85f4097e9a77381e1c5431a4d0943e769e37442532c6b9e5fb757e6-Xnapper-2025-07-09-11.38.20.jpg)
+
+***
+
+### Vendors & Trackers
+
+Set up the list of scripts, domains, and vendors that need consent management:
+
+* Add domain patterns (e.g. `google-analytics.com`)
+* Assign them to categories
+* Add internal notes for team management
+
+This ensures accurate blocking and transparent disclosure.
+
+![](/images/docs/02219e4c37ef42db58f2a9e6c4d29019750bcbaa249ec6eb6e4b1a48aac33f2d-Xnapper-2025-07-09-11.40.32.jpg)
+
+***
+
+### Consent Modal & UI Text
+
+Customize the full user experience:
+
+* Banner titles and descriptions
+* Buttons (Accept All, Reject All, Preferences)
+* Terms of Service and Privacy Policy URLs
+* Footer text and preferences modal sections
+* Support for translations and region-specific language
+
+Helps create a clear, branded, and compliant interface for your visitors.
+
+![](/images/docs/649531519244ae44b862c09c7c5d029b8cca7eda4b5c401aab11ba471694ac4e-Xnapper-2025-07-09-11.40.10.jpg)
+
+***
+
+### Default Consent Settings
+
+Set the overall behavior of your consent system:
+
+* Consent mode (opt-in or opt-out)
+* Auto show banner on load
+* Disable page interaction until consent
+* Region-specific overrides with tailored modes and text
+* Consent revision/versioning to ensure you can roll out new policies safely
+
+These settings ensure your site behaves correctly by default for all users, while giving flexibility for local laws and best practices.
+
+![](/images/docs/b50ca1cea45366b3abb61cd7326769ec692778b56d10b3d7b10d660537ed2cee-Xnapper-2025-07-09-11.38.11.jpg)
+
+***
+
+## Creating Regional Specific Consent Policies
+
+The Ours Privacy CMP supports **Regional-Specific Overrides** to help you comply with GDPR, CCPA, and other state or country-specific privacy laws. These overrides allow you to redefine any consent settings, UI text, categories, or behavior for visitors from specific regions.
+
+You can think of them as **complete reconfigurations for specific regions**. For example:
+
+* Change the **consent mode** to *opt-in* for EU/EEA visitors and *opt-out* for US states that allow it.
+* Customize the **consent banner text** to match legal requirements in different jurisdictions.
+* Provide **translations** for specific languages or legal disclaimers.
+* Override **categories** or default states for specific laws.
+* Tailor the **preferences modal** for different compliance frameworks.
+
+**How it works:**
+
+* Define as many region-specific rules as needed in your configuration.
+* Select the region or country code (like `EU`, `US-CA` for California, etc.).
+* Customize all available settings (categories, vendors, UI text, consent mode, etc.) just like your global/default configuration.
+* Users in those regions will see the specifically tailored banner and experience you’ve designed.
+
+This flexibility ensures that your site:
+
+* Automatically adapts to visitors’ locations.
+* Meets global privacy law requirements.
+* Offers a clear, localized, and compliant experience.
+
+> Tip: Always review legal requirements in target regions to ensure your overrides meet local consent standards.
+
+![](/images/docs/05918d6330c662b18e95a2d63c0de524a1673b863110b7bb7f34781ed68907ec-Xnapper-2025-07-09-11.38.47.jpg)
+
+***
+
+## Script Blocking
+
+Our CMP is designed to **prevent tracking scripts from running until consent is given**. It does this in two complementary ways: **automatic blocking** (always on) and **manual blocking** (optional for advanced control).
+
+All blocking relies on the concept of **Services** you define in your configuration. Each Service includes:
+
+* A **domain pattern** to match requests (e.g. `*.google-analytics.com`)
+* The **category** it belongs to (like Analytics or Advertising)
+
+When a user hasn't consented to a category, any Service matching that category will be blocked.
+
+***
+
+### Automatic Blocking
+
+Automatic blocking is always enabled. It scans your pages for network requests and script loads that match any configured Service domains:
+
+* Blocks requests that match configured Services immediately on page load.
+* Also blocks dynamically injected scripts (e.g. from Google Tag Manager).
+* Stops these scripts from executing until consent is granted for their category.
+
+**Important:** Always test your implementation to ensure no critical functionality is inadvertently blocked. **Important:** Scripts that are present on the page during load (not injected via tools like Google Tag Manager) may have their assets loaded in the browser's resources tab. However, Ours will still attempt to block these scripts from executing, assuming you've properly configured your services and loaded the Ours Privacy CMP script early enough in your HTML page.
+
+**Important:** Always configure your web scanner and check it frequently. This will help you identify which pixels, scripts, and cookies are being set without proper categorization.
+
+If a script needs to be loaded on the page (not injected), it's best practice to include it directly in your HTML with the `data-category` and `type="text/plain"` attributes shown in the manual blocking section below.
+
+***
+
+### Manual Blocking
+
+Manual blocking gives you precise, in-page control over which scripts are held back until consent.
+
+**Use manual blocking for any script that exists in your HTML document when the page loads.** This includes:
+
+* Scripts in your HTML source code
+* Scripts added during server-side rendering
+* Scripts that are part of your initial page structure
+
+For this approach, you **manually mark scripts in your HTML** with special attributes that identify their category:
+
+<CodeGroup>
+  ```bash bash
+  <script
+    type="text/plain"
+    data-category="analytics"
+    src="https://www.google-analytics.com/analytics.js"
+  ></script>
+  ```
+</CodeGroup>
+
+When the user consents to "analytics," these scripts are dynamically enabled.
+
+**What manual blocking controls:**
+
+* **Execution**: Scripts marked with `type="text/plain"` won't execute until consent
+* **Download**: Scripts still download initially (unless you add additional attributes)
+* **Timing**: Script execution is delayed until the user grants consent
+
+**When you don't need manual blocking:**
+
+* Scripts dynamically inserted via Google Tag Manager
+* Scripts added by JavaScript after page load
+* Scripts loaded through other tag management systems
+
+**Benefits of manual blocking:**
+
+* Full control over *which* inline or external scripts are gated
+* Ensures even scripts without network patterns can be held until consent
+* Useful for self-hosted or custom third-party scripts
+
+> Tip: Combine automatic blocking (for domain-level detection) with manual blocking (for page-specific script tags) to ensure comprehensive coverage.
+
+***
+
+## Consent Event Tracking
+
+Ours Privacy CMP automatically tracks consent events and pipes them into your Ours Privacy account, allowing you to monitor consent patterns and access consent status on both visitors and individual events.
+
+### Automatic Consent Event Tracking
+
+When you configure a **Web SDK Token** in your CMP settings, the platform automatically:
+
+* **Tracks CMP initialization**: Sends a `$consent_init` event when the CMP initializes and is ready to manage consent. Contains the visitor's default consent based on your default opt-in/opt-out settings.
+
+* **Tracks first consent**: Sends a `$first_consent` event when a visitor first expresses their consent preferences
+
+* **Tracks consent changes**: Sends a `$consent_change` event whenever a visitor updates their consent preferences
+
+* **Links to visitor identity**: Associates consent events with the visitor's unique ID for tracking over time
+
+* **Includes comprehensive data**: Each consent event includes:
+
+  * Consent type (all, custom, necessary)
+  * Accepted and rejected categories
+  * Accepted and rejected services
+  * Geographic information (region, country)
+  * Global Privacy Control (GPC) status
+  * Timestamp and mount time
+
+### Accessing Consent Status
+
+Once consent events are being tracked, you can access the latest consent status in several ways:
+
+### Configuration Requirements
+
+To enable consent event tracking, you need to:
+
+1. **Set a Web SDK Token** in your CMP General Settings
+2. **Publish your configuration** to activate the tracking
+3. **Ensure the CMP script loads** before other tracking scripts
+
+The Web SDK Token can be found in your Ours Privacy source page for the Web SDK.
+
+***
+
+## Accessing Consent in JavaScript (SDK)
+
+You can interact with the CMP on your site using the global `window.ours_consent` object. This object provides a limited set of methods to read and update user consent, as well as control the visibility of the consent banner or modal.
+
+> **Note:** For most users, you do **not** need to use these methods directly. The consent UI and banner handle all standard consent flows for you. These APIs are intended for advanced or custom integration scenarios only.
+
+***
+
+### SDK Methods
+
+The following methods are available on `window.ours_consent`:
+
+#### 1. `getConsent()`
+
+Get the full consent object.
+
+<CodeGroup>
+  ```bash bash
+  const consent = window.ours_consent.getConsent();
+  // consent = {
+  //   type: 'all' | 'custom' | 'necessary',
+  //   acceptedCategories: string[],
+  //   rejectedCategories: string[],
+  // }
+  ```
+</CodeGroup>
+
+***
+
+#### 2. `acceptCategory(category)`
+
+Programmatically accept a specific category.
+
+<CodeGroup>
+  ```bash bash
+  window.ours_consent.acceptCategory("analytics");
+  ```
+</CodeGroup>
+
+***
+
+#### 3. `getAcceptedCategories()`
+
+Get a list of all accepted categories.
+
+<CodeGroup>
+  ```bash bash
+  const accepted = window.ours_consent.getAcceptedCategories();
+  // accepted = ['necessary', 'analytics']
+  ```
+</CodeGroup>
+
+***
+
+#### 4. `show()`
+
+Show the consent banner or modal programmatically.
+
+<CodeGroup>
+  ```bash bash
+  window.ours_consent.show();
+  ```
+</CodeGroup>
+
+***
+
+#### 5. `hide()`
+
+Hide the consent banner or modal programmatically.
+
+<CodeGroup>
+  ```bash bash
+  window.ours_consent.hide();
+  ```
+</CodeGroup>
+
+***
+
+#### 6. `on(event, callback)`
+
+Subscribe to consent-related events. This allows you to run custom code when consent changes or is first set.
+
+* **Supported events:**
+
+  * `change`: Fired when the user modifies their preferences and only if consent has already been provided.
+  * `firstConsent`: Fired only the very first time that the user expresses their choice of consent (accept/reject).
+  * `consent`: Fired the very first time the user expresses their choice of consent — just like `firstConsent` — but also on every subsequent page load.
+
+**Example:**
+
+<CodeGroup>
+  ```bash bash
+  window.ours_consent.on("change", (consent) => {
+    console.log("Consent changed:", consent);
+  });
+
+  window.ours_consent.on("firstConsent", (consent) => {
+    console.log("First consent set:", consent);
+  });
+  ```
+</CodeGroup>
+
+***
+
+> *Tip:* Always check that `window.ours_consent` is loaded before calling these methods. These APIs are intended for advanced integrations and most users will not need to use them directly.
+
+***
+
+***
+
+## Feature Table
+
+Below is an overview of the features currently supported in **Ours Privacy CMP**:
+
+| Feature                                               | Ours Privacy Support |
+| ----------------------------------------------------- | -------------------- |
+| Consent banner/modal                                  | Supported            |
+| Per-category controls                                 | Supported            |
+| Various themes                                        | Supported            |
+| Full text control (UI and legal language)             | Supported            |
+| Geolocation-based banner logic                        | Supported            |
+| Geolocation-based banner legal language               | Supported            |
+| Geolocation-based transcriptions (per legal language) | Supported            |
+| Region-specific rules and translations                | Supported            |
+| Custom domains                                        | Supported            |
+| Automatically generate transcriptions                 | Supported            |
+| Automatically detected vendors/scripts/cookies        | Supported            |
+| Auto-blocking of scripts without manual tagging       | Supported            |
+| Manual tagging of scripts in addition to autoblocking | Supported            |
+| Versioned consent config                              | Supported            |
+| Consent logging (timestamp, ID, version, IP)          | Supported            |
+| Visitor-linked identity (via CDP integration)         | Supported            |
+| Fully open source & embeddable via script             | Supported            |
+| GTM + Google Consent Mode integration                 | Supported            |
+| Global Privacy Control (GPC) support                  | Supported            |
+|                                                       |                      |
+| **Planned / In Progress**                             |                      |
+| Templates for compliance (e.g. GDPR text)             | Planned              |
+
+***
+
+## Google Consent Mode
+
+If you are not using the Ours Privacy CMP, you will typically need to wire Google Consent Mode manually so GTM/GA4 respects your cookie categories.
+
+Below is a minimal example of how to do this:
+
+<CodeGroup>
+  ```bash bash
+  <!-- Load GTM container as usual -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    // 1. Default: Set denied for analytics/ad storage
+    gtag("consent", "default", {
+      ad_storage: "denied",
+      analytics_storage: "denied",
+    });
+
+    // 2. Normal gtag config
+    gtag("js", new Date());
+    gtag("config", "G-XXXXXXX");
+  </script>
+  ```
+</CodeGroup>
+
+Then, when the user consents via your CMP:
+
+<CodeGroup>
+  ```bash bash
+  // On user acceptance
+  gtag("consent", "update", {
+    ad_storage: "granted",
+    analytics_storage: "granted",
+  });
+  ```
+</CodeGroup>
+
+This ensures Google Analytics and Ads respect user consent choices.
+
+### Note for Ours Privacy users
+
+If you're using the Ours Privacy CMP, you do not need to do this manually.
+
+Our platform automatically integrates with Google Consent Mode out-of-the-box:
+
+* Sets initial denied state.
+* Automatically updates Google Consent Mode when users give or withdraw consent.
+* Works seamlessly with GTM, GA4, and Google Ads tags.
+
+No extra code required.
+
+***
+
+## Browser Support
+
+Ours Privacy’s Cookie Consent Management Platform (CMP) is designed for broad compatibility across modern browsers and devices. We officially test and support the following environments:
+
+* **Chrome** (latest and previous major version)
+* **Firefox** (latest and previous major version)
+* **Edge** (latest and previous major version)
+* **Safari (desktop)** (latest and previous major version)
+* **Safari (iOS)** (latest and previous major version)
+* **iOS browsers** (latest and previous major version)
+* **Android browsers** (latest and previous major version)
+
+This includes support for Windows, macOS (including Sonoma and Sequoia), iOS, and Android operating systems.
+
+> **Note:** While we officially test the current and previous major versions of each browser, our platform is engineered for maximum compatibility and may work on a wider range of versions and environments. For the best experience and compliance, we recommend using up-to-date browsers.
+
+***
+
+## FAQs
+
+**Do I need to use the`window.ours_consent` methods?**
+
+> For most users, you do **not** need to use these methods directly. The consent UI and banner handle all standard consent flows for you. These APIs are intended for advanced or custom integration scenarios only.
+
+**Is the CMP compliant with GDPR, CCPA, and HIPAA?**
+
+> Yes, Ours Privacy CMP is designed to help you comply with GDPR, CCPA, HIPAA, and other major privacy regulations. You can configure region-specific rules and consent modes to meet legal requirements.
+
+**Can I customize the look and feel of the consent banner?**
+
+> Absolutely! You can fully customize the text, button labels, and even translations for different regions to match your brand and compliance needs.
+
+**How does script blocking work?**
+
+> The CMP automatically blocks scripts and network requests for services that require consent. You can also manually tag scripts for advanced blocking control. Scripts are only enabled after the user grants consent for the relevant category.
+
+**Can I use my own domain for the CMP script?**
+
+> Yes, you can configure a custom domain to serve the CMP script, ensuring first-party trust and compliance.
+
+**How do I test if my implementation is working?**
+
+> After installing the CMP, load your site and verify the banner appears. Test accepting, rejecting, and managing preferences. You can also use browser developer tools to check that scripts are blocked or enabled based on consent.
+
+**Does the CMP support Global Privacy Control (GPC)?**
+
+> Yes, Ours Privacy CMP automatically detects and honors the GPC signal sent by browsers. If a user has GPC enabled, the CMP allows you to configure how each individual category you have behaves. This helps you comply with CCPA, CPRA, and similar privacy laws.
+
+**Removing Cookies on Consent Withdrawal**
+
+> When users withdraw consent, you may want to remove cookies that were set based on their previous consent choices. Modern browsers have security restrictions that limit cookie deletion capabilities, especially for third-party cookies and HttpOnly cookies. You can only delete cookies set by your domain due to Same-Origin Policy restrictions. For an example implementation showing how to delete cookies if you need to implement something like this, see this [GitHub Gist Guide](https://gist.github.com/tylerzey/36b95766213a65782496e4b7bcbae1ea).
+
+***
+
+[Audience Builder](/docs/audience-builder)
+
+[Maps Embed](/docs/maps)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Introduction](#introduction)
+
+  * [Installation & Quick Start](#installation--quick-start)
+
+  * [Styling & Customization](#styling--customization)
+
+  * * [Visual Customization Options](#visual-customization-options)
+    * [Text & Content Customization](#text--content-customization)
+    * [Try Before You Configure](#try-before-you-configure)
+    * [Example: Consent Platform Theme](#example-consent-platform-theme)
+
+  * [General Settings](#general-settings)
+
+  * * [Categories](#categories)
+    * [Vendors & Trackers](#vendors--trackers)
+    * [Consent Modal & UI Text](#consent-modal--ui-text)
+    * [Default Consent Settings](#default-consent-settings)
+
+  * [Creating Regional Specific Consent Policies](#creating-regional-specific-consent-policies)
+
+  * [Script Blocking](#script-blocking)
+
+  * * [Automatic Blocking](#automatic-blocking)
+    * [Manual Blocking](#manual-blocking)
+
+  * [Consent Event Tracking](#consent-event-tracking)
+
+  * * [Automatic Consent Event Tracking](#automatic-consent-event-tracking)
+    * [Accessing Consent Status](#accessing-consent-status)
+    * [Configuration Requirements](#configuration-requirements)
+
+  * [Accessing Consent in JavaScript (SDK)](#accessing-consent-in-javascript-sdk)
+
+  * * [SDK Methods](#sdk-methods)
+
+  * [Feature Table](#feature-table)
+
+  * [Google Consent Mode](#google-consent-mode)
+
+  * * [Note for Ours Privacy users](#note-for-ours-privacy-users)
+
+  * [Browser Support](#browser-support)
+
+  * [FAQs](#faqs)

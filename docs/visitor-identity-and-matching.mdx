@@ -1,0 +1,197 @@
+---
+title: "Visitor Identity and Matching"
+description: "Learn how Ours identifies and matches visitors across sessions and devices to provide a unified view of visitor behavior."
+---
+
+# Visitor Identity and Matching
+
+Ours Privacy tracks visitors across sessions and devices using a combination of first-party and third-party cookies. This guide explains how visitor identity works, how visitors are matched across sessions and domains, and how unified user profiles are created to provide a complete view of visitor behavior across all devices and interactions.
+
+***
+
+## Cookie-Based Tracking
+
+Ours uses two types of cookies to track visitors:
+
+1. **First-Party Cookie**: Stored on your domain, this cookie helps track visitors within the same domain.
+2. **Third-Party Cookie**: Stored on our CDN domain, this cookie enables cross-domain tracking.
+
+These cookies work together to maintain visitor identity across different sessions and domains.
+
+## Cross-Domain Tracking
+
+The third-party cookie stored on our CDN enables tracking visitors across different domains. When a visitor visits any domain where Ours is implemented:
+
+1. The third-party cookie is read from our CDN
+2. If a matching visitor ID is found, the visitor is identified as the same person
+3. If no match is found, a new visitor ID is generated and stored in both cookies
+
+This mechanism allows you to track the same visitor across multiple domains without requiring any additional configuration.
+
+## Visitor Re-Identification
+
+You can re-identify visitors by including their `external_id` or `email` in your tracking calls.
+
+### HTTP API
+
+Include `external_id` or `email` in your API requests to our [HTTP API](/docs/server-to-server-integration).
+
+### Sources
+
+Include `external_id` or `email` in your [webhook payloads](/docs/webhooks).
+
+When these identifiers are provided, Ours will use them to look up and match the visitor in our database.
+
+***
+
+## Unified User Profiles
+
+When visitors have an `external_id`, Ours automatically creates unified user profiles that merge data from multiple visitor sessions. This enables seamless cross-device tracking and provides a complete view of user behavior.
+
+### How User Profiles Work
+
+A **User** is a unified profile created by merging multiple visitor records that share the same `external_id`. This happens automatically when:
+
+* A visitor logs in on different devices using the same account
+* Multiple visitor sessions are associated with the same `external_id`
+* Cross-device interactions are tracked through consistent identification
+
+### User Profile Creation Process
+
+1. **Detection**: When an event is processed, Ours checks if the visitor has an `external_id`
+2. **Lookup**: If present, Ours searches for all visitors in the account with the same `external_id`
+3. **Merging**: Visitor records are sorted by `last_seen_at` (newest first) and properties are merged
+4. **Unified Profile**: A single user object is created with the most up-to-date information from all sessions
+
+### Merging Strategy
+
+The user profile merging follows these principles:
+
+* **Newest Data Wins**: Properties from the most recent visitor session take precedence
+* **Complete Coverage**: All properties from all sessions are preserved, with newer values overriding older ones
+* **Time Spanning**: The user's `first_seen_at` uses the earliest timestamp, while `last_seen_at` uses the latest
+* **Deterministic**: The merge process is consistent and predictable
+
+### Example User Profile Creation
+
+Consider a user who interacts with your site across multiple devices:
+
+**Device A (Mobile)**:
+
+* `external_id`: "user123"
+* `email`: "[\[email protected\]](/cdn-cgi/l/email-protection#661315031426031e070b160a034805090b)"
+* `first_name`: "John"
+* `last_seen_at`: "2024-01-15T10:00:00Z"
+
+**Device B (Desktop)**:
+
+* `external_id`: "user123"
+* `email`: "[\[email protected\]](/cdn-cgi/l/email-protection#96e3e5f3e4d6f3eef7fbe6faf3b8f5f9fb)"
+* `last_name`: "Doe"
+* `city`: "San Francisco"
+* `last_seen_at`: "2024-01-16T14:30:00Z"
+
+**Resulting User Profile**:
+
+* `external_id`: "user123"
+* `email`: "[\[email protected\]](/cdn-cgi/l/email-protection#b0c5c3d5c2f0d5c8d1ddc0dcd59ed3dfdd)"
+* `first_name`: "John"
+* `last_name`: "Doe"
+* `city`: "San Francisco"
+* `first_seen_at`: "2024-01-15T10:00:00Z"
+* `last_seen_at`: "2024-01-16T14:30:00Z"
+
+### Accessing User Data
+
+During destination dispatch, you can access user properties using the `user.*` prefix:
+
+* `user.email` - The user's email address
+* `user.first_name` - The user's first name
+* `user.city` - The user's city
+* `user.external_id` - The user's external identifier
+
+This unified data is available alongside visitor and event data, providing maximum flexibility for destination mapping and analytics.
+
+## Passing Visitor ID Between Domains
+
+If you need to manually pass the Ours visitor ID between different domains, you can do so using query parameters:
+
+<CodeGroup>
+  ```bash bash
+  // Example URL with visitor ID
+  https://example.com?ours_user_id=${localStorage.getItem('ours_device_id')}
+  ```
+</CodeGroup>
+
+This is useful when you need to maintain visitor identity across domains that don't share the same cookie domain.
+
+## Custom Visitor ID Initialization
+
+You can provide your own visitor ID during initialization of the Ours Privacy SDK. This is useful when you have your own visitor identification system:
+
+### JavaScript Implementation
+
+<CodeGroup>
+  ```bash bash
+  ours('init', '<ours web api key>', { 
+    visitor_id: '<your custom visitor id>' 
+  });
+  ```
+</CodeGroup>
+
+### GTM Implementation
+
+![](/images/docs/a55de651582e53f084710bc9ed12481eb7ce39311596bba36a028c40be7ad4db-Xnapper-2025-01-17-11.33.03.jpg)
+
+Note: When using custom visitor IDs, ensure you have a reliable system to generate and persist unique IDs for each visitor across different visits.
+
+***
+
+## Best Practices for Identity Management
+
+1. **Use `external_id` for Consistency**:
+
+   * Assign a unique `external_id` to visitors to ensure accurate cross-device and cross-session tracking.
+   * This enables automatic user profile creation and unified data across all devices.
+
+2. **Send Persistent Identifiers Early**:
+
+   * Include visitor properties like `email` during initial interactions to improve matching accuracy.
+   * Set the `external_id` as early as possible in the user journey to maximize profile unification.
+
+3. **Manually Pass `ours_user_id` When Needed**:
+
+   * Use the `?ours_user_id` query parameter to maintain identity across domains.
+   * This is useful when cross-domain tracking is needed but cookies aren't shared.
+
+4. **Leverage User Profiles for Analytics**:
+
+   * Use `user.*` properties in destination mappings to access unified cross-device data.
+   * Combine user, visitor, and event data for comprehensive behavioral analysis.
+
+5. **Monitor Profile Merging**:
+
+   * Track how user profiles are being created and merged across your visitor base.
+   * Ensure `external_id` consistency across all touchpoints for optimal profile unification.
+
+***
+
+***
+
+[Visitor Properties Overview](/docs/visitor-properties-overview)
+
+[Data Mapping](/docs/data-mapping)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Visitor Identity and Matching](#visitor-identity-and-matching)
+
+  * * [Cookie-Based Tracking](#cookie-based-tracking)
+    * [Cross-Domain Tracking](#cross-domain-tracking)
+    * [Visitor Re-Identification](#visitor-re-identification)
+    * [Unified User Profiles](#unified-user-profiles)
+    * [Passing Visitor ID Between Domains](#passing-visitor-id-between-domains)
+    * [Custom Visitor ID Initialization](#custom-visitor-id-initialization)
+    * [Best Practices for Identity Management](#best-practices-for-identity-management)

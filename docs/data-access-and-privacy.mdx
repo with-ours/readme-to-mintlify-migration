@@ -1,0 +1,159 @@
+---
+title: "Data Access and Privacy"
+description: "Understand how Ours handles data access, ensures privacy compliance, and allows you to configure how data is shared with destinations."
+---
+
+# Data Access and Privacy
+
+Ours is built with privacy-forward principles, ensuring that your data is securely handled, compliant with privacy regulations, and configurable to meet your unique requirements. This guide explains how Ours handles data access, enforces privacy safeguards, and enables you to control what data is shared with destinations.
+
+***
+
+## Key Privacy Features
+
+Ours provides several privacy-focused features to ensure that data is handled securely and in compliance with laws like HIPAA:
+
+1. **Data Redaction and Hashing**:
+   * By default, sensitive data (e.g., email, phone number) is hashed or redacted before being sent to destinations.
+2. **Customizable Privacy Rules**:
+   * You can configure how data is handled for each destination, including which fields to redact, hash, or omit.
+3. **Exportable Mappings**:
+   * Export default or custom data mappings from the **Destinations Data Mapper** page. This allows you to share configurations with your team for review or compliance validation.
+4. **Access Transparency**:
+   * View and audit data being sent to destinations through the [Recent Events Dashboard](/docs/tracking-and-debugging-events).
+5. **Signed Compliance Agreements**:
+   * Ours supports signed BAAs (Business Associate Agreements) for HIPAA compliance.
+
+***
+
+## Viewing and Configuring Data Access
+
+Ours provides tools to review how your data is shared with destinations and customize it as needed.
+
+### Viewing Default Destination Mappers
+
+To see how data is mapped and sent to destinations:
+
+1. Go to the **Destinations** section in your dashboard.
+2. Select a destination and navigate to the **Mappings** tab.
+3. View the default mappings for each field, including any modifications (e.g., `Hash`, `Redacted`).
+
+This view is useful for compliance teams to verify:
+
+* **Which data is shared**: Ensure no unnecessary Personally Identifiable Information (PII) or Protected Health Information (PHI) is included.
+* **How data is handled**: Confirm hashing or redaction rules for sensitive data.
+
+### Exporting Mappings
+
+You can export your mappings (default or customized) directly from the **Mappings** tab for any destination:
+
+1. Go to the **Mappings** tab in your destination configuration.
+2. Click the **Export** button to download the mappings in a shareable format (e.g., CSV or JSON).
+3. Share the exported file with your team or compliance department for review.
+
+***
+
+## Privacy Configurations for Destinations
+
+Each destination in Ours allows you to configure privacy settings for data properties. These settings include:
+
+### Hashing
+
+* Hashes sensitive fields like `email` or `phone_number` to ensure they cannot be reverse-engineered.
+* Commonly used for platforms like Facebook Ads or Google Ads to match visitors securely.
+
+### Redaction
+
+* Replaces sensitive data with `"REDACTED"`, ensuring no sensitive information is shared with the destination.
+
+### Exclusion
+
+* Omits specific fields entirely from being sent to destinations. Use the `$ignore` directive in the mapping configuration.
+
+### Custom Transformations
+
+* Apply advanced rules to modify data before it’s sent. For example:
+
+  * Extract only the domain from a URL (`DomainOnly`).
+  * Remove URL parameters (`FullUrl`).
+
+***
+
+## Accessing Data in Ours
+
+### Recent Events Dashboard
+
+The **Recent Events Dashboard** provides a detailed view of every event tracked in Ours. You can inspect:
+
+* Event properties.
+* Visitor properties (hashed or redacted as configured).
+* Destination-specific data.
+
+Use this dashboard to:
+
+* Debug data flows and mappings.
+* Confirm privacy rules are applied correctly.
+* Audit what data is being shared with destinations.
+
+***
+
+## Compliance and Security
+
+Ours adheres to strict compliance and security standards to protect your data:
+
+### HIPAA Compliance
+
+Ours is HIPAA-compliant, offering signed BAAs to ensure data protection for healthcare organizations. Our platform redacts or hashes all PHI before sending it to destinations.
+
+### Secure Data Storage
+
+All data in Ours is encrypted at rest and in transit, ensuring it remains secure throughout its lifecycle.
+
+***
+
+## Best Practices for Privacy Management
+
+1. **Audit Destination Mappers**:
+   * Regularly review destination mappings to ensure sensitive data is handled appropriately.
+2. **Limit Sensitive Data**:
+   * Only send necessary data to destinations. Use `$ignore` or redaction where possible.
+3. **Use Hashing for Identifiers**:
+   * Always hash fields like `email` or `phone_number` for secure visitor matching.
+4. **Test Your Configuration**:
+   * Verify data privacy rules in the [Recent Events Dashboard](/docs/tracking-and-debugging-events).
+5. **Share Mappings with Teams**:
+   * Export mappings and share them with your compliance team for validation.
+6. **Align with Compliance Teams**:
+   * Share the default mapper configuration with your compliance team for validation.
+
+***
+
+## Summary
+
+Ours prioritizes secure and compliant data handling, allowing you to customize how data is shared with destinations. By leveraging privacy features like hashing, redaction, and exclusion, you can ensure your data remains secure while meeting regulatory requirements.
+
+To get started:
+
+* Review your destination configurations in the [Destinations Overview](/docs/destination-overview).
+* Explore [Data Mapping](/docs/data-mapping) to customize property handling.
+* Use the [Recent Events Dashboard](/docs/tracking-and-debugging-events) to audit your data flows.
+
+***
+
+[Data Mapping](/docs/data-mapping)
+
+[Error Handling](/docs/error-handling)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Data Access and Privacy](#data-access-and-privacy)
+
+  * * [Key Privacy Features](#key-privacy-features)
+    * [Viewing and Configuring Data Access](#viewing-and-configuring-data-access)
+    * [Privacy Configurations for Destinations](#privacy-configurations-for-destinations)
+    * [Accessing Data in Ours](#accessing-data-in-ours)
+    * [Compliance and Security](#compliance-and-security)
+    * [Best Practices for Privacy Management](#best-practices-for-privacy-management)
+    * [Summary](#summary)

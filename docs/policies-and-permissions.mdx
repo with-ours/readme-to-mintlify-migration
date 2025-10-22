@@ -1,0 +1,89 @@
+---
+title: "Policies and Permissions"
+description: "Learn how to use the advanced policies and permissions system in the CDP to manage roles, access, and security controls."
+---
+
+# Policies and Permissions
+
+Our platform provides a comprehensive policies and permissions system that gives you enterprise-grade control over user access and capabilities within your organization. This system includes predefined user roles, custom policy creation, individual user permission management, and robust security controls.
+
+## Policy Management
+
+Create and manage custom policies to define specific permission sets for different user groups:
+
+### Custom Policy Creation
+
+Define policies with descriptive names and purposes to help identify their intended use cases. Policies can be created to match specific business requirements, compliance needs, or team structures.
+
+### Granular Permission Control
+
+Configure individual permissions within each policy, including specific actions like:
+
+* `allowedEvent:find` - View allowed event details
+* `allowedEvent:create` - Create new allowed events
+* `allowedEvent:delete` - Delete allowed events
+* `allowedEvent:update` - Modify existing allowed events
+* `allowedEvent:list` - List all allowed events
+
+### Permission Categories
+
+Organize permissions by categories and actions to streamline policy configuration and management:
+
+* **Event Management**: Control access to event creation, viewing, editing, and deletion
+* **Billing**: Manage billing information access and modifications
+* **Consent Settings**: Control consent management and configuration capabilities
+* **User Management**: Manage user invitations, role assignments, and account modifications
+* **Organization Settings**: Control organization-level configuration and management
+* **Data Access**: Manage access to sensitive data and PHI-related information
+
+### PHI Access Tracking
+
+Monitor which permissions include access to Protected Health Information (PHI) for compliance and security oversight. This feature helps organizations maintain HIPAA compliance and track access to sensitive healthcare data.
+
+### Policy Assignment
+
+Easily assign multiple policies to individual users, providing flexible and comprehensive access control. Users can have multiple policies applied, with permissions being evaluated based on the combined policy set.
+
+## User Permission Management
+
+Manage individual user permissions with precision:
+
+### Individual User Configuration
+
+Configure permissions for each user independently, allowing for highly customized access control that matches specific job responsibilities and security requirements.
+
+### Inline Permission Editing
+
+Modify user permissions directly through an intuitive interface with search and filtering capabilities. The interface provides real-time feedback and clear indicators of permission changes.
+
+### Permission Summary
+
+View comprehensive summaries of allowed and denied permissions for each user, including PHI access tracking. This provides clear visibility into what each user can access and helps with compliance audits.
+
+### Audit Trail
+
+Track all permission changes with detailed logging for compliance and security purposes. Every permission modification is recorded with timestamp, user, and change details.
+
+## Best Practices
+
+### Policy Design
+
+* Create policies based on job functions rather than individual users
+* Use descriptive names that clearly indicate the policy's purpose
+* Regularly review and update policies as organizational needs change
+
+***
+
+[Security Controls](/docs/security-controls)
+
+[Enterprise SAML Single Sign-On (SSO)](/docs/enterprise-single-sign-on)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Policies and Permissions](#policies-and-permissions)
+
+  * * [Policy Management](#policy-management)
+    * [User Permission Management](#user-permission-management)
+    * [Best Practices](#best-practices)

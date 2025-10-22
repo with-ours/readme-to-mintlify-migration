@@ -1,0 +1,72 @@
+---
+title: "ZoomInfo"
+description: "Overview of the ZoomInfo enrichment destination for enhancing visitor profiles with B2B contact and company data."
+---
+
+## Overview
+
+[ZoomInfo](https://www.zoominfo.com/) is an enrichment destination that enhances your visitor profiles with B2B contact and company data. When enabled, it can append detailed business information to your visitor profiles, helping you better understand and engage with your B2B audience.
+
+### Why Use ZoomInfo?
+
+1. **B2B Contact Data**: Get detailed business contact information for your visitors
+2. **Company Insights**: Access company size, industry, and other firmographic data
+3. **Better Lead Qualification**: Use enriched data to qualify and prioritize leads
+
+***
+
+## Setup
+
+1. Enable the ZoomInfo enrichment destination in your account settings
+2. Add your ZoomInfo API credentials
+3. Configure which visitor events should trigger enrichment (typically after email capture)
+
+***
+
+## Enriched Properties
+
+When a visitor is enriched, the following properties are added to the `visitor.enrichment_properties` namespace:
+
+* **zoominfo.contact**: Enhanced contact information
+* **zoominfo.company**: Company details and firmographics
+* **zoominfo.role**: Job title and role information
+* **zoominfo.industry**: Industry classification
+* **zoominfo.location**: Business location data
+* **zoominfo.revenue**: Company revenue information
+
+***
+
+## Usage
+
+The ZoomInfo enrichment destination is typically triggered after a visitor performs an action that adds an email address or name to their profile. Once triggered, the enrichment process begins and the additional properties become available for mapping to other destinations.
+
+To use the enriched data:
+
+1. Navigate to your target destination's mapping section
+2. Select properties from the `visitor.enrichment_properties.zoominfo.*` namespace
+3. Map these properties to your destination's fields
+
+***
+
+## Key Considerations
+
+* Enrichment is only performed for visitors who have provided an email address
+* API rate limits and costs may apply based on your ZoomInfo plan
+* Data is primarily focused on B2B contacts and companies
+
+***
+
+[FullContact](/docs/fullcontact)
+
+[CRM Destinations](/docs/crm-destinations)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Overview](#overview)
+  * * [Why Use ZoomInfo?](#why-use-zoominfo)
+  * [Setup](#setup)
+  * [Enriched Properties](#enriched-properties)
+  * [Usage](#usage)
+  * [Key Considerations](#key-considerations)

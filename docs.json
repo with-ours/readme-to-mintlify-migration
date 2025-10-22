@@ -1,0 +1,530 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "aspen",
+  "name": "Compliant Ad Tracking and Analytics",
+  "colors": {
+    "primary": "#00648c",
+    "light": "#00648c",
+    "dark": "#00648c"
+  },
+  "favicon": "/0305a187718055051a9ea42d6120dcf442541313baeb9826fa0dbf14c096c525-favicon.ico",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Home",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "docs/overview",
+              "docs/installation",
+              "docs/gtm-install",
+              "docs/tracking-and-debugging-events",
+              "docs/understanding-the-event-flow"
+            ]
+          },
+          {
+            "group": "Event And Identity",
+            "pages": [
+              "docs/understanding-events",
+              "docs/sources-overview",
+              "docs/destination-overview",
+              "docs/allow-listing-events",
+              "docs/global-consent-center",
+              "docs/version-management",
+              "docs/visitor-properties-overview",
+              "docs/visitor-identity-and-matching",
+              "docs/data-mapping",
+              "docs/data-access-and-privacy",
+              "docs/error-handling",
+              "docs/event-replay",
+              "docs/bot-detection",
+              "docs/test-mode",
+              "docs/data-retention",
+              "docs/custom-domains",
+              "docs/domain-whitelisting",
+              "docs/clean-room-integrations"
+            ]
+          },
+          {
+            "group": "Destinations",
+            "pages": [
+              "docs/amazon-dsp",
+              {
+                "group": "Ad Destinations",
+                "pages": [
+                  "docs/amazon-dsp",
+                  "docs/audiohook",
+                  "docs/bing-ads",
+                  "docs/destination-facebook",
+                  "docs/destination-google",
+                  "docs/google-campaign-360",
+                  "docs/impact",
+                  "docs/linkedin-ads",
+                  "docs/nextdoor",
+                  "docs/partnerize",
+                  "docs/pinterest",
+                  "docs/podscribe",
+                  "docs/quora-ads-capi",
+                  "docs/reddit-ads",
+                  "docs/snapchat-ads",
+                  "docs/spotify",
+                  "docs/stack-adapt",
+                  "docs/taboola",
+                  "docs/tatari",
+                  "docs/the-trade-desk",
+                  "docs/tiktok-ads-destination",
+                  "docs/viant",
+                  "docs/x-ads"
+                ]
+              },
+              {
+                "group": "Analytics Destinations",
+                "pages": [
+                  "docs/destination-amplitude",
+                  "docs/google-analytics-ga4",
+                  "docs/google-analytics-measurement-protocol",
+                  "docs/mixpanel"
+                ]
+              },
+              {
+                "group": "Enrichment Destinations",
+                "pages": [
+                  "docs/synthetic-data",
+                  "docs/fullcontact",
+                  "docs/zoominfo"
+                ]
+              },
+              {
+                "group": "CRM Destinations",
+                "pages": [
+                  "docs/active-campaign",
+                  "docs/braze",
+                  "docs/customer-io",
+                  "docs/hubspot",
+                  "docs/mailchimp",
+                  "docs/klaviyo",
+                  "docs/woopra",
+                  "docs/liveintent"
+                ]
+              },
+              {
+                "group": "Programmatic Destinations",
+                "pages": [
+                  "docs/programic-destinations",
+                  "docs/aws-eventbridge",
+                  "docs/aws-kinesis",
+                  "docs/aws-lambda",
+                  "docs/aws-sns",
+                  "docs/google-pubsub",
+                  "docs/http-destination"
+                ]
+              },
+              {
+                "group": "Warehouse Destinations",
+                "pages": [
+                  "docs/warehouse-destinations",
+                  "docs/s3-data-warehouse",
+                  "docs/google-bigquery",
+                  "docs/google-storage",
+                  "docs/azure",
+                  "docs/databricks",
+                  "docs/live-ramp",
+                  "docs/snowflake",
+                  "docs/domo"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Sources",
+            "pages": [
+              "docs/Ours",
+              {
+                "group": "Ours Sources",
+                "pages": [
+                  "docs/Ours",
+                  "docs/web-script-source",
+                  "docs/server-to-server-integration",
+                  "docs/pixel-api",
+                  "docs/redirect-source"
+                ]
+              },
+              {
+                "group": "Lead Generation Sources",
+                "pages": [
+                  "docs/LeadGen",
+                  "docs/salesforce",
+                  "docs/facebook-lead-ads",
+                  "docs/alchemer",
+                  "docs/call-tracking-metrics",
+                  "docs/call-rail",
+                  "docs/whatconverts",
+                  "docs/typeform",
+                  "docs/formsort",
+                  "docs/gohighlevel",
+                  "docs/formstack",
+                  "docs/jot-form",
+                  "docs/hubspot-source"
+                ]
+              },
+              {
+                "group": "Scheduling Sources",
+                "pages": [
+                  "docs/Scheduling",
+                  "docs/calendly",
+                  "docs/calcom",
+                  "docs/oncehub"
+                ]
+              },
+              {
+                "group": "Data Sources",
+                "pages": [
+                  "docs/Data",
+                  "docs/webhooks",
+                  "docs/stripe",
+                  "docs/segment"
+                ]
+              },
+              {
+                "group": "EHR",
+                "pages": [
+                  "docs/EHR",
+                  "docs/ehr-integrations",
+                  "docs/healthie",
+                  "docs/tellescope",
+                  "docs/feathery"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Consent",
+            "pages": [
+              "docs/consent-overview",
+              "docs/ours-privacy-cmp",
+              "docs/trust-arc",
+              "docs/osano",
+              "docs/onetrust",
+              "docs/transcend",
+              "docs/cookiebot"
+            ]
+          },
+          {
+            "group": "Marketing Tools",
+            "pages": [
+              "docs/audience-builder",
+              "docs/cookie-consent",
+              "docs/maps",
+              "docs/session-replay",
+              "docs/translate",
+              "docs/video-player",
+              "docs/web-analytics",
+              "docs/web-scanner"
+            ]
+          },
+          {
+            "group": "Security and Access Management",
+            "pages": [
+              "docs/account-management-features",
+              "docs/security-controls",
+              "docs/policies-and-permissions",
+              "docs/enterprise-single-sign-on"
+            ]
+          },
+          {
+            "group": "SDKs",
+            "pages": [
+              "docs/sdk-overview",
+              "docs/web-sdk-javascript",
+              "docs/react-native-sdk",
+              "docs/android-sdk",
+              "docs/ios-sdk",
+              "docs/openapi",
+              "docs/nodejs",
+              "docs/php",
+              "docs/python",
+              "docs/dotnet"
+            ]
+          },
+          {
+            "group": "Frameworks and Platforms",
+            "pages": [
+              "docs/nextjs-integration",
+              "docs/drupal-integration",
+              "docs/wordpress-integration",
+              "docs/shopify",
+              "docs/vite-react-router-integration",
+              "docs/framer-integration",
+              "docs/webflow-integration"
+            ]
+          },
+          {
+            "group": "Getting Started",
+            "pages": [
+              "docs/overview",
+              "docs/installation",
+              "docs/gtm-install",
+              "docs/tracking-and-debugging-events",
+              "docs/understanding-the-event-flow"
+            ]
+          },
+          {
+            "group": "Event And Identity",
+            "pages": [
+              "docs/understanding-events",
+              "docs/sources-overview",
+              "docs/destination-overview",
+              "docs/allow-listing-events",
+              "docs/global-consent-center",
+              "docs/version-management",
+              "docs/visitor-properties-overview",
+              "docs/visitor-identity-and-matching",
+              "docs/data-mapping",
+              "docs/data-access-and-privacy",
+              "docs/error-handling",
+              "docs/event-replay",
+              "docs/bot-detection",
+              "docs/test-mode",
+              "docs/data-retention",
+              "docs/custom-domains",
+              "docs/domain-whitelisting",
+              "docs/clean-room-integrations"
+            ]
+          },
+          {
+            "group": "Destinations",
+            "pages": [
+              "docs/amazon-dsp",
+              {
+                "group": "Ad Destinations",
+                "pages": [
+                  "docs/amazon-dsp",
+                  "docs/audiohook",
+                  "docs/bing-ads",
+                  "docs/destination-facebook",
+                  "docs/destination-google",
+                  "docs/google-campaign-360",
+                  "docs/impact",
+                  "docs/linkedin-ads",
+                  "docs/nextdoor",
+                  "docs/partnerize",
+                  "docs/pinterest",
+                  "docs/podscribe",
+                  "docs/quora-ads-capi",
+                  "docs/reddit-ads",
+                  "docs/snapchat-ads",
+                  "docs/spotify",
+                  "docs/stack-adapt",
+                  "docs/taboola",
+                  "docs/tatari",
+                  "docs/the-trade-desk",
+                  "docs/tiktok-ads-destination",
+                  "docs/viant",
+                  "docs/x-ads"
+                ]
+              },
+              {
+                "group": "Analytics Destinations",
+                "pages": [
+                  "docs/destination-amplitude",
+                  "docs/google-analytics-ga4",
+                  "docs/google-analytics-measurement-protocol",
+                  "docs/mixpanel"
+                ]
+              },
+              {
+                "group": "Enrichment Destinations",
+                "pages": [
+                  "docs/synthetic-data",
+                  "docs/fullcontact",
+                  "docs/zoominfo"
+                ]
+              },
+              {
+                "group": "CRM Destinations",
+                "pages": [
+                  "docs/active-campaign",
+                  "docs/braze",
+                  "docs/customer-io",
+                  "docs/hubspot",
+                  "docs/mailchimp",
+                  "docs/klaviyo",
+                  "docs/woopra",
+                  "docs/liveintent"
+                ]
+              },
+              {
+                "group": "Programmatic Destinations",
+                "pages": [
+                  "docs/programic-destinations",
+                  "docs/aws-eventbridge",
+                  "docs/aws-kinesis",
+                  "docs/aws-lambda",
+                  "docs/aws-sns",
+                  "docs/google-pubsub",
+                  "docs/http-destination"
+                ]
+              },
+              {
+                "group": "Warehouse Destinations",
+                "pages": [
+                  "docs/warehouse-destinations",
+                  "docs/s3-data-warehouse",
+                  "docs/google-bigquery",
+                  "docs/google-storage",
+                  "docs/azure",
+                  "docs/databricks",
+                  "docs/live-ramp",
+                  "docs/snowflake",
+                  "docs/domo"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Sources",
+            "pages": [
+              "docs/Ours",
+              {
+                "group": "Ours Sources",
+                "pages": [
+                  "docs/Ours",
+                  "docs/web-script-source",
+                  "docs/server-to-server-integration",
+                  "docs/pixel-api",
+                  "docs/redirect-source"
+                ]
+              },
+              {
+                "group": "Lead Generation Sources",
+                "pages": [
+                  "docs/LeadGen",
+                  "docs/salesforce",
+                  "docs/facebook-lead-ads",
+                  "docs/alchemer",
+                  "docs/call-tracking-metrics",
+                  "docs/call-rail",
+                  "docs/whatconverts",
+                  "docs/typeform",
+                  "docs/formsort",
+                  "docs/gohighlevel",
+                  "docs/formstack",
+                  "docs/jot-form",
+                  "docs/hubspot-source"
+                ]
+              },
+              {
+                "group": "Scheduling Sources",
+                "pages": [
+                  "docs/Scheduling",
+                  "docs/calendly",
+                  "docs/calcom",
+                  "docs/oncehub"
+                ]
+              },
+              {
+                "group": "Data Sources",
+                "pages": [
+                  "docs/Data",
+                  "docs/webhooks",
+                  "docs/stripe",
+                  "docs/segment"
+                ]
+              },
+              {
+                "group": "EHR",
+                "pages": [
+                  "docs/EHR",
+                  "docs/ehr-integrations",
+                  "docs/healthie",
+                  "docs/tellescope",
+                  "docs/feathery"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Consent",
+            "pages": [
+              "docs/consent-overview",
+              "docs/ours-privacy-cmp",
+              "docs/trust-arc",
+              "docs/osano",
+              "docs/onetrust",
+              "docs/transcend",
+              "docs/cookiebot"
+            ]
+          },
+          {
+            "group": "Marketing Tools",
+            "pages": [
+              "docs/audience-builder",
+              "docs/cookie-consent",
+              "docs/maps",
+              "docs/session-replay",
+              "docs/translate",
+              "docs/video-player",
+              "docs/web-analytics",
+              "docs/web-scanner"
+            ]
+          },
+          {
+            "group": "Security and Access Management",
+            "pages": [
+              "docs/account-management-features",
+              "docs/security-controls",
+              "docs/policies-and-permissions",
+              "docs/enterprise-single-sign-on"
+            ]
+          },
+          {
+            "group": "SDKs",
+            "pages": [
+              "docs/sdk-overview",
+              "docs/web-sdk-javascript",
+              "docs/react-native-sdk",
+              "docs/android-sdk",
+              "docs/ios-sdk",
+              "docs/openapi",
+              "docs/nodejs",
+              "docs/php",
+              "docs/python",
+              "docs/dotnet"
+            ]
+          },
+          {
+            "group": "Frameworks and Platforms",
+            "pages": [
+              "docs/nextjs-integration",
+              "docs/drupal-integration",
+              "docs/wordpress-integration",
+              "docs/shopify",
+              "docs/vite-react-router-integration",
+              "docs/framer-integration",
+              "docs/webflow-integration"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Documentation",
+        "groups": [
+          {
+            "group": "Ours",
+            "pages": [
+              "reference/track",
+              {
+                "group": "OursPrivacy",
+                "pages": [
+                  "reference/track"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": "/images/3707b86915633be8516015893cc242e6db810456e1f6e045104005d0a4d54ffc-8b45caa22dbe4635cdb442b4496caa5c75ec2573dddfb06120ccbe8e3ab071e3-Ours-Privacy-Logo-Full-Color-Rgb-2000px-w-144ppi.png"
+}

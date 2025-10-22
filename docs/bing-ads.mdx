@@ -1,0 +1,68 @@
+---
+title: "Bing Ads Offline Conversions"
+---
+
+## Bing Ads Features
+
+The Ours Bing Ads feature enables you to track conversions and other key events through a HIPAA-compliant, server-to-server Conversion API, ensuring that sensitive client data remains private. By routing all events through our servers, Ours prevents Bing from directly accessing clients' browsers, IP addresses, or other PII and PHI.
+
+Ours automatically captures Bing click ids from the URL query string and saves them for dispatching future events.
+
+This setup gives you the ability to optimize your Bing Ads campaigns with accurate, privacy-safe data, while remaining compliant with strict healthcare and privacy regulations. With Ours, you can confidently use Bing Ads without compromising on data protection or client confidentiality.
+
+## Configuring Bing Ads
+
+To add a destination, click on [Destinations](https://app.oursprivacy.com/) from your Ours platform. Click the **Add destination** button and select Bing Ads.
+
+### Authenticate with Bing
+
+1. Click the Authenticate with Bing Button
+2. Select the Ad account you are looking to integrate with
+
+## Tracking Events
+
+To start tracking events in Bing Ads through Ours, you'll first need to create and allowed events you want to track. Common events include conversions such as form submissions, sign-ups, and purchases. After you enable a few allowed events and potentially rename them, you can click the "Sync" button to sync them with Bing Ads.
+
+If you wish to create the events in Bing Ads yourself, you should create them before clicking the Sync button.
+
+Note: Bing requires a 2-hour delay after an event is created in the system before it will start tracking instances of that event. Plan ahead when setting up new events to ensure they are configured and added to your allowed event list at least 2 hours before you need them to start registering in Bing Ads.
+
+## Visitor Properties
+
+Visitor properties cannot be sent to Bing Ads at this time.
+
+The Ours Privacy Web SDK automatically captures Bing Click IDs (`msclkid`) and sends a server-side conversion to Bing for any allowed event performed by a visitor with an `msclkid`. This setup allows you to control which PHI and PII is shared with the third-party ad vendor, enabling a more privacy-focused use of Bing Ads. This approach is especially useful for organizations that need to comply with HIPAA.
+
+## When It Dispatches
+
+Our Bing integration dispatches events automatically when the required data properties are present. Specifically:
+
+1. **Necessary Properties**: An event will be dispatched if the destination includes valid authentication data, a Bing Ads Account ID, and an authenticated Bing Ads User ID. Additionally, the visitor must have an `msclkid` (Microsoft Click ID) for the event to be processed by Bing.
+
+2. **Event Type**: Dispatch occurs for all configured event types, with the event details (e.g., currency and value) sent in a format compatible with Bing's offline conversion tracking.
+
+3. **Automatic Retry**: If the system encounters a retryable error (e.g., a temporary network or API issue), it will automatically attempt to re-dispatch the event. Non-retryable errors, such as missing or invalid configuration details, will prevent further retries.
+
+This setup ensures that events are only dispatched to Bing when the required configuration and visitor data are available, enabling effective tracking of offline conversions within Bing Ads.
+
+## Get Started Today
+
+Implement Ours Privacy effortlessly with our simple copy-and-paste installation script. Begin optimizing your ads and tracking analytics without compromising privacy.
+
+***
+
+[Audiohook](/docs/audiohook)
+
+[Facebook Ads (Meta)](/docs/destination-facebook)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Bing Ads Features](#bing-ads-features)
+  * [Configuring Bing Ads](#configuring-bing-ads)
+  * * [Authenticate with Bing](#authenticate-with-bing)
+  * [Tracking Events](#tracking-events)
+  * [Visitor Properties](#visitor-properties)
+  * [When It Dispatches](#when-it-dispatches)
+  * [Get Started Today](#get-started-today)

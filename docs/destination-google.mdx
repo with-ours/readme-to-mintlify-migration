@@ -1,0 +1,262 @@
+---
+title: "Google Ads"
+description: "Enable HIPAA-compliant Google Ads conversion tracking to drive campaign performance while maintaining strict privacy and compliance standards across all Google advertising platforms."
+---
+
+## Overview
+
+The Ours Google Ads feature allows you to track conversions and other allowed events in Google Ads in a HIPAA-compliant manner. We proxy all events through our server to ensure Google never directly interacts with your clients' browsers or sees their IP addresses.
+
+This setup allows your Google Ads account to receive essential conversion data while maintaining strict privacy and compliance standards.
+
+## Covered Google Advertising Services
+
+This Google Ads destination covers the following Google advertising products and services:
+
+### Google Ads Platform
+
+* **Search Ads**: Text-based advertisements that appear in Google search results
+* **Display Ads**: Visual advertisements across Google's display network
+* **Shopping Ads**: Product listings in Google Shopping
+* **Performance Max**: Automated campaign type that optimizes across all Google properties
+* **YouTube Ads**: Video advertisements on YouTube (in-stream, bumper, display overlay)
+* **Gmail Ads**: Promotional messages in Gmail
+* **Discovery Ads**: Visual ads across Google's discovery surfaces
+* **App Campaigns**: Mobile app promotion across Google's network
+
+### Note on Google Marketing Platform 360
+
+For tracking conversions in Google Campaign Manager 360, Search 360, Display & Video 360, and Floodlight, please refer to our [Google Campaign Manager 360 destination](/docs/google-campaign-360) which provides specialized integration for the Google Marketing Platform 360 suite.
+
+## Setup and Configuration
+
+### Initial Setup
+
+1. To add a Google destination, click on **Destinations** from your Ours platform
+2. Click the **Add destination** button and select **Google** as the destination type
+3. Click the **Click to Authenticate Google** button and sign into your account through Google
+4. After authenticating, select your **Google Ads Account**
+
+### Destination Types
+
+Ours supports two types of Google Ads destinations:
+
+1. **Google Ads (default)**
+2. **Google Ads Advanced Upload**
+
+Both methods are capable of being HIPAA compliant and neither directly loads any Google scripts or cookies. The differences are:
+
+| **Google Ads**                                           | **Google Ads Advanced Upload**           |
+| -------------------------------------------------------- | ---------------------------------------- |
+| Conversion Type: "Website"                               | Conversion Type: "Import Click"          |
+| Requires events to be sent over in a shorter time window | Allows 30 day old events to be collected |
+| Requires authentication with ad account                  | Optional authentication with ad account  |
+
+If you are trying to re-use conversion events that already exist in your Google Ads account, you may wish to select the Google Ads type that works with the "type" of your existing conversion events.
+
+### Syncing Events with Google Conversion Actions
+
+For both Google Ads and Google Ads Advanced Upload, you can authenticate with your Google Ads account and have Ours automatically syncing your allowed events to Google.
+
+**Google Ads (default) destination:**
+
+* Authentication is optional
+* Authenticating allows automatic creation and linking of conversion actions in Google Ads with your Ours events
+* If you choose not to authenticate, you can still link conversion actions by manually adding the event's Conversion ID and Conversion Label
+
+![](/images/docs/f3b113fb72198565255a97e3d4c5797557604b298886723c09654b9c0ab43b5c-image.png)
+
+**Google Ads Advanced Upload destination:**
+
+* Authentication is required
+* Adding the Conversion ID and Conversion Label is not supported
+
+### Example Google Conversion Sync Action
+
+*This will automatically create a conversion action in your Ad Account of the correct type*
+
+![](/images/docs/cc64d7398fd6b19dc40531d79f5164148536f8123b4be9995dd66733a50034f3-Xnapper-2024-12-30-14.39.49.jpg)
+
+### Example Google Ad Rename
+
+![](/images/docs/95ff2b8f7242451f6739ac213c59aae508f54f3aeeb32d8131cb396a4d01680c-Xnapper-2024-12-30-14.41.46.jpg)
+
+## Implementation
+
+### Basic Event Tracking
+
+After you set up your Google Ads Customer ID and API Key, you can track conversion events using:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', "ConversionEventName");
+  ```
+</CodeGroup>
+
+This will send an event named "ConversionEventName" to the Ours platform. From there, you can allow it for the Google Destination and potentially rename it before it's sent to Google.
+
+### Event Setup Process
+
+1. Create allowed events you want to track in your Ours platform
+2. Common events include conversions such as form submissions, sign-ups, and purchases
+3. Enable the events and potentially rename them for Google Ads
+4. Click the "Sync" button to sync them with Google Ads
+
+If you wish to create the conversion events in Google Ads yourself, you should create them before clicking the Sync button.
+
+## Event Reference
+
+### Standard Google Events and Properties
+
+Below is a list of common/standard events Google has special additional event properties defined for. You can send any event name to Google Ads via the Ours integration, but these events have special optional properties Google defines.
+
+#### Sales Categories
+
+Conversion goals that directly relate to revenue-generating actions on your website. These actions typically involve the user moving through stages of the purchase funnel, from showing intent to making a final transaction.
+
+| Conversion Goal    | Required Parameters                                                              | Recommended Parameters                      |
+| ------------------ | -------------------------------------------------------------------------------- | ------------------------------------------- |
+| **Purchase**       | `value` `currency`                                                               | `transaction_id` `items`                    |
+| **Add to Cart**    | None strictly required, but `value` is often recommended for better ROI tracking | `value` `currency` `items`                  |
+| **Begin Checkout** | None                                                                             | `value` `transaction_id` `currency` `items` |
+| **Subscribe**      | None                                                                             | `value` `currency`                          |
+
+**Examples**
+
+<CodeGroup>
+  ```bash bash
+  ours("track", "Purchase", {
+    value: 100,
+    currency: "USD",
+    transaction_id: "123456",
+  });
+  ours("track", "Add to Cart", { value: 75, currency: "USD" });
+  ours("track", "Begin Checkout", {
+    value: 150,
+    currency: "USD",
+    transaction_id: "78901",
+  });
+  ours("track", "Subscribe", { value: 200, currency: "USD" });
+  ```
+</CodeGroup>
+
+#### Leads Categories
+
+Captures user actions that indicate potential future sales or customer interest but do not involve an immediate purchase. For example: filling out contact forms, signing up for services, or booking appointments. The `value` parameter here is typically the estimated value of the contact action, if applicable.
+
+| Conversion Goal      | Required Parameters | Recommended Parameters |
+| -------------------- | ------------------- | ---------------------- |
+| **Contact**          | None                | `value`                |
+| **Submit Lead Form** | None                | `value`                |
+| **Book Appointment** | None                | `value`                |
+| **Sign Up**          | None                | `value`                |
+| **Request Quote**    | None                | `value`                |
+| **Get Directions**   | None                | `value`                |
+| **Outbound Click**   | None                | `value`                |
+
+**Examples**
+
+<CodeGroup>
+  ```bash bash
+  ours("track", "Contact");
+  ours("track", "Submit Lead Form");
+  ours("track", "Book Appointment");
+  ours("track", "Sign Up");
+  ours("track", "Request Quote");
+  ours("track", "Get Directions");
+  ours("track", "Outbound Click");
+  ```
+</CodeGroup>
+
+#### Other Categories
+
+Conversions that are generally less tied to direct sales or leads but are still important indicators of user engagement and website activity.
+
+| Conversion Goal | Required Parameters | Recommended Parameters |
+| --------------- | ------------------- | ---------------------- |
+| **Page View**   | None                | `value`                |
+| **Other**       | None                | `value`                |
+
+**Examples**
+
+<CodeGroup>
+  ```bash bash
+  ours("track", "Page View");
+  ours("track", "Page View", { value: 100 });
+  ```
+</CodeGroup>
+
+## Technical Details
+
+### When Events Dispatch
+
+Our Google Ads integration dispatches events automatically when the required data properties are present. Specifically:
+
+1. **Necessary Properties**: An event will be dispatched if it includes a valid Google Ads Customer ID, authentication data, and a unique identifier (`gclid`, `gbraid`, or `wbraid`). Additionally, if the visitor's email is provided without a `wbraid`, a hashed version is included as part of the event data.
+
+2. **Event Type**: Dispatch occurs only if the event name matches a allowed event on your Google Ads destination
+
+3. **Automatic Retry**: If the Google Ads API returns an internal error or instructs to retry the request, the system will automatically attempt to re-dispatch the event.
+
+### Finding Your Google Ads Customer ID
+
+#### Standard Account
+
+1. Go to **Google Ads**
+2. In the Google Ads dashboard, look at the top of the page, near the profile icon or in the account selector dropdown
+3. The Google Ads account ID is displayed prominently at the top of the page. It's a 10-digit number formatted as three groups of three digits, like this: **123-456-7890**
+4. Copy and paste that Google Ads Customer ID into the Ours destination settings
+
+#### Manager Account
+
+If you used your Google Manager account email to authenticate Google and configure Google as a destination on behalf of your client, you will need to input your manager account ID:
+
+1. Go to **Google Ads**
+2. In the Google Ads dashboard, look at the top of the page, near the profile icon or in the account selector dropdown
+3. The Google Ads account ID is displayed prominently at the top of the page. It's a 10-digit number formatted as three groups of three digits, like this: **123-456-7890**. If you're managing multiple accounts, ensure you select the correct account, as each account has a unique ID
+4. Copy and paste that Google Ads Customer ID into the Ours destination settings under the manager account ID
+
+## Get Started Today
+
+Implement Ours Privacy effortlessly with our simple copy-and-paste installation script. Begin optimizing your ads and tracking analytics without compromising privacy.
+
+***
+
+[Facebook Ads (Meta)](/docs/destination-facebook)
+
+[Google Campaign Manager 360](/docs/google-campaign-360)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Overview](#overview)
+
+  * [Covered Google Advertising Services](#covered-google-advertising-services)
+
+  * * [Google Ads Platform](#google-ads-platform)
+    * [Note on Google Marketing Platform 360](#note-on-google-marketing-platform-360)
+
+  * [Setup and Configuration](#setup-and-configuration)
+
+  * * [Initial Setup](#initial-setup)
+    * [Destination Types](#destination-types)
+    * [Syncing Events with Google Conversion Actions](#syncing-events-with-google-conversion-actions)
+    * [Example Google Conversion Sync Action](#example-google-conversion-sync-action)
+    * [Example Google Ad Rename](#example-google-ad-rename)
+
+  * [Implementation](#implementation)
+
+  * * [Basic Event Tracking](#basic-event-tracking)
+    * [Event Setup Process](#event-setup-process)
+
+  * [Event Reference](#event-reference)
+
+  * * [Standard Google Events and Properties](#standard-google-events-and-properties)
+
+  * [Technical Details](#technical-details)
+
+  * * [When Events Dispatch](#when-events-dispatch)
+    * [Finding Your Google Ads Customer ID](#finding-your-google-ads-customer-id)
+
+  * [Get Started Today](#get-started-today)

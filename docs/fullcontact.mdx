@@ -1,0 +1,72 @@
+---
+title: "FullContact"
+description: "Overview of the FullContact enrichment destination for enhancing visitor profiles with additional contact and demographic data."
+---
+
+## Overview
+
+[FullContact](https://www.fullcontact.com/) is an enrichment destination that enhances your visitor profiles with additional contact and demographic data. When enabled, it can append rich data attributes to your visitor profiles, helping you better understand and engage with your audience.
+
+### Why Use FullContact?
+
+1. **Enhanced Visitor Profiles**: Get additional contact information and demographic data for your visitors
+2. **Better Segmentation**: Use enriched data to create more targeted segments
+3. **Improved Personalization**: Leverage additional data points to deliver more relevant experiences
+
+***
+
+## Setup
+
+1. Enable the FullContact enrichment destination in your account settings
+2. Add your FullContact API credentials
+3. Configure which visitor events should trigger enrichment (typically after email capture)
+
+***
+
+## Enriched Properties
+
+When a visitor is enriched, the following properties are added to the `visitor.enrichment_properties` namespace:
+
+* **fullcontact.email**: Enhanced email information
+* **fullcontact.name**: Full name details
+* **fullcontact.demographics**: Age, gender, and other demographic data
+* **fullcontact.location**: Location and address information
+* **fullcontact.social**: Social media profiles
+* **fullcontact.employment**: Current and past employment information
+
+***
+
+## Usage
+
+The FullContact enrichment destination is typically triggered after a visitor performs an action that adds an email address or name to their profile. Once triggered, the enrichment process begins and the additional properties become available for mapping to other destinations.
+
+To use the enriched data:
+
+1. Navigate to your target destination's mapping section
+2. Select properties from the `visitor.enrichment_properties.fullcontact.*` namespace
+3. Map these properties to your destination's fields
+
+***
+
+## Key Considerations
+
+* Enrichment is only performed for visitors who have provided an email address
+* API rate limits and costs may apply based on your FullContact plan
+* Data freshness and accuracy may vary based on FullContact's data sources
+
+***
+
+[Synthetic Data](/docs/synthetic-data)
+
+[ZoomInfo](/docs/zoominfo)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Overview](#overview)
+  * * [Why Use FullContact?](#why-use-fullcontact)
+  * [Setup](#setup)
+  * [Enriched Properties](#enriched-properties)
+  * [Usage](#usage)
+  * [Key Considerations](#key-considerations)

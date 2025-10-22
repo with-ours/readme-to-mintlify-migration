@@ -1,0 +1,116 @@
+---
+title: "Data Mapping"
+description: "Learn how to rename events and configure data mappings to customize how internal data is transformed for each destination."
+---
+
+# Data Mapping
+
+Ours allows you to map internal event data to a destination schema, providing flexibility in how events and their associated properties are transformed and sent to your configured destinations. Whether you want to rename events, hash visitor data, or customize property handling, data mapping enables full control over your data pipeline.
+
+***
+
+## Renaming Events
+
+One of the key features of data mapping is the ability to rename events before they are sent to a destination. This is particularly useful for:
+
+* Aligning event names with the schema requirements of specific destinations.
+* Obfuscating sensitive event names to enhance privacy.
+
+### Example:
+
+In this screenshot, we are renaming the `Purchase` event to `EventLookup01` to avoid sending the purchase info to Google. We are also redacting the IP address and hashing the visitors email.
+
+![](/images/docs/0ea81454148c9d4dceeeb310dfa53da5c9777faf7f90076cbd6d4989b4d12f72-Xnapper-2024-12-30-14.28.32.jpg)
+
+***
+
+## Mapping Configuration Overview
+
+Ours supports two types of mappings:
+
+1. **Default Mapping Configuration**: Predefined mappings that you can customize - applies to all events dispatched by this destination.
+2. **Event Specific Mapping Configuration**: Custom overrides set for individual events
+
+Mappings are configured through the **Mappings** tab in the destination settings.
+
+![](/images/docs/e421cd8609864febc477b26319a5246618b69b00434181331dc3b959b55288c3-Xnapper-2024-12-30-14.30.32.jpg)
+
+### How to Configure Mappings
+
+1. Go to the **Mappings** tab for a destination in the Ours dashboard.
+
+2. Review the Variable Dictionary for various variables you can apply to a mapping
+
+3. Use the dropdown menus to:
+
+   * Map internal properties to destination fields.
+   * Apply modifications (e.g., `Hash`, `DomainOnly`).
+
+***
+
+## Modifications
+
+Ours provides several modification types to transform data before sending it to destinations. There are many modifications. A partial list includes:
+
+| **Modification** | **Description**                                      |
+| ---------------- | ---------------------------------------------------- |
+| **None**         | Sends the value as is.                               |
+| **Hash**         | Applies cryptographic hashing to the value.          |
+| **Redacted**     | Replaces the value with `"REDACTED"`.                |
+| **Null**         | Sets the value to `null`.                            |
+| **FullUrl**      | Sends the full URL but removes sensitive parameters. |
+| **DomainOnly**   | Extracts and sends only the domain from a URL.       |
+
+***
+
+## `$ignore` Directive
+
+Use the `$ignore` directive to exclude a property from the final output. This ensures that unnecessary or sensitive data is not sent to destinations.
+
+### Example:
+
+To exclude the `user.phone_number` field, set its `map` to `$ignore`.
+
+***
+
+## Best Practices for Data Mapping
+
+1. **Rename Sensitive Events**:
+   * Use generic event names to maintain privacy while ensuring compatibility with destinations.
+2. **Hash or Redact Sensitive Properties**:
+   * Protect visitor data like `email`, `phone_number`, or `IP address` by applying `Hash` or `Redacted` modifications.
+3. **Test Custom Mappings**:
+   * Verify that your mappings are working correctly by reviewing data in the [Recent Events Dashboard](/docs/tracking-and-debugging-events).
+4. **Avoid Unused Mappings**:
+   * Use the `$ignore` directive to exclude unnecessary properties from being sent.
+
+***
+
+## Summary
+
+Data mapping in Ours provides powerful tools to transform and customize your event data for any destination. By leveraging default mappings, visitor overrides, and modifications, you can ensure data is accurately sent while maintaining privacy and compliance.
+
+To get started:
+
+* Explore the [Destination Overview](/docs/destination-overview).
+* Learn how to [Track Events](/docs/tracking-and-debugging-events).
+* Debug mappings using the [Recent Events Dashboard](/docs/tracking-and-debugging-events).
+
+***
+
+[Visitor Identity and Matching](/docs/visitor-identity-and-matching)
+
+[Data Access and Privacy](/docs/data-access-and-privacy)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Data Mapping](#data-mapping)
+
+  * * [Renaming Events](#renaming-events)
+    * [Mapping Configuration Overview](#mapping-configuration-overview)
+    * [Modifications](#modifications)
+    * [$ignore Directive](#ignore-directive)
+    * [Best Practices for Data Mapping](#best-practices-for-data-mapping)
+    * [Summary](#summary)

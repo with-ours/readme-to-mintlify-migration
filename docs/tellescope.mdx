@@ -1,0 +1,133 @@
+---
+title: "Tellescope Integration"
+description: "Learn how to integrate Ours with Tellescope using Google Tag Manager to track patient interactions and clinical events while maintaining privacy and HIPAA compliance."
+---
+
+This guide will walk you through integrating **Ours** with your [Tellescope](http://tellescope.com/) account using Google Tag Manager (GTM). You'll learn how to track patient interactions and clinical events seamlessly while ensuring **HIPAA-compliant analytics** for privacy-conscious healthcare applications.
+
+## Setting Up Tellescope Integration
+
+Follow these steps to set up the integration:
+
+1. **Enable GTM Access on Tellescope**:
+
+   * Contact Tellescope support to enable Google Tag Manager on your website
+     * With Google Tag Manager enabled, corresponding dataLayer pushes will be emitted for each form step
+   * They will provide you with the necessary permissions and access
+
+2. **Install Ours via GTM**:
+
+   * Follow our [GTM Installation Guide](/docs/gtm-install) to set up Ours
+   * Create the Ours Privacy template in GTM
+   * Save your Ours Privacy token as a variable
+   * Create a GTM tag to install Ours Privacy
+   * Configure event tracking tags as needed
+
+3. **Configure Event Tracking**:
+
+   * Create tags in GTM to track relevant Tellescope events
+   * Map clinical fields and patient interactions
+   * Ensure proper event naming for consistency
+
+4. **Test the Integration**:
+
+   * Use GTM's Preview mode to test your tags
+   * Verify that events are being sent to Ours
+   * Check the Ours app for incoming data
+
+## Key Features
+
+### Event Tracking
+
+Track various Tellescope events:
+
+* **Patient Interactions**: Monitor patient engagement and interactions
+* **Clinical Events**: Track important clinical activities
+* **Custom Events**: Configure additional events based on your needs
+
+All dataLayer event types:
+
+* Forms
+
+  * `public_form_start` - the user submitted the first step of the form
+  * `form_submitted` - the user has submitted the final step of the form.
+  * `form_progress` - the user has made it to the next step in the form (fires in parallel to `public_form_start` and `form_submitted`
+
+* Appointments
+
+  * `booking_widget_loaded` - the booking widget has loaded on site.
+  * `selected_time` - the user has selected a time on the calendar to book an appointment
+  * `completed_intake` - the user has completed the intake form for the booking
+  * `completed_booking` - the user has completed the booking for the appointment
+
+All parameter event types:
+
+* Forms
+
+  * `formId` - The corresponding ID of the form
+  * `previousTitle` - The corresponding Title of the field that was just completed
+  * `fieldId` - The corresponding ID of the next field
+  * `title` - The corresponding Title of the next field
+  * `status` - The corresponding Status of the next field
+
+Things to consider:
+
+* Some parameters are optional, meaning that if the form does not have a title or status, then those values may be exempt from the dataLayer push.
+* The fieldId, title and status fields are also in reference to the next step within the process, not the step that was already completed. Meaning if a user completed step 1, the `fieldId`, `title`, and `status` values will reflect step 2 (which the user is landing on). To grab the value for the field completed, please reference `previousTitle` instead.
+* Events are sent from Google Tag Manager to the Ours Privacy App so any potential PII/PHI will be scrubbed before hitting the destination. This allows the user to have full control of the events to be captured, modified, and sent.
+
+### HIPAA-Compliant Data Handling
+
+Our integration ensures secure data handling:
+
+* **Secure Data Transmission**: All data flows through Ours Privacy's secure infrastructure
+* **Encrypted Communication**: All tracking uses HTTPS with proper authentication
+* **Minimal Data Exposure**: Only essential identifiers are tracked
+* **Secure Data Storage**: Sensitive information is stored according to HIPAA guidelines
+
+### Clinical Analytics
+
+Gain insights into your practice's performance:
+
+* **Patient Engagement**: Track patient interactions and engagement
+* **Clinical Activity**: Monitor clinical events and activities
+* **Custom Analytics**: Create custom reports based on tracked events
+
+## Key Benefits of the Ours Tellescope Integration
+
+* **HIPAA Compliance**: Designed specifically for healthcare applications
+* **Easy Implementation**: Simple GTM-based integration
+* **Secure Data Transmission**: All data flows through Ours Privacy
+* **Flexible Tracking**: Configure custom events based on your needs
+* **Full Self Serve Integration**: Not needed to work with the dev team at Tellescope to integrate dataLayer pushes or events.
+
+## Data Flow
+
+1. Tellescope events are captured through GTM
+2. Data flows through Ours Privacy's secure infrastructure
+3. Events are processed and made available for analytics and advertising platforms
+4. Data can be forwarded to other destinations while maintaining HIPAA compliance
+
+For further assistance, contact [\[email protected\]](/cdn-cgi/l/email-protection#9eedebeeeef1eceadef1ebecedeeecf7e8fffde7b0fdf1f3).
+
+***
+
+[Healthie Integration](/docs/healthie)
+
+[Feathery Integration](/docs/feathery)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Setting Up Tellescope Integration](#setting-up-tellescope-integration)
+
+  * [Key Features](#key-features)
+
+  * * [Event Tracking](#event-tracking)
+    * [HIPAA-Compliant Data Handling](#hipaa-compliant-data-handling)
+    * [Clinical Analytics](#clinical-analytics)
+
+  * [Key Benefits of the Ours Tellescope Integration](#key-benefits-of-the-ours-tellescope-integration)
+
+  * [Data Flow](#data-flow)

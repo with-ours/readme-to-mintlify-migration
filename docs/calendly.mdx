@@ -1,0 +1,117 @@
+---
+title: "Calendly Integration"
+description: "Learn how to integrate Ours with Calendly to track bookings and custom events effortlessly while maintaining privacy and HIPAA compliance."
+---
+
+This guide will walk you through integrating **Ours** with your Calendly account. You’ll learn how to track bookings and custom events seamlessly while ensuring **HIPAA-compliant analytics** for privacy-conscious applications.
+
+## Calendly Redirect (easy integration)
+
+The simplest way to integrate Ours with Calendly is to set up a redirect after booking. Here's how:
+
+1. Make sure your Ours tracking script is installed on your website.
+2. Link from your website to a Calendly booking page.
+3. Set up a custom thank-you page in Calendly to redirect back to your website.
+
+On your thank-you page, fire this Ours event:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'BookingCompleted');
+  ```
+</CodeGroup>
+
+This method requires no complex integration and provides basic tracking. Configure the redirect in your Calendly booking page settings.
+
+> **Note:** Some features may require a paid Calendly plan.
+
+## Calendly Embed Google Tag Manager Triggers
+
+Another way to track conversions on Calendly is to embed the scheduler on your website.
+
+You can then listen to schedule events via the on-website events Calendly publishes.
+
+* Download the [GTM template we created here and import it to GTM](https://gist.github.com/tylerzey/749a67ebe655649c4e3bf2c18a48552e)
+* You can then trigger Ours inside of GTM with the above Calendly Triggers
+
+***
+
+## Ours Calendly Source (custom integration)
+
+For more advanced tracking and to access booking details, you can set up a custom integration with Calendly. Follow these steps:
+
+1. **Create a New Source**:
+
+   * In the Ours app, navigate to **Sources** and create a new source.
+   * Select **Calendly** from the options and copy the Webhook URL provided.
+
+2. **Subscribe to Webhooks in Calendly**:
+
+   * Go to your Calendly account settings.
+   * Add a new webhook and paste the Ours Webhook URL.
+   * Subscribe to the **Booking Created** event to capture booking data.
+
+> **Note:** Webhook access requires a paid Calendly plan.
+
+3. **Submit a Test Booking**:
+
+   * Make a test booking to ensure data is sent to Ours.
+   * Check the Ours app for pre-populated variables from the booking payload.
+
+4. **Map Booking Fields**:
+
+   * Use the field mapping interface in Ours to map Calendly booking data to Ours attributes.
+   * Include at least the **Ours visitor ID** and optionally an email address for user association.
+
+***
+
+### Advanced Source Integration
+
+To link Ours visitor data with Calendly bookings:
+
+1. **Add a Hidden Field in Calendly**:
+
+   * Set up a hidden field in your booking page to capture the **Ours User ID**.
+   * Calendly recommends using `utm_term` for this [Docs](https://community.calendly.com/featured-tips-tricks-32/hidden-fields-what-they-are-and-how-to-use-them-1929)
+
+2. **Pass Visitor ID via UTM Parameter**:
+
+   * When linking to the Calendly booking page, append the Ours User ID as a UTM parameter. Example:
+
+<CodeGroup>
+  ```bash bash
+  <a href="https://calendly.com/your-booking-page?utm_term={{ours_user_id}}">Book Now</a>
+  ```
+</CodeGroup>
+
+3. **Map Hidden Field**:
+   * Map the hidden field in the Ours app to the visitor ID for accurate user tracking.
+
+***
+
+### Key Benefits of the Ours Calendly Integration
+
+* **HIPAA Compliance**: Ideal for healthcare and other privacy-sensitive industries.
+* **Custom Event Flexibility**: Track bookings, interactions, and more.
+* **Enhanced Data Accuracy**: Server-side integration ensures reliable analytics.
+
+For further assistance, contact [\[email protected\]](/cdn-cgi/l/email-protection#9deee8ededf2efe9ddf2e8efeeedeff4ebfcfee4b3fef2f0).
+
+***
+
+[Scheduling Sources](/docs/Scheduling)
+
+[Cal.com Integration](/docs/calcom)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Calendly Redirect (easy integration)](#calendly-redirect-easy-integration)
+
+  * [Calendly Embed Google Tag Manager Triggers](#calendly-embed-google-tag-manager-triggers)
+
+  * [Ours Calendly Source (custom integration)](#ours-calendly-source-custom-integration)
+
+  * * [Advanced Source Integration](#advanced-source-integration)
+    * [Key Benefits of the Ours Calendly Integration](#key-benefits-of-the-ours-calendly-integration)

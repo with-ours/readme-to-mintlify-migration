@@ -1,0 +1,55 @@
+---
+title: "AWS SNS"
+description: "Send your event data to Amazon Simple Notification Service (SNS) topics in real-time"
+---
+
+The AWS SNS destination enables you to publish your event data to Amazon Simple Notification Service (SNS) topics in real-time. This allows you to fan out events to multiple subscribers, including SQS queues, Lambda functions, and HTTP endpoints.
+
+## Configuration
+
+To set up the AWS SNS destination:
+
+1. Navigate to the Destinations section in your account
+
+2. Click "Add Destination" and select "AWS SNS"
+
+3. Provide the following information:
+
+   * AWS Region
+   * SNS Topic ARN
+
+## Event Format
+
+Events published to your SNS topic will be in the following format:
+
+<CodeGroup>
+  ```bash bash
+  {
+    "event": "Order Completed",
+    "event_properties": {
+      "order_id": "12345",
+      "total": 99.99
+    },
+    ... etc
+  }
+  ```
+</CodeGroup>
+
+## Best Practices
+
+* Ensure your SNS topic has appropriate access policies (you will need to contact a member of the Ours Privacy team for this)
+* Consider using message attributes for filtering
+
+***
+
+[AWS Lambda](/docs/aws-lambda)
+
+[Google PubSub](/docs/google-pubsub)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Configuration](#configuration)
+  * [Event Format](#event-format)
+  * [Best Practices](#best-practices)

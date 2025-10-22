@@ -1,0 +1,405 @@
+---
+title: "Web SDK Documentation"
+description: "Essentials for installing and using the Ours Privacy Web SDK, including event tracking and user identification."
+---
+
+# Ours Privacy Web SDK Documentation
+
+This guide covers everything you need to know about implementing and using the Ours Privacy Web SDK. Follow the sections below to get started and learn about advanced features.
+
+***
+
+## Getting Started
+
+### Installation
+
+You have two options for installing the Ours Privacy Web SDK:
+
+#### Option 1: Script Tag Installation (Recommended for most websites)
+
+To ensure that all page events are captured accurately, include the SDK script in the `<head>` section of your HTML:
+
+<CodeGroup>
+  ```bash bash
+  <head>
+    <!-- Other head elements -->
+    <!-- Insert copy/pasted Ours Privacy Script Here -->
+  </head>
+  ```
+</CodeGroup>
+
+**Note:** Installing the SDK in the `<head>` ensures that events occurring as soon as the page loads are tracked properly.
+
+#### Option 2: NPM Package Installation (Recommended for React/Vue/Next.js apps)
+
+For modern JavaScript frameworks and applications, you can install the SDK as an NPM package:
+
+<CodeGroup>
+  ```bash bash
+  npm install ours-web-sdk
+  # or
+  yarn add ours-web-sdk
+  ```
+</CodeGroup>
+
+Then import and initialize the SDK in your application:
+
+<CodeGroup>
+  ```bash bash
+  import ours from "ours-web-sdk";
+
+  // Initialize once at app startup
+  ours.init("YOUR_TOKEN");
+
+  // Track events
+  ours.track("Purchase Completed", {
+    price: 29.99,
+    item: "T-shirt",
+  });
+
+  // Identify or update user properties later
+  ours.identify({
+    email: "[email protected]",
+  });
+  ```
+</CodeGroup>
+
+**When to use the NPM package:**
+
+* Building React/Vue/Next.js/Node.js applications
+* Want TypeScript types and local control over initialization
+* Prefer not to load the snippet from the Ours Privacy CDN
+* Need first-party integration in your build process
+
+**When to use the script tag:**
+
+* Simple websites or landing pages
+* Quick implementation without build tools
+* When you want the drop-in solution
+
+Both installation methods provide the same functionality - choose the one that best fits your development workflow.
+
+### Library Configuration
+
+Initialize the SDK with your API key and any desired configuration options:
+
+<CodeGroup>
+  ```bash bash
+  ours("init", "<ours web api key>", {
+    // Optional configuration
+    user_id: "<custom user id>", //  Optional: Provide your own user ID
+    custom_domain: "https://metrics.example.com", // Optional: Set a custom domain
+    custom_domain_ipv4: "https://ip4-metrics.example.com", // Optional: Set a custom domain that works for IPV4
+    force_ipv4: false, // Optional: Whether to force data collection through IPV4 ingest endpoints. (Note: Some destinations require this.)
+    track_web_events: true, // Enable automatic web event tracking
+    default_event_properties: {
+      // Set default event_properties to include on every event
+      // Your default event properties
+    },
+    default_user_custom_properties: {
+      // Set default user custom_properties for every event
+      // Your default user properties
+    },
+  });
+  ```
+</CodeGroup>
+
+**Configuration Options:**
+
+* `user_id`: String: Your custom user ID to identify the user with
+* `custom_domain`: String: Custom domain for cookie storage and cross-domain tracking
+* `track_web_events`: Boolean: Enable/disable automatic web event tracking
+* `enhanced_web_events`: Boolean: Enable enhanced web event tracking to automatically capture additional event properties. When enabled, we'll collect extra details like click text, link URLs, and other contextual data for all automatically tracked web events.
+* `default_event_properties`: Object: Default properties to include with all tracked events
+* `default_user_custom_properties`: Object: Default user properties for GA4 tracking
+
+***
+
+## Methods
+
+### Track Events
+
+Track events on your website using the `ours('track', ...)` method:
+
+<CodeGroup>
+  ```bash bash
+  ours(
+    "track",
+    "event name",
+    {
+      // Event properties
+      value: 1,
+    },
+    {
+      // User properties
+      first_name: "test",
+    }
+  );
+  ```
+</CodeGroup>
+
+* **Event Name:** The name of your event
+* **Event Properties:** Metrics or values related to the event
+* **User Properties:** Additional user context. See [allowed user properties](/docs/visitor-properties-overview)
+
+### Identify
+
+To associate tracked events with a specific user, use the `ours('identify', ...)` method. This method helps in linking the user's actions across sessions and devices.
+
+<CodeGroup>
+  ```bash bash
+  ours("identify", {
+    first_name: "test",
+    email: "[email protected]",
+    external_id: "user123",
+  });
+  ```
+</CodeGroup>
+
+### Reset
+
+The `ours('reset')` method allows you to clear the current user's identity and start fresh with a new anonymous visitor ID. This is useful for scenarios like user logout, account switching, or privacy compliance.
+
+<CodeGroup>
+  ```bash bash
+  // Generate a new anonymous visitor ID
+  ours("reset");
+
+  // Set a specific new visitor ID immediately
+  ours("reset", "new_visitor_id");
+  ```
+</CodeGroup>
+
+**Key behaviors:**
+
+1. **Calling `ours.reset()`** generates a new anonymous visitor ID, different from the prior one
+2. **Calling `ours.reset('next_id')`** sets the new ID immediately, without requiring `identify()`
+3. **No previous user properties or attribution state** appear on post-reset events
+4. **In-flight events from the old user** are sent before reset; queued events are dropped
+
+**Important Warning:**
+
+The reset method creates a **completely new visitor** in Ours Privacy. This new visitor will be missing:
+
+* All UTM parameters and attribution data
+* Previous session history and user properties
+* Cross-device identity linking
+* Any stored visitor properties
+
+**When you have multiple visitors on different devices that should be tied together, you typically want to associate them using the same `externalId` within the same session, not create separate visitors.**
+
+**Only use reset when you are absolutely certain this is what you want:**
+
+* User logout functionality (when you want to completely clear identity)
+* Account switching within the same browser session
+* Privacy compliance (GDPR right to be forgotten)
+* A/B testing with fresh user identities
+
+***
+
+## Advanced Configuration
+
+### Custom User IDs (`user_id`)
+
+Provide your own user ID for tracking when you have your own user identification system. This is useful for linking analytics data to your internal user records.
+
+<CodeGroup>
+  ```bash bash
+  ours("init", "<ours web api key>", {
+    user_id: "user_12345",
+  });
+  ```
+</CodeGroup>
+
+* **Best Practice:** Use a stable, unique identifier (such as your database user ID or external\_id) to ensure consistent tracking across sessions and devices.
+
+### Custom Domains (`custom_domain`)
+
+Set a custom domain for cookie storage to help with cross-domain tracking and to ensure cookies are set as first-party. This is especially important for privacy, compliance, and accurate tracking.
+
+<CodeGroup>
+  ```bash bash
+  ours("init", "<ours web api key>", {
+    custom_domain: "https://yourdomain.com",
+  });
+  ```
+</CodeGroup>
+
+* **Advanced:** Requires DNS setup and may need to be enabled by your OursPrivacy account rep. See [Custom Domain Setup](/docs/custom-domains) for details.
+* **Best Practice:** Use the same custom domain across all your sites for seamless cross-domain tracking.
+
+### Track Web Events (`track_web_events`)
+
+Enable or disable automatic tracking of standard web events (such as page views, clicks, etc.).
+
+<CodeGroup>
+  ```bash bash
+  ours("init", "<ours web api key>", {
+    track_web_events: true,
+  });
+  ```
+</CodeGroup>
+
+### Enhanced Web Events (`enhanced_web_events`)
+
+Enable enhanced web event tracking to automatically capture additional event properties. When enabled, we'll collect extra details like click text, link URLs, and other contextual data for all automatically tracked web events.
+
+<CodeGroup>
+  ```bash bash
+  ours("init", "<ours web api key>", {
+    track_web_events: true,
+    enhanced_web_events: true,
+  });
+  ```
+</CodeGroup>
+
+* **Requires:** `track_web_events` to be `true`
+* **Default:** `false`
+* **Note:** This feature enhances the data collected by automatic web event tracking with additional contextual information
+
+### Default Event Properties (`default_event_properties`)
+
+Set default properties to include with every tracked event. Useful for adding environment, app version, or other context to all events.
+
+<CodeGroup>
+  ```bash bash
+  ours("init", "<ours web api key>", {
+    default_event_properties: {
+      environment: "production",
+      app_version: "1.0.0",
+    },
+  });
+  ```
+</CodeGroup>
+
+* **Advanced:** These properties are merged with event-specific properties. Event-specific properties take precedence if there is a conflict.
+
+### Default User Custom Properties (`default_user_custom_properties`)
+
+Set default user properties to include with every event, often used for GA4 or other destinations that support user-level properties.
+
+<CodeGroup>
+  ```bash bash
+  ours("init", "<ours web api key>", {
+    default_user_custom_properties: {
+      user_type: "premium",
+      subscription_tier: "enterprise",
+    },
+  });
+  ```
+</CodeGroup>
+
+* **Advanced:** These are included as user properties on the first event of each session. Useful for segmenting users in analytics platforms.
+
+### IPv4 CDN Support (`force_ipv4` and `custom_domain_ipv4`)
+
+Force the SDK to use IPv4-only endpoints for improved attribution accuracy with advertising platforms:
+
+<CodeGroup>
+  ```bash bash
+  ours("init", "<ours web api key>", {
+    force_ipv4: true,
+    custom_domain_ipv4: "https://ipv4.yourdomain.com", // Optional custom IPv4 domain - requires setup. But allows you to send information all through your domain. You likely need custom_domain and custom_domain_ipv4 setup if forcing ipv4
+  });
+  ```
+</CodeGroup>
+
+* **force\_ipv4:** When enabled, the SDK will send events to the Ours Privacy IPV4 endpoint by default
+* **custom\_domain\_ipv4:** Optional custom domain for IPv4 requests when `force_ipv4` is enabled
+* **Note:** This setting may prevent event tracking for users on IPv6-only networks, but improves attribution accuracy with advertising platforms
+
+***
+
+## Cross-Domain Tracking
+
+Maintain user identity across different domains by passing the Ours user ID via query parameters:
+
+<CodeGroup>
+  ```bash bash
+  // Example URL with user ID
+  https://example.com?ours_user_id=${localStorage.getItem('ours_device_id')}
+  ```
+</CodeGroup>
+
+This is particularly useful when you need to maintain user identity across domains that don't share the same cookie domain.
+
+***
+
+## Best Practices
+
+### Summary
+
+* **Installation:** Place the SDK script in your `<head>` for complete event capture
+* **Initialization:** Configure with your API key and desired options
+* **User Identification:** Use `identify` to link events with specific users
+* **Event Tracking:** Use `track` to capture user actions and behaviors
+* **User Reset:** Use `reset` to clear user identity when needed
+* **Cross-Domain Tracking:** Pass user IDs via query parameters when needed
+
+### Common Use Cases
+
+1. **Basic Implementation**
+
+   <CodeGroup>
+     ```bash bash
+     // Initialize
+     ours("init", "<ours web api key>");
+
+     // Identify user
+     ours("identify", { email: "[email protected]" });
+
+     // Track event
+     ours("track", "page_view");
+     ```
+   </CodeGroup>
+
+2. **User Logout Flow**
+
+   <CodeGroup>
+     ```bash bash
+     // When user logs out
+     ours("reset", null);
+
+     // Or set a specific new ID
+     ours("reset", "anonymous_visitor_123");
+     ```
+   </CodeGroup>
+
+3. **Account Switching**
+
+   <CodeGroup>
+     ```bash bash
+     // Clear current user
+     ours("reset", null);
+
+     // Identify new user
+     ours("identify", { email: "[email protected]" });
+     ```
+   </CodeGroup>
+
+### Troubleshooting
+
+* **Events not tracking:** Ensure the SDK is installed in the `<head>` section
+* **User identification issues:** Verify user properties are being passed correctly
+* **Cross-domain problems:** Check that custom domains are configured properly
+* **Reset not working:** Ensure you're calling reset before identifying a new user
+
+For additional details and advanced configurations, please refer to the related guides in the sidebar.
+
+***
+
+[Ours Privacy SDK Overview](/docs/sdk-overview)
+
+[React Native SDK](/docs/react-native-sdk)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Privacy Web SDK Documentation](#ours-privacy-web-sdk-documentation)
+
+  * * [Getting Started](#getting-started)
+    * [Methods](#methods)
+    * [Advanced Configuration](#advanced-configuration)
+    * [Cross-Domain Tracking](#cross-domain-tracking)
+    * [Best Practices](#best-practices)

@@ -1,0 +1,181 @@
+---
+title: "Overview"
+description: "Learn how to integrate Ours Privacy with your Next.js application to track page views and custom events effortlessly with HIPAA-compliant analytics."
+---
+
+# Ours Privacy Integration with Next.js
+
+This guide will walk you through integrating **Ours Privacy** with your Next.js application. You'll learn how to install the Ours Privacy tracking script, track page views, and log custom events—all while ensuring **HIPAA-compliant analytics** for privacy-conscious applications.
+
+## Integration Options
+
+The integration guide below covers using the [Ours Privacy Web SDK](/docs/web-sdk-javascript).
+
+If you want to use Google Tag Manager instead, you can ignore the code examples and use traditional [Google Tag Manager Triggers](/docs/gtm-install) to fire your events.
+
+Choose the approach that best suits your workflow.
+
+***
+
+[View example repo](https://github.com/with-ours/ours-nextjs-example)
+
+***
+
+## Installation Methods
+
+There are **two ways** to install and initialize Ours Privacy in your Next.js application:
+
+### Method 1: NPM Package Installation (Recommended)
+
+This method provides better TypeScript support, more control over the initialization process, and is the recommended approach for most Next.js applications.
+
+For complete implementation details and code examples, see the [Next.js integration example repository](https://github.com/with-ours/ours-nextjs-example).
+
+**Key steps:**
+
+1. Install the Ours Privacy SDK: `npm install ours-web-sdk`
+2. Create an Analytics Provider component
+3. Add the provider to your layout
+4. Implement page view tracking
+5. Add custom event tracking
+
+**Example implementation:**
+
+<CodeGroup>
+  ```bash bash
+  // components/providers/analytics-provider.tsx
+  "use client";
+  import { useEffect } from "react";
+  import ours from "ours-web-sdk";
+
+  export function AnalyticsProvider() {
+    useEffect(() => {
+      ours.init("YOUR_SITE_ID", { track_web_events: true });
+    }, []);
+
+    return null;
+  }
+  ```
+</CodeGroup>
+
+<CodeGroup>
+  ```bash bash
+  // app/layout.tsx
+  import { AnalyticsProvider } from "@/components/providers/analytics-provider";
+
+  export default function RootLayout({ children }) {
+    return (
+      <html lang="en">
+        <body>
+          {children}
+          <AnalyticsProvider />
+        </body>
+      </html>
+    );
+  }
+  ```
+</CodeGroup>
+
+### Method 2: Script Tag Installation (Alternative for simple setups)
+
+This method is suitable for straightforward integrations where you want minimal setup.
+
+For implementation details, see the [Next.js integration example repository](https://github.com/with-ours/ours-nextjs-example).
+
+**Key steps:**
+
+1. Get your snippet from the Ours Privacy Admin Portal
+2. Add the script tag to your layout (App Router or Pages Router)
+3. Implement page view tracking
+4. Add custom event tracking
+
+## Tracking Events
+
+To track custom events such as button clicks or form submissions, use the `ours('track', ...)` function within your React components.
+
+### Using NPM Package Method
+
+<CodeGroup>
+  ```bash bash
+  // components/track-button.tsx
+  "use client";
+  import ours from "ours-web-sdk";
+
+  export function TrackButton() {
+    const handleClick = () => {
+      ours.track("ButtonClicked", {
+        button_name: "sign_up",
+        page: "homepage",
+      });
+    };
+
+    return <button onClick={handleClick}>Sign Up</button>;
+  }
+  ```
+</CodeGroup>
+
+### Using Script Tag Method
+
+<CodeGroup>
+  ```bash bash
+  // components/track-button.tsx
+  "use client";
+
+  export function TrackButton() {
+    const handleClick = () => {
+      if (typeof window !== "undefined" && window.ours) {
+        window.ours("track", "ButtonClicked", {
+          button_name: "sign_up",
+          page: "homepage",
+        });
+      }
+    };
+
+    return <button onClick={handleClick}>Sign Up</button>;
+  }
+  ```
+</CodeGroup>
+
+## Server-Side Tracking
+
+For tracking events from server actions, API routes, or other server-side code, use the **Ours Privacy Server SDK**. This allows you to track events directly from your backend without requiring client-side JavaScript.
+
+Visit the [Ours Privacy Track Events API documentation](/reference/track) for complete server-side integration details, including:
+
+* API endpoint: `POST https://api.oursprivacy.com/api/v1/track`
+* Required parameters: Include at least one of `userId`, `externalId`, or `email`
+* Supported languages: Node.js, Ruby, PHP, Python, and Shell examples
+* Authentication and configuration options
+
+### Example: Server Action Tracking
+
+See the [Next.js integration example repository](https://github.com/with-ours/ours-nextjs-example) for complete implementation details.
+
+## Key Points for Tracking
+
+* **Client Components Only**: All tracking calls must be made from components marked with `"use client"`
+* **Import the SDK**: Import `ours` from `"ours-web-sdk"` in any component that needs to track events
+* **Event Names**: Use descriptive event names like `'button_click'`, `'form_submit'`, `'page_view'`, etc.
+* **Properties**: Include relevant properties to provide context for your events
+
+***
+
+If you need further assistance, contact us at [\[email protected\]](/cdn-cgi/l/email-protection#97e4e2e7e7f8e5e3d7f8e2e5e4e7e5fee1f6f4eeb9f4f8fa).
+
+***
+
+[.NET SDK (server api)](/docs/dotnet)
+
+[Ours Integration with Drupal](/docs/drupal-integration)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Privacy Integration with Next.js](#ours-privacy-integration-with-nextjs)
+
+  * * [Integration Options](#integration-options)
+    * [Installation Methods](#installation-methods)
+    * [Tracking Events](#tracking-events)
+    * [Server-Side Tracking](#server-side-tracking)
+    * [Key Points for Tracking](#key-points-for-tracking)

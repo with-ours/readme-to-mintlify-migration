@@ -1,0 +1,69 @@
+---
+title: "Ours Integration with Drupal"
+description: "Learn how to integrate Ours with your Drupal site using the Google Tag Manager module for tracking page views and custom events."
+---
+
+# Ours Integration with Drupal
+
+Integrating **Ours** with your Drupal site using the Google Tag Manager (GTM) module allows you to track page views and custom events efficiently. This guide will walk you through enabling the GTM module in Drupal and setting up Ours Privacy tracking.
+
+## Step 1: Enable the Drupal GTM Module
+
+1. **Install the GTM Module**:
+
+   * Use Composer to install the GTM module:
+     <CodeGroup>
+       ```bash bash
+       composer require 'drupal/gtm:^1.9'
+       ```
+     </CodeGroup>
+   * [See documentation here](https://www.drupal.org/project/gtm).
+   * Enable the module in your Drupal admin panel by navigating to **Extend** and checking the **Google Tag Manager** module.
+
+2. **Configure the GTM Module**:
+
+   * Go to **Configuration** > **Google Tag Manager**.
+   * Enter your GTM Container ID in the **GTM-ID field**.
+   * Save the configuration.
+
+## Step 2: Set Up Ours Privacy in GTM
+
+Now, you can set up and track events with Ours via the [Ours Google Tag Manager Instructions](/docs/gtm-install#/).
+
+## Using the Native JavaScript Web SDK (optional)
+
+If you prefer to use the native JavaScript web SDK instead of Google Tag Manager, you can easily integrate it into your Drupal site:
+
+1. **Copy the Ours Install Script**:
+
+   * Log in to your Ours account and navigate to the installation page.
+   * Copy the provided install script.
+
+2. **Insert the Script into Your Drupal Site**:
+
+   * You can add the script to the `<head>` section of your Drupal site. This can be done by editing your theme's `html.html.twig` file or using a module that allows you to insert custom scripts.
+
+3. **Track Events Using JavaScript**:
+
+   * Once the script is installed, you can track events by calling the `ours('track', 'Event Name')` function anywhere in your JavaScript code.
+
+## Why Use Ours with Drupal?
+
+Ours provides a HIPAA-compliant analytics solution that ensures privacy and security for your Drupal site. It allows you to track user interactions without exposing IP addresses or using third-party cookies.
+
+***
+
+[Ours Privacy Integration with Next.js](/docs/nextjs-integration)
+
+[Ours Integration with WordPress](/docs/wordpress-integration)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Integration with Drupal](#ours-integration-with-drupal)
+
+  * * [Step 1: Enable the Drupal GTM Module](#step-1-enable-the-drupal-gtm-module)
+    * [Step 2: Set Up Ours Privacy in GTM](#step-2-set-up-ours-privacy-in-gtm)
+    * [Using the Native JavaScript Web SDK (optional)](#using-the-native-javascript-web-sdk-optional)
+    * [Why Use Ours with Drupal?](#why-use-ours-with-drupal)

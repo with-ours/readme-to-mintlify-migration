@@ -1,0 +1,177 @@
+---
+title: "Tracking via Google Tag Manager"
+description: "Learn how you can set up Ours Privacy tracking via GTM without installing the web script. Securely track events and manage PHI/PII flow with our HIPAA-compliant solution."
+---
+
+# Tracking with Google Tag Manager
+
+This page details installation via Google Tag Manager. For other installation methods, including direct JavaScript SDK integration, please see our main [Installation Guide](/docs/installation).
+
+The Ours Privacy GTM template is the fastest way for you to get HIPAA-compliant analytics running on your site—no code required. This method allows you to securely track conversions and user events using the Ours Privacy privacy-first infrastructure without directly embedding JavaScript.
+
+***
+
+![](/images/docs/bd3e8e77ecb527b21d9ca7a53cb6c63b49e29463bec99e844dcf81e41bd6f96a-diagram-export-5-23-2025-1_02_58-PM.png)
+
+***
+
+## Quick Setup (Recommended)
+
+1. **Download the GTM Template** [Ours GTM Template →](https://github.com/with-ours/ours-gtm-template/blob/main/template.tpl) Upload the template in GTM under **Templates → Tag Templates → New**
+
+2. **Set the Ours Project Token Variable** In GTM, go to **Variables → User-Defined Variables → New** Choose type: **Constant**, and paste the Project Token from Ours Privacy
+
+3. **Create an "Install" Tag**
+
+   * Tag Type: Ours Privacy (from template)
+   * Action: `Install`
+   * Token: use the Constant Variable you created
+   * Trigger: `Initialization - All Pages`
+
+4. **Create Tracking or Identify Tags**
+
+   * Action: `Track` or `Identify`
+   * Event Name: your custom name (e.g. `Appointment Booked`)
+   * Token: use the Variable you created
+   * Trigger: based on user interaction (e.g. Form Submission)
+
+5. **Allowlist Events in the Ours platform** After you preview your site and verify tag firing, log into the Ours platform Go to **Recent Events → Destinations → Allowed Events List** Add the exact event names that you configured in GTM.
+
+***
+
+## How It Works
+
+* GTM loads the Ours template
+* Each event fires securely to Ours servers
+* Ours captures UTM/referrer/Click ID (e.g. `gclid`) automatically with each event
+* Events are forwarded to your configured destinations
+
+***
+
+## Advanced Configuration
+
+### Proxying GTM for Enhanced Privacy
+
+You can serve GTM through your own domain (if you have a custom domain set up) or via the Ours Privacy CDN:
+
+<CodeGroup>
+  ```bash bash
+  <!-- Replace this -->
+  <script src="https://www.googletagmanager.com/gtm.js?id=GTM-XXXX"></script>
+
+  <!-- With this (only if you have a custom domain set up) -->
+  <script src="https://yourdomain.com/gtm.js?id=GTM-XXXX"></script>
+  <!-- OR (recommended for most users) -->
+  <script src="https://cdn.oursprivacy.com/gtm.js?id=GTM-XXXX"></script>
+  ```
+</CodeGroup>
+
+> **Note:** Only use `yourdomain.com` if you have configured a custom domain to proxy GTM. Otherwise, you can always use the `cdn.oursprivacy.com` proxy, which is available to all users.
+
+This reduces third-party tracking exposure and helps with HIPAA compliance.
+
+***
+
+### Overriding Default Properties
+
+If you store data like `gclid`, UTM parameters, or user IDs in GTM variables, you can override what Ours auto-detects by passing them as `overrides`.
+
+This ensures the values you provide take priority.
+
+***
+
+### Identifying Users Without Events
+
+You can use the `Identify` action alone to attach properties (like user ID or plan) without tracking an event.
+
+***
+
+### Manual Event Tracking
+
+You can still use the SDK function in parallel with GTM:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'Custom Event Name');
+  ```
+</CodeGroup>
+
+***
+
+## Final Steps
+
+* Use GTM **Preview Mode** to verify your tags
+* Check the **Recent Events** tab in the Ours app
+* Add required event names to **Allowed Events**
+* **Publish** your GTM container
+
+***
+
+## Data Flow and HIPAA Compliance
+
+All data flows from GTM to Ours Privacy before it is processed or sent to any external service. This ensures you have full control and logging, enabling you to meet HIPAA and privacy compliance requirements.
+
+***
+
+## Need Help?
+
+***
+
+## FAQs
+
+### Do I need to install the Web SDK separately?
+
+No. When you use the GTM template, the Ours Privacy SDK is automatically loaded when a tag fires. You do not need to embed any additional script on your site.
+
+### Why do I need to allowlist events?
+
+To ensure compliance and prevent unintentional data forwarding, Ours Privacy only sends events to destinations if they are explicitly allowlisted by you. You can do this under **Destinations → Allowed Events** in the Ours app.
+
+***
+
+## Visual Guide: GTM Setup Screenshots
+
+### 1. Uploading the Template
+
+![Uploading Template](/images/docs/cb916e644c1dfcb2918395f830560b0f53d6bfc70354b4ec7dc37210debcb9fb-image.png)
+
+### 2. Creating the Constant Variable for Token
+
+![Create Variable](/images/docs/c6bbe92cfa261e77d0234866bea376cea58ec67c009e0e6f7af2ac863bfbd24c-image.png)
+
+### 3. Creating the Install Tag
+
+![Install Tag](/images/docs/f5a74d6f30f7c312dda3c1c465f506861631352b27b8038d5d35bebafd2ecc57-image.png)
+
+### 4. Creating a Track Event Tag
+
+![Track Tag](/images/docs/688b8cb1aa5c6c8ba96e0f2c053c810475ab35c0a0ccf15df04b2a246c5297cf-image.png)
+
+### 5. Defining User Properties
+
+![User Properties](/images/docs/3da94f3b3d9c3ab0f33bdd5072164bc5021ee31d43e90edee7892a9f0f3f5ce2-image.png)
+
+### 6. Overriding Properties with GTM Variables
+
+![Overrides](/images/docs/ce07919177041b086cc8386251f1d7ee151651649ddac84faf9db88f05cd15db-Xnapper-2024-12-19-10.44.27.jpg)
+
+***
+
+[Installation](/docs/installation)
+
+[Tracking and Debugging Events](/docs/tracking-and-debugging-events)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Tracking with Google Tag Manager](#tracking-with-google-tag-manager)
+
+  * * [Quick Setup (Recommended)](#quick-setup-recommended)
+    * [How It Works](#how-it-works)
+    * [Advanced Configuration](#advanced-configuration)
+    * [Final Steps](#final-steps)
+    * [Data Flow and HIPAA Compliance](#data-flow-and-hipaa-compliance)
+    * [Need Help?](#need-help)
+    * [FAQs](#faqs)
+    * [Visual Guide: GTM Setup Screenshots](#visual-guide-gtm-setup-screenshots)

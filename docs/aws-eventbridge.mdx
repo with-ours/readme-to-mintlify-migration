@@ -1,0 +1,55 @@
+---
+title: "AWS EventBridge"
+description: "Send your event data to Amazon EventBridge in real-time"
+---
+
+The Amazon EventBridge destination enables you to send your event data to Amazon EventBridge in real-time. This allows you to route events to various AWS services and trigger event-driven workflows.
+
+## Configuration
+
+To set up the Amazon EventBridge destination:
+
+1. Navigate to the Destinations section in your account
+
+2. Click "Add Destination" and select "Amazon EventBridge"
+
+3. Provide the following information:
+
+   * AWS Region
+   * Event Bus Name
+
+## Event Format
+
+Events sent to your EventBridge will be in the following format:
+
+<CodeGroup>
+  ```bash bash
+  {
+    "event": "Order Completed",
+    "event_properties": {
+      "order_id": "12345",
+      "total": 99.99
+    },
+    ... etc
+  }
+  ```
+</CodeGroup>
+
+## Best Practices
+
+* Ensure your EventBridge has appropriate access policies (you will need to contact a member of the Ours Privacy team for this)
+* Consider using event patterns for routing events to different targets
+
+***
+
+[Programmatic Destinations](/docs/programic-destinations)
+
+[AWS Kinesis](/docs/aws-kinesis)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Configuration](#configuration)
+  * [Event Format](#event-format)
+  * [Best Practices](#best-practices)

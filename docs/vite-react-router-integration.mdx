@@ -1,0 +1,271 @@
+---
+title: "Ours Privacy Integration with Vite + React Router"
+description: "Learn how to integrate Ours Privacy with your Vite + React Router application to track page views and custom events effortlessly with HIPAA-compliant analytics."
+---
+
+# Ours Privacy Integration with Vite + React Router
+
+This guide will walk you through integrating **Ours Privacy** with your Vite + React Router application. You'll learn how to install the Ours Privacy tracking script, track page views, and log custom events—all while ensuring **HIPAA-compliant analytics** for privacy-conscious applications.
+
+## Integration Options
+
+The integration guide below covers using the [Ours Privacy Web SDK](/docs/web-sdk-javascript).
+
+If you want to use Google Tag Manager instead, you can ignore the code examples and use traditional [Google Tag Manager Triggers](/docs/gtm-install) to fire your events.
+
+Choose the approach that best suits your workflow.
+
+***
+
+[View example repo](https://github.com/with-ours/ours-vite-react-router)
+
+***
+
+## Installation Methods
+
+There are **two ways** to install and initialize Ours Privacy in your Vite + React Router application:
+
+### Method 1: NPM Package Installation (Recommended)
+
+This method provides better TypeScript support, more control over the initialization process, and is the recommended approach for most Vite + React Router applications.
+
+**Key steps:**
+
+1. Install the Ours Privacy SDK: `npm install ours-web-sdk`
+2. Create an Analytics Provider component
+3. Add the provider to your app
+4. Implement page view tracking
+5. Add custom event tracking
+
+**Example implementation:**
+
+<CodeGroup>
+  ```bash bash
+  // src/providers/analytics-provider.tsx
+  import { useEffect } from "react";
+  import ours from "ours-web-sdk";
+
+  export function AnalyticsProvider() {
+    useEffect(() => {
+      // Initialize Ours Privacy on app load
+      ours.init("YOUR_SITE_ID", { track_web_events: true });
+    }, []);
+
+    return null;
+  }
+  ```
+</CodeGroup>
+
+<CodeGroup>
+  ```bash bash
+  // src/App.tsx
+  import { AnalyticsProvider } from "./providers/analytics-provider";
+
+  export const App = () => {
+    return (
+      <>
+        <AnalyticsProvider />
+        <RouterProvider router={router} />
+      </>
+    );
+  };
+  ```
+</CodeGroup>
+
+### Method 2: Script Tag Installation (Alternative for simple setups)
+
+This method is suitable for straightforward integrations where you want minimal setup.
+
+**Key steps:**
+
+1. Get your snippet from the Ours Privacy Admin Portal
+2. Add the script tag to your `index.html`
+3. Implement page view tracking
+4. Add custom event tracking
+
+**Example implementation:**
+
+<CodeGroup>
+  ```bash bash
+  <!-- index.html -->
+  <head>
+    <!-- Ours Pixel Code -->
+    <script>
+      // Paste your Ours Privacy initialization snippet here
+      // Example:
+      // window.ours = window.ours || function(){(window.ours.q=window.ours.q||[]).push(arguments)};
+      // ours('init', 'YOUR_SITE_ID', {track_web_events: true});
+    </script>
+    <!-- End Ours Pixel Code -->
+  </head>
+  ```
+</CodeGroup>
+
+## Tracking Page Views
+
+For single-page applications (SPAs) like Vite + React Router, you need to track page views on route changes.
+
+### Using NPM Package Method
+
+<CodeGroup>
+  ```bash bash
+  // src/components/page-view-tracker.tsx
+  import { useEffect } from "react";
+  import { useLocation } from "react-router-dom";
+  import ours from "ours-web-sdk";
+
+  export function PageViewTracker() {
+    const location = useLocation();
+
+    useEffect(() => {
+      // Track page view on route change
+      ours.track("PageView", {
+        path: location.pathname,
+        search: location.search,
+      });
+    }, [location.pathname, location.search]);
+
+    return null;
+  }
+  ```
+</CodeGroup>
+
+Add this to your App component:
+
+<CodeGroup>
+  ```bash bash
+  // src/App.tsx
+  import { PageViewTracker } from "./components/page-view-tracker";
+
+  export const App = () => {
+    return (
+      <>
+        <AnalyticsProvider />
+        <PageViewTracker />
+        <RouterProvider router={router} />
+      </>
+    );
+  };
+  ```
+</CodeGroup>
+
+### Using Script Tag Method
+
+<CodeGroup>
+  ```bash bash
+  // src/components/page-view-tracker.tsx
+  import { useEffect } from "react";
+  import { useLocation } from "react-router-dom";
+
+  export function PageViewTracker() {
+    const location = useLocation();
+
+    useEffect(() => {
+      // Track page view on route change
+      if (typeof window !== "undefined" && window.ours) {
+        window.ours("track", "PageView", {
+          path: location.pathname,
+          search: location.search,
+        });
+      }
+    }, [location.pathname, location.search]);
+
+    return null;
+  }
+  ```
+</CodeGroup>
+
+## Tracking Events
+
+To track custom events such as button clicks or form submissions, use the `ours('track', ...)` function within your React components.
+
+### Using NPM Package Method
+
+<CodeGroup>
+  ```bash bash
+  // src/components/track-button.tsx
+  import ours from "ours-web-sdk";
+
+  export function TrackButton() {
+    const handleClick = () => {
+      ours.track("ButtonClicked", {
+        button_name: "sign_up",
+        page: "homepage",
+      });
+    };
+
+    return <button onClick={handleClick}>Sign Up</button>;
+  }
+  ```
+</CodeGroup>
+
+### Using Script Tag Method
+
+<CodeGroup>
+  ```bash bash
+  // src/components/track-button.tsx
+  export function TrackButton() {
+    const handleClick = () => {
+      if (typeof window !== "undefined" && window.ours) {
+        window.ours("track", "ButtonClicked", {
+          button_name: "sign_up",
+          page: "homepage",
+        });
+      }
+    };
+
+    return <button onClick={handleClick}>Sign Up</button>;
+  }
+  ```
+</CodeGroup>
+
+### Example: Tracking Form Submissions
+
+<CodeGroup>
+  ```bash bash
+  // src/components/contact-form.tsx
+  import ours from "ours-web-sdk";
+
+  export function ContactForm() {
+    const handleFormSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+
+      ours.track("FormSubmit", {
+        form_name: "contact_form",
+        form_type: "contact",
+      });
+
+      // Your form submission logic here
+    };
+
+    return (
+      <form onSubmit={handleFormSubmit}>
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <button type="submit">Submit</button>
+      </form>
+    );
+  }
+  ```
+</CodeGroup>
+
+***
+
+If you need further assistance, contact us at [\[email protected\]](/cdn-cgi/l/email-protection#34474144445b4640745b41464744465d4255574d1a575b59).
+
+***
+
+[Ours Integration with Shopify](/docs/shopify)
+
+[Ours Integration with Framer](/docs/framer-integration)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Privacy Integration with Vite + React Router](#ours-privacy-integration-with-vite--react-router)
+
+  * * [Integration Options](#integration-options)
+    * [Installation Methods](#installation-methods)
+    * [Tracking Page Views](#tracking-page-views)
+    * [Tracking Events](#tracking-events)

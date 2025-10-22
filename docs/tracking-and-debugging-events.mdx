@@ -1,0 +1,201 @@
+---
+title: "Tracking and Debugging Events"
+description: "Learn how you can track events, debug issues, and verify event flows using Ours Privacy’s tools, including the Recent Events dashboard and test tokens."
+---
+
+# Tracking and Debugging Events
+
+In Ours Privacy, understanding how your events flow through the system is essential for both debugging and analytics research. This guide introduces various frameworks for deciding how to test data in Ours Privacy depending on your goals.
+
+***
+
+## Real-Time Event Monitoring
+
+The **Recent Events dashboard** in the Ours app provides **instant visibility** into your event processing pipeline. This powerful tool gives you real-time access to events as they flow through the system, enabling immediate debugging and validation of your tracking implementations.
+
+* **Live Event Tracking**: See events appear in real-time as they're processed, perfect for debugging and verification.
+* **Comprehensive Filtering**: Filter by event name, email, visitor ID, URL patterns, country, or IP address to focus on specific events or users.
+* **Detailed Event Information**: View complete event properties, user data, and destination forwarding details for each event.
+* **Development Testing**: Isolate events from development environments using URL pattern filtering (e.g., "dev-" or "localhost").
+* **User Journey Debugging**: Track specific users by entering their email or visitor ID to see all their events in sequence.
+
+For historical analysis and broader insights, use the **Visitor Page/Event Analytics** tools, which provide comprehensive historical data with a 10–15 minute processing delay.
+
+***
+
+## Decide What You’re Testing
+
+Before diving into tools and techniques, clarify your testing goal. Generally, there are three high-level flows:
+
+1. **User Journey Verification**
+
+   * Understand how individual users interact with your site or app.
+   * Track sequences of events tied to a user.
+   * Tools: Recent Events dashboard for real-time tracking; Visitor Page/Event Analytics for aggregated user behavior.
+
+2. **Event Debugging**
+
+   * Confirm that specific events are sent, received, and processed correctly.
+   * Identify and fix issues with event installation, mapping, or destination forwarding.
+   * Tools: Recent Events dashboard (real-time), Event Count by day reports, Test Mode, browser console inspection.
+
+3. **Aggregates and Trends Analysis**
+
+   * Analyze event volumes, user properties, and patterns over time.
+   * Use to inform business decisions or compliance monitoring.
+   * Tools: Visitor Page/Event Analytics, historical reports.
+
+***
+
+## Real-Time Debugging with the Recent Events Dashboard
+
+The Recent Events dashboard is your go-to tool for **real-time event verification and debugging**.
+
+### How to Access and Use the Dashboard
+
+1. Navigate to the [Recent Events](https://app.oursprivacy.com/recent-events) section in the Ours app.
+
+2. Use the search and filter options to find specific events:
+
+   * **Event Name**: Search for events by name (e.g., "FormSubmit", "PageView").
+   * **Email**: Filter by user email address to see all events for a specific user.
+   * **Visitor ID**: Paste a visitor ID to track all events for that specific visitor.
+   * **URL Pattern**: Filter by URL patterns (e.g., "dev-" for development sites, "localhost" for local testing).
+   * **Country**: Filter events by geographic location.
+   * **IP Address**: Search by IP address to see events from a specific location.
+
+3. Click on any event to view detailed information including:
+
+   * **Event Properties**: Key-value pairs describing the action.
+   * **User Properties**: Information about the user, such as email or city (hashed or redacted).
+   * **Destinations**: Platforms where the event was forwarded.
+
+### Common Filtering Use Cases
+
+* **Development Testing**: Use URL pattern filtering (e.g., "dev-" or "localhost") to isolate events from your development environment.
+* **User-Specific Debugging**: Enter an email address or visitor ID to see all events for a specific user.
+* **Geographic Analysis**: Filter by country or IP address to analyze events from specific regions.
+* **Real-Time Monitoring**: Enable auto-refresh to see events appear in real-time as you trigger them on your site.
+
+***
+
+## Historical User Journey Visibility
+
+While the Recent Events dashboard is excellent for real-time debugging of your own actions, it is not designed for investigating past user behavior or historical event sequences.
+
+### Viewing Historical User Journeys in Ours Privacy
+
+To analyze the complete timeline of a user's interactions, especially for events that occurred days or weeks ago, follow these steps:
+
+1. Navigate to the **Event Analytics** section in the Ours app.
+2. Search for the event of interest (e.g., "FormComplete") to locate occurrences of that event.
+3. Click on the user or visitor ID associated with the specific event to open the **Visitor Page**.
+4. On the Visitor Page, review the full sequence of events before and after the key event, providing comprehensive context of the user's journey.
+
+### Important Considerations
+
+* The Visitor Page data typically has a slight delay of approximately **10–15 minutes**, as it processes aggregated and historical data.
+* Unlike the Recent Events dashboard, which is limited to real-time events and a maximum number of recent events, the Visitor Page offers a **complete and detailed view** of user interactions over time.
+* Use this approach to gain insights into user behavior, troubleshoot issues related to past events, and understand conversion paths.
+
+***
+
+## Test Mode: Safe Real-Time Debugging
+
+Test Mode provides a **safe environment to validate your analytics setup** without sending data to live destinations.
+
+### What is Test Mode?
+
+* Allows debugging your analytics implementation.
+* Verifies event tracking configurations.
+* Tests integrations.
+* Ensures everything works before going live.
+
+### Setting Up Test Mode
+
+#### Using Test Tokens
+
+1. Log into the Ours platform.
+2. Navigate to your source (Web SDK, GTM, or API).
+3. Copy the test token provided.
+4. Use this test token in your implementation.
+
+Events sent with a test token are processed in Test Mode.
+
+### How Test Mode Works
+
+* ✅ Events are fully captured and processed.
+* ✅ Events are stored in the Ours platform.
+* ✅ Dispatch objects are created.
+* ❌ No data is sent to external destinations.
+
+### Viewing Test Events
+
+1. Go to the **Recent Events** view in the Ours app.
+2. Look for events marked with a "Test" indicator.
+3. Review intended destinations (where events would be sent live).
+
+***
+
+## Common Debugging Scenarios
+
+### Missing Event in the Ours Platform
+
+* **Cause**: Script not properly installed or trigger not sending event.
+* **Solution**: Check GTM or custom track code to ensure Ours Privacy is loaded and sending events.
+
+### Incorrect User Properties
+
+* **Cause**: User properties not set or formatted correctly.
+* **Solution**: Use `ours('track', 'Event Name', {color: 'red'}, {email: '[email protected]'})` with correct user properties. See [User Properties Overview](/docs/visitor-properties-overview).
+
+### Event Not Forwarded to Destinations
+
+* **Cause**: Destination configuration issues or event missing from allow list.
+* **Solution**: Verify destination setup and custom mapper rules in [Data Mapping](/docs/data-mapping).
+
+***
+
+## Best Practices for Tracking and Debugging
+
+1. **Use the Test Token**
+
+   * Debug with a test token to avoid cluttering production data.
+
+2. **Add Events to Allowed Event List Early**
+
+   * Add events to your Event Allowlist before tracking.
+
+3. **Inspect Events Regularly**
+
+   * Use the Recent Events dashboard to monitor event flow and catch issues early.
+
+4. **Validate Destinations**
+
+   * Test each destination’s setup to ensure correct event formatting and delivery.
+
+5. **Leverage Custom Mappers**
+
+   * Use custom mappers thoughtfully to modify event data as needed.
+
+***
+
+***
+
+[Tracking via Google Tag Manager](/docs/gtm-install)
+
+[Understanding The Event Flow](/docs/understanding-the-event-flow)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Tracking and Debugging Events](#tracking-and-debugging-events)
+
+  * * [Real-Time Event Monitoring](#real-time-event-monitoring)
+    * [Decide What You’re Testing](#decide-what-youre-testing)
+    * [Real-Time Debugging with the Recent Events Dashboard](#real-time-debugging-with-the-recent-events-dashboard)
+    * [Historical User Journey Visibility](#historical-user-journey-visibility)
+    * [Test Mode: Safe Real-Time Debugging](#test-mode-safe-real-time-debugging)
+    * [Common Debugging Scenarios](#common-debugging-scenarios)
+    * [Best Practices for Tracking and Debugging](#best-practices-for-tracking-and-debugging)

@@ -1,0 +1,82 @@
+---
+title: "GoHighLevel Integration"
+description: "Learn how to integrate Ours with GoHighLevel to track events and automate workflows using webhooks, while maintaining privacy and HIPAA compliance."
+---
+
+# Ours Integration with GoHighLevel
+
+[GoHighLevel](https://www.gohighlevel.com/) is an all-in-one marketing and sales platform that empowers businesses to automate workflows, capture leads, and manage customer journeys. This guide will show you how to integrate **Ours** with GoHighLevel using webhooks, enabling you to track events and automate data flows while ensuring **HIPAA-compliant analytics** for privacy-conscious applications.
+
+> **GoHighLevel supports integration via webhooks.** Learn more in their [official webhook documentation](https://help.gohighlevel.com/support/solutions/articles/48001219775-workflow-action-webhook).
+
+## Overview: How the Integration Works
+
+GoHighLevel's [Workflow Builder](https://help.gohighlevel.com/support/solutions/articles/48001219775-workflow-action-webhook) allows you to trigger webhooks based on events such as new leads, form submissions, appointment bookings, and more. By configuring a webhook action, you can send event data from GoHighLevel directly to Ours for analytics, automation, and compliance.
+
+## Step-by-Step Integration Guide
+
+### 1. Create a Webhook Source in Ours
+
+* In the Ours app, navigate to **Sources** and create a new source.
+* Select **Webhook** as the source type and copy the unique Webhook URL provided by Ours.
+
+### 2. Set Up a Workflow in GoHighLevel
+
+* Log in to your [GoHighLevel dashboard](https://www.gohighlevel.com/).
+* Go to **Automation > Workflows** and create a new workflow or edit an existing one.
+* Add a **Trigger** (e.g., form submission, new lead, appointment booked, etc.).
+* Click **+ Add Action** and select **Webhook**.
+* Paste the Ours Webhook URL into the **Webhook URL** field.
+* Optionally, customize the payload to include relevant data (contact info, event type, etc.).
+
+> For more details, see the [GoHighLevel Webhook Action documentation](https://help.gohighlevel.com/support/solutions/articles/48001219775-workflow-action-webhook).
+
+### 3. Test the Integration
+
+* Trigger the workflow in GoHighLevel (e.g., submit a form or create a test lead).
+* Check the Ours app to confirm that the event data is received and processed.
+
+### 4. Map Fields in Ours
+
+* In the Ours app, use the field mapping interface to map incoming GoHighLevel data to Ours attributes.
+* Include identifiers such as **Ours visitor ID** or email address for accurate user association.
+
+***
+
+## Example Use Cases
+
+* **Track Lead Submissions:** Send lead data to Ours whenever a new contact is created in GoHighLevel.
+* **Monitor Appointments:** Trigger Ours events when appointments are booked or updated.
+* **Automate Custom Events:** Use workflow triggers to send any custom event data to Ours for analytics or automation.
+
+***
+
+## Key Benefits of the Ours + GoHighLevel Integration
+
+* **HIPAA Compliance:** Ideal for healthcare and privacy-sensitive industries.
+* **Flexible Event Tracking:** Capture any event supported by GoHighLevel workflows.
+* **Server-Side Reliability:** Webhook-based integration ensures robust, reliable analytics.
+* **No-Code Automation:** Use GoHighLevel's visual workflow builder to automate data flows without writing code.
+
+***
+
+For more information about GoHighLevel, visit their [marketing site](https://www.gohighlevel.com/).
+
+For technical details on webhooks, see the [GoHighLevel Webhook Action documentation](https://help.gohighlevel.com/support/solutions/articles/48001219775-workflow-action-webhook).
+
+***
+
+[Formsort Integration](/docs/formsort)
+
+[Formstack Integration](/docs/formstack)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Integration with GoHighLevel](#ours-integration-with-gohighlevel)
+
+  * * [Overview: How the Integration Works](#overview-how-the-integration-works)
+    * [Step-by-Step Integration Guide](#step-by-step-integration-guide)
+    * [Example Use Cases](#example-use-cases)
+    * [Key Benefits of the Ours + GoHighLevel Integration](#key-benefits-of-the-ours--gohighlevel-integration)

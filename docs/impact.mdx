@@ -1,0 +1,76 @@
+---
+title: "Impact.com"
+description: "Send conversion events to Impact.com for partnership and affiliate marketing attribution and optimization."
+---
+
+# Impact.com
+
+Impact.com is a comprehensive partnership management platform that enables brands to create, manage, and optimize all types of partnerships including affiliates, influencers, commerce content, B2B, and more. With this destination, you can send conversion events to Impact.com for partnership attribution and optimization.
+
+## Setup
+
+Before you can send events to Impact.com, you need to create an authentication token in your Impact.com account:
+
+1. **Create an Access Token**:
+
+   * Navigate to **Account Settings > API** in your Impact.com dashboard
+   * Click **Create Access Token**
+   * Add the API Scope: **Conversion > Create conversion**
+
+2. **Get Your Account SID**:
+
+   * Your Account SID can be found in your Impact.com dashboard under Account Settings
+
+3. **Copy Paste the Account SID and Auth Token Into The Ours Privacy Destination**:
+
+   * Your Account SID and Auth Token should be placed in the destination settings page.
+
+![](/images/docs/9ddf944aff42f48c0cb489d2f9cfdc3fcb3492716fa656e9f1ee210a073371f1-Screenshot_2025-10-17_at_5.54.38_PM.png)
+
+## Required Fields
+
+When sending conversion events to Impact.com, you must include at least the following required fields through the mapping layer:
+
+* **Campaign ID** (`campaign_id`): Unique identifier for the campaign (or program) that the conversion is associated with
+* **Event Type ID** (`event_type_id`): Unique identifier for the event type (or action tracker) that tracked this conversion
+* **Order ID** (`order_id`): Unique identifier for the order that the conversion is associated with
+
+Additionally, you should include:
+
+* **Event Date** (`event_date`): Time and date when the conversion event actually took place
+* **Attribution Key**: Either a Click ID, Customer Profile ID, Order Promo Code, or Unique URL to properly attribute the conversion
+* **Item Information** (`ItemQuantity`, `ItemSKU`, `ItemCategory`, `ItemSubTotal`): This is the Item Quantity (eg: 1), ItemSKU (eg: SKU1234), ItemCategory (eg: Skin Care), ItemSubTotal (eg: 79.00)
+  * Within the Ours Privacy App, you can either send these items individually, or send the entire items array in each payload.
+
+For more details on each field, see the tooltips in the UI or refer to the [Impact.com API Documentation](https://integrations.impact.com/impact-brand/reference/submit-a-conversion).
+
+## What to Expect
+
+When this integration is available, you'll be able to:
+
+* Send conversion events to Impact.com for partnership attribution
+* Track performance across all partnership types
+* Optimize your partnership marketing campaigns
+* Measure ROI from affiliate and influencer partnerships
+* Automate partner onboarding and management processes
+
+## Additional Resources
+
+For more detailed information about the Impact.com API and conversion submission, refer to the [Impact.com API Documentation](https://integrations.impact.com/impact-brand/reference/submit-a-conversion).
+
+***
+
+[Google Campaign Manager 360](/docs/google-campaign-360)
+
+[LinkedIn Ads Destination](/docs/linkedin-ads)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Impact.com](#impactcom)
+
+  * * [Setup](#setup)
+    * [Required Fields](#required-fields)
+    * [What to Expect](#what-to-expect)
+    * [Additional Resources](#additional-resources)

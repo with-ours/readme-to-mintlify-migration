@@ -1,0 +1,108 @@
+---
+title: "Allow Listing Events"
+description: "Learn how to manage your Event Allowlist in Ours to ensure that only approved events are tracked and forwarded to destinations."
+---
+
+# Allow Listing Events
+
+The **Event Allowlist** is a critical feature in Ours that ensures only approved events are tracked and forwarded to destinations. By managing your allowlist, you maintain control over your data and prevent unintentional or unwanted events from being processed.
+
+***
+
+## What is an Event Allowlist?
+
+An **Event Allowlist** is a list of approved event names that Ours uses to determine which events are processed. If an event is not on your allowlist:
+
+* It will not appear in the Recent Events dashboard.
+* It will not be forwarded to any destinations.
+
+This mechanism ensures that your data pipeline remains secure, streamlined, and free from noise or unwanted events.
+
+***
+
+## Why Use an Event Allowlist?
+
+Using an allowlist provides several benefits:
+
+* **Data Security**: Prevents unauthorized or sensitive events from being tracked.
+* **Privacy Compliance**: Ensures only approved data is shared with destinations, maintaining compliance with HIPAA, GDPR, and other regulations.
+* **Simplified Debugging**: Focuses your event tracking on relevant interactions, making it easier to troubleshoot and optimize.
+* **Destination Accuracy**: Ensures that only meaningful data is sent to analytics or advertising platforms.
+
+***
+
+## How to Add Events to Your Allowlist
+
+1. **Navigate to the Event Allowlist**:
+
+   * Log in to your Ours account and go to the [Event Allowlist](https://app.oursprivacy.com) section.
+
+2. **Add a New Event**:
+
+   * Click the **Add Event** button.
+   * Enter the event name exactly as it will appear in your tracking calls (e.g., "FormSubmit" or "VideoWatch").
+
+3. **Save Changes**:
+
+   * Click **Save** to add the event to your allowlist. Once added, the event will be eligible for tracking and forwarding to destinations.
+
+***
+
+## Editing or Removing Events from the Allowlist
+
+### Edit an Event
+
+1. Find the event in your allowlist.
+2. Click the **Edit** button next to the event.
+3. Update the event name and save your changes.
+
+### Remove an Event
+
+1. Locate the event in your allowlist.
+2. Click the **Remove** button to delete it from the list.
+3. Confirm the removal. The event will no longer be tracked or forwarded.
+
+***
+
+## Best Practices for Managing Your Allowlist
+
+1. **Add Events Early**:
+   * Add new events to the allowlist before implementing tracking to avoid missing data.
+2. **Use Non-Descriptive Event Names**:
+   * Protect sensitive data by avoiding detailed event names like `ScheduleFirstTherapySession`. Use generic names like `Event1` or `ActionCompleted` instead.
+3. **Review Regularly**:
+   * Periodically review your allowlist to remove unused or outdated events.
+4. **Coordinate with Teams**:
+   * Ensure that developers and marketers align on event naming conventions to maintain consistency.
+
+***
+
+## Debugging Allowlist Issues
+
+If an event is not appearing in the Recent Events dashboard:
+
+1. **Check the Allowlist**:
+   * Ensure the event name is added and matches the exact name used in tracking calls.
+2. **Verify the Tracking Script**:
+   * Confirm that the tracking script is installed correctly. See the [Installation Guide](/docs/installation).
+3. **Inspect the Browser Console**:
+   * Look for errors in the `ours` function or mismatched event names.
+
+***
+
+[Destination Overview](/docs/destination-overview)
+
+[Global Consent Center](/docs/global-consent-center)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Allow Listing Events](#allow-listing-events)
+
+  * * [What is an Event Allowlist?](#what-is-an-event-allowlist)
+    * [Why Use an Event Allowlist?](#why-use-an-event-allowlist)
+    * [How to Add Events to Your Allowlist](#how-to-add-events-to-your-allowlist)
+    * [Editing or Removing Events from the Allowlist](#editing-or-removing-events-from-the-allowlist)
+    * [Best Practices for Managing Your Allowlist](#best-practices-for-managing-your-allowlist)
+    * [Debugging Allowlist Issues](#debugging-allowlist-issues)

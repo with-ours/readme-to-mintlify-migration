@@ -1,0 +1,76 @@
+---
+title: "CallRail Integration"
+description: "Learn how to integrate Ours Privacy with CallRail to track calls, SMS, and form submissions effortlessly while supporting privacy and compliance standards."
+---
+
+# Ours Privacy Integration with CallRail
+
+This guide will walk you through integrating **Ours Privacy** with your CallRail account. You'll learn how to track calls, SMS, and form submissions seamlessly while supporting **privacy-focused analytics** for privacy-conscious applications.
+
+## CallRail Webhooks (custom integration)
+
+For advanced tracking and to access detailed event data, you can set up a custom integration with CallRail. Follow these steps:
+
+1. **Create a New Source in Ours Privacy**:
+
+   * In the Ours app, navigate to **Sources** and create a new source.
+   * Select **CallRail** from the options and copy the Webhook URL provided.
+
+2. **Subscribe to Webhooks in CallRail**:
+
+   * Go to your CallRail > Integration Settings.
+
+   * Add a new webhook and paste the Ours Webhook URL.
+
+   * Subscribe to the desired events to capture data. Below are the events we recommend:
+
+     * Call completed
+     * SMS received
+     * SMS sent
+     * Form submission received
+
+   * Enable Custom Cookie Capture plugin.
+     * Allow "ours\_device\_id" and save.
+
+![](/images/docs/c25cc21a78e9751e581f886b5f09ccffd13fcbeb4e29b55c5f2a5703d2734bc0-Screenshot_2025-08-19_at_9.52.12_AM.png)
+
+3. **Submit a Test Event**:
+
+   * Trigger a test event (e.g., make a call or fill out a form) to ensure data is sent to Ours Privacy.
+   * Check the Ours Privacy app for pre-populated variables from the event payload.
+
+4. **Map Extra Event Fields**:
+
+   * Use the field mapping interface in Ours Privacy to map CallRail event data to Ours Privacy attributes.
+   * The default integration has all important properties mapped. But, you can make custom form fields into Ours Privacy if you wish.
+
+![](/images/docs/e1f9e0642dd9f36708a4029a6994b6fdefbe2985a2792e36803ab73fea1916d4-Screenshot_2025-08-19_at_9.54.54_AM.png)
+
+### Payload Preview
+
+If you are customizing your CallRail integration, you can use the "Preview Data" panel to view the latest payloads sent from CallRail to Ours Privacy.
+
+![](/images/docs/6cafc1a8e7b15e9e733aa265e93791df171518e3e58e1b39bcab929eee81b467-Xnapper-2025-02-28-14.02.32.jpg)
+
+***
+
+### Key Benefits of the Ours Privacy CallRail Integration
+
+* **Privacy Support**: Ideal for healthcare and other privacy-sensitive industries.
+* **Custom Event Flexibility**: Track calls, SMS, form submissions, and more.
+* **Enhanced Data Accuracy**: Server-side integration ensures reliable analytics.
+
+For further assistance, contact [\[email protected\]](/cdn-cgi/l/email-protection#6e1d1b1e1e011c1a2e011b1c1d1e1c07180f0d17400d0103).
+
+***
+
+[CallTrackingMetrics Integration](/docs/call-tracking-metrics)
+
+[WhatConverts Integration](/docs/whatconverts)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Privacy Integration with CallRail](#ours-privacy-integration-with-callrail)
+  * * [CallRail Webhooks (custom integration)](#callrail-webhooks-custom-integration)

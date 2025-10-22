@@ -1,0 +1,50 @@
+---
+title: "Pixel Tracking"
+description: "Learn how to use the Ours image tracker to track events by embedding a 1x1 pixel image in your web pages or emails."
+---
+
+The Ours image tracker allows you to track events by embedding a 1x1 pixel image in your web pages or emails. This is useful for tracking user interactions when JavaScript is not available or when you want to track email opens.
+
+To add this source to your account, go to **Sources** > **Add Source**. Then, select the Pixel source. You can use the form builder to configure your tracking pixel before using it.
+
+![](/images/docs/6abde0fc7a7e104311be1d60522bf4ac51b0af6729945b3453c34a6f0a0fa070-Xnapper-2025-02-27-08.00.07.jpg)
+
+## How It Works
+
+When the pixel image is loaded, it sends a request to the Ours API with the specified tracking data. This data is then processed and stored in your Ours account.
+
+You can completely customize the event that is tracked with the form inside of your Ours Privacy application. You can track custom event parameters, user properties, and set default event properties like FBCLID, GCLID, etc.
+
+![](/images/docs/4d80cbe5207a7e4d63e3930237096dc86c63998a0588ccead4a5aff6cdc1cf9d-Xnapper-2025-02-27-08.03.47.jpg)
+
+## Response
+
+The API returns a 1x1 transparent GIF image. This image is used to track the event without displaying any visible content to the user.
+
+* **Content-Type**: `image/png`
+* **Cache-Control**: `no-store, no-cache, must-revalidate, proxy-revalidate`
+
+## Example
+
+To track an event, embed the following image tag in your HTML:
+
+<CodeGroup>
+  ```bash bash
+  <img src="https://cdn.oursprivacy.com/pixel.png?token={{token}}&event=My+Event+Name&event.value=50
+  " width="1" height="1" alt="tracking pixel" style="display:none;" />
+  ```
+</CodeGroup>
+
+***
+
+[Server API Integration](/docs/server-to-server-integration)
+
+[Redirect Tracking](/docs/redirect-source)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [How It Works](#how-it-works)
+  * [Response](#response)
+  * [Example](#example)

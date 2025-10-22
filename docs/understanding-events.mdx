@@ -1,0 +1,287 @@
+---
+title: "Overview"
+description: "Learn how events work in Ours, including best practices for naming, modifying properties, and securely tracking visitor and event data."
+---
+
+# Understanding Events
+
+Events in Ours represent key interactions or actions taken by visitors on your website or app. You can track events, enrich them with event and visitor properties, and securely forward them to your configured destinations. This guide explains how events work, the dispatch flow, default behaviors, and best practices for ensuring secure and effective tracking.
+
+***
+
+## Tracking Events
+
+### Tracking Events via GTM (Google Tag Manager)
+
+Ours has a custom GTM template that makes it easy to trigger your events. While you can use our Javascript API, we recommend using our GTM template for added organization and triggering simplicity.
+
+[Read More Here](gtm-install)
+
+![](/images/docs/969a0845b00b20c20741deaffeb576c34b56d7b545682442423ff4e24f070b2b-Xnapper-2024-12-20-12.49.32.jpg)
+
+### Tracking Events via Javascript
+
+Track events by calling the `ours` function:
+
+`ours('track', 'Event Name');`
+
+If you'd like to capture additional attributes:
+
+`ours('track', 'Event Name', { value: 1, color: 'red' }, { first_name: "First name" });`
+
+***
+
+## Event Structure and Properties
+
+### The Four Parts of an Event
+
+There are four parts to every event:
+
+1. **Event name**
+   * The event name is what you will see in your Ours recent event view. You will need to "Allow" this event name on all destinations it should dispatch.
+
+2. **Event properties**
+
+   * The event properties are optional. You can pass whatever you would like here. Example: `{value: 100}` to specify the event had a value of `$100`.
+   * `$distinct_id` is a special event property - It can be used for de-duplicating your events. Please use a sufficiently random value here, and avoid passing this property if you are not sure how to use it.
+
+3. **Visitor properties**
+   * [Visitor properties](/docs/visitor-properties-overview) only accept specific visitor properties specified by Ours. You can see the complete [list here](/docs/visitor-properties-overview). These properties can be mapped to your various destinations
+
+4. **Default properties**
+   * Default properties are things specific to where the event happened. Ours automatically captures many things like `utm_campaign`, `fbclid`, browser type, IP address, and 100+ more properties. These can be mapped back to various destinations. You can optionally override any of these using our GTM template.
+
+### Data Types Available During Dispatch
+
+When configuring destination mappings, you have access to three distinct data types:
+
+* **Event Data (event.\*)**: Captures specific data at the time an event occurs, including event properties and contextual information.
+* **Visitor Data (visitor.\*)**: Contains the most up-to-date information about the current visitor session.
+* **User Data (user.\*)**: A unified profile created by merging multiple visitors with the same external ID, providing a complete view across all devices and sessions.
+
+See [Data Mapping](/docs/data-mapping), and [Visitor Properties](/docs/visitor-properties-overview) for more details.
+
+Both the Javascript library and GTM template support sending all of the four properties above.
+
+***
+
+## Event Dispatch Flow
+
+Once an event is tracked, it follows a specific flow through the Ours Privacy platform before being sent to destinations:
+
+**Event → Allow List → Global Consent Center → Destination Mapping → Dispatch**
+
+### 1. Allow List Check
+
+Events are first checked against your [Event Allow List](/docs/allow-listing-events). Only events that are explicitly allowed will proceed to the next step.
+
+### 2. Global Consent Center
+
+If you have the [Global Consent Center](/docs/global-consent-center) enabled, events are evaluated against your consent rules. Events that match category logic (evaluating to TRUE) will have dispatch stopped for destinations assigned to those categories.
+
+### 3. Destination Mapping
+
+Events that pass the consent check proceed to the [data mapping](/docs/data-mapping) layer, where event and visitor properties are transformed according to each destination's configuration.
+
+### 4. Dispatch
+
+Finally, events are dispatched to their configured destinations with the transformed data.
+
+***
+
+## Event Names and Naming
+
+We recommend sending semantically named events to Ours, and then using the built in renaming feature to rename the events before sending them to a destination.
+
+For example, we recommend sending Ours:
+
+* "Summer Therapy Special Button Click" and then using our one-click renaming feature to rename the event to "MagicalElf" before sending it to a destination like Facebook
+
+![](/images/docs/0fbaf8dcaa5925731805e7f6e146f5c58407124d10ea1b5f9d63d1ba841ca20a-Xnapper-2025-01-03-08.22.18.jpg)
+
+***
+
+## Default Parameters Collected
+
+Ours automatically collects a variety of default parameters with each event to provide a comprehensive view of visitor behavior.
+
+You can review all parameters collected by navigating to the Mappers inside of any destination. From here, open the variable dictionary to explore:
+
+![](/images/docs/c37c167d9860c51f617b151d8e4e3f7918b09bb10ced64ca5da69a1826d8c05d-Xnapper-2024-12-30-14.32.02.jpg)
+
+At a highlevel, we collect things like:
+
+### Ad Tracking Parameters:
+
+* `gclid`, `gad_source`, `gc_id`, `gbraid`, `wbraid`, `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `fbclid`, `ad_id`, `msclkid`, `ttclid`, `rdt_cid`
+
+### Session and Visitor Information:
+
+* `sessionCount`: Tracks the user's session count.
+* `user_agent`: Captures device and browser details.
+
+### Device and Browser Details:
+
+* `browser`, `browser_version`, `device_type`
+
+### Page and Referrer Details:
+
+* `current_url`, `referrer`, `pathname`, `host`
+
+### Screen Resolution:
+
+* `screen_height`, `screen_width`
+
+### Other:
+
+* `title`: The current page's title.
+* `fbp` and `fbc`: Facebook tracking identifiers.
+* `browser_language`: The default browser language.
+
+***
+
+## Attribution Parameters
+
+Ours tracks both **initial** and **current** values for key attribution parameters, enabling you to perform both first-touch and last-touch attribution analysis. This gives you flexibility in understanding how visitors discovered your site versus what brought them to their final conversion.
+
+### First Touch vs Last Touch Attribution
+
+**First Touch Attribution** uses the initial values when a visitor first arrived at your site:
+
+* `initial_referrer`: The first referrer that brought the visitor to your site
+* `initial_utm_source`: The first UTM source parameter
+* `initial_utm_medium`: The first UTM medium parameter
+* `initial_utm_campaign`: The first UTM campaign parameter
+* `initial_utm_term`: The first UTM term parameter
+* `initial_utm_content`: The first UTM content parameter
+
+**Last Touch Attribution** uses the current values from the most recent session:
+
+* `referrer`: The current referrer (same as the standard referrer parameter)
+* `utm_source`: The current UTM source parameter
+* `utm_medium`: The current UTM medium parameter
+* `utm_campaign`: The current UTM campaign parameter
+* `utm_term`: The current UTM term parameter
+* `utm_content`: The current UTM content parameter
+
+### Implementation
+
+You can access both sets of parameters in your destination mappings. For example:
+
+* Map `initial_utm_source` to understand first-touch attribution
+* Map `utm_source` to understand last-touch attribution
+* Use both in your analytics platforms to compare attribution models
+
+This dual tracking approach allows you to maintain comprehensive attribution data without losing historical context, even as visitors return to your site through different channels.
+
+***
+
+## Ad-Specific Event Tracking
+
+For advertising campaigns, Ours automatically captures and dispatches key query parameters from clicks, such as `gclid` (Google) or `fbclid` (Facebook). These parameters are included in tracked events and forwarded to relevant ad platforms.
+
+### Automatic Ad Conversion Tracking:
+
+* Ours detects sufficient properties to trigger conversions (e.g., for Google Ads).
+* Automatically handles dispatching conversions without manual intervention, improving tracking reliability.
+
+***
+
+## Best Practices for Event Tracking
+
+1. **Add Events**:
+   * Add custom events to your [Allow List](/docs/allow-listing-events) before sending them to destinations.
+
+2. **Use Semantic Event Names**:
+   * Name the events in Ours with a pattern like: "Name Action". For example, "Summer CTA Click" or "Homepage Video View".
+
+3. **Use Event Renaming**:
+
+   * Protect sensitive data by avoiding event names that reveal personal or identifiable information.
+   * Click "rename" event from your destinations allowed event list. And, automatically generate a unique name.
+
+4. **Leverage Default Properties**:
+   * Take advantage of automatically captured properties to enrich your events without extra effort.
+
+5. **Configure Consent Management**:
+
+   * Use the [Global Consent Center](/docs/global-consent-center) to centrally manage consent rules across multiple destinations.
+   * Pass consent properties as event or visitor properties to control dispatch based on user consent.
+
+6. **Test Events with a Test Token**:
+   * Use test tokens to safely debug events without impacting production data. See [Tracking and Debugging Events](/docs/tracking-and-debugging-events).
+
+***
+
+## Event Deduplication and Idempotency
+
+Ours ensures data integrity through idempotent event processing using the combination of `visitor_id` and `distinct_id`. This system prevents duplicate events and handles race conditions gracefully.
+
+### How Idempotency Works
+
+When multiple events with identical `visitor_id` and `distinct_id` combinations are received:
+
+* **First-Wins Semantics**: The first event received for a given `visitor_id` + `distinct_id` combination will be stored
+* **Subsequent Events Ignored**: Any subsequent events with the same identifiers are silently ignored
+* **No Data Loss**: This prevents duplicate events from overwriting the original event
+
+### Race Condition Handling
+
+When multiple events with the same `visitor_id` and `distinct_id` arrive within a short time window (e.g., from parallel processing or network retries):
+
+* **Atomic Operations**: Only one event will be stored through atomic database operations
+* **Eliminates Race Conditions**: This prevents the scenario where multiple events could be processed concurrently
+* **Deterministic Results**: The winner is determined consistently by the database, ensuring predictable behavior
+
+***
+
+## Backfilling Historical Events
+
+You can backfill historical events that occurred in the past using the Server API. This is useful for importing data from existing systems or correcting missing events.
+
+### Event Age Limits
+
+* **Maximum Age**: Events can be backfilled up to 7 days in the past
+* **Time Format**: The `time` field must be in milliseconds since UTC epoch
+* **Validation**: The time must be in the past and within the last 7 days
+
+For more details on implementation, see [Server-to-Server Integration](/docs/server-to-server-integration).
+
+***
+
+## Platform-Specific Recommendations
+
+When sending events to platforms like Facebook and Google, ensure that your event names and properties align with their guidelines. These platforms often have unique requirements, such as specific event names or mandatory properties for accurate tracking.
+
+Refer to each destination's documentation in [Destinations](/docs/destination-facebook) for a detailed overview of optional and required properties.
+
+***
+
+## Summary
+
+Events are at the core of the Ours platform, allowing you to track key visitor actions and forward them securely to destinations. By following best practices for event naming, leveraging default properties, and managing visitor privacy, you can optimize your tracking workflows while maintaining compliance with privacy standards.
+
+***
+
+[Understanding The Event Flow](/docs/understanding-the-event-flow)
+
+[Sources Overview](/docs/sources-overview)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Understanding Events](#understanding-events)
+
+  * * [Tracking Events](#tracking-events)
+    * [Event Structure and Properties](#event-structure-and-properties)
+    * [Event Dispatch Flow](#event-dispatch-flow)
+    * [Event Names and Naming](#event-names-and-naming)
+    * [Default Parameters Collected](#default-parameters-collected)
+    * [Attribution Parameters](#attribution-parameters)
+    * [Ad-Specific Event Tracking](#ad-specific-event-tracking)
+    * [Best Practices for Event Tracking](#best-practices-for-event-tracking)
+    * [Event Deduplication and Idempotency](#event-deduplication-and-idempotency)
+    * [Backfilling Historical Events](#backfilling-historical-events)
+    * [Platform-Specific Recommendations](#platform-specific-recommendations)
+    * [Summary](#summary)

@@ -1,0 +1,151 @@
+---
+title: "Ours Privacy Web SDK"
+description: "Learn how to use the Ours Privacy Web SDK for tracking events, collecting user data, and setting up a source for your web properties."
+---
+
+The **Ours Privacy Web SDK** is a lightweight JavaScript library that enables seamless tracking of events and collection of visitor data directly from your website. This script is a primary source for capturing first-party data and sending it to the Ours platform for processing and distribution.
+
+The Ours Google Tag Manager (GTM) integration uses the Web SDK under-the-hood.
+
+***
+
+## Why Use the Web SDK?
+
+The Web SDK is designed to:
+
+* **Automatically Collect Important Data Across Page Views**:
+  * Collect visitor data such as UTM parameters, IP address, referrer, and device details.
+* **Track Custom Events**:
+  * Send events like form submissions, clicks, or page views with additional properties.
+* **Separate Data by Source**:
+  * Organize and differentiate data from multiple web properties, enabling precise tracking and reporting.
+* **Maintain Privacy Compliance**:
+  * Helps adheres to HIPAA and other privacy regulations by leveraging Ours’s hashing and redaction features.
+
+***
+
+## Installing the Ours Privacy Web SDK
+
+**Note:**
+
+* All Ours accounts come with a Web SDK token enabled.
+* You can create more than one Web SDK source if you need to track multiple websites that trigger differing destinations
+* You can add whitelisted domains to a Web SDK source to block unwanted requests
+
+***
+
+## Features of the Web SDK
+
+### 1. **Default Data Collection**
+
+The Web SDK automatically collects:
+
+* **Ad Tracking Parameters**: `gclid`, `fbclid`, `utm_*`, and other campaign identifiers.
+* **Visitor Metadata**: Browser type, operating system, screen resolution, and IP address.
+* **Page Details**: Referrer, current URL, and title.
+
+### 2. **Custom Event Tracking**
+
+Track specific interactions using the `ours('track', 'ButtonClick')` function:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'ButtonClick');
+  ```
+</CodeGroup>
+
+### 3. **User Property Identification**
+
+Associate user-specific properties with visitors using the `ours('identify')` function:
+
+<CodeGroup>
+  ```bash bash
+  ours('identify', { email: '[email protected]'});
+  ```
+</CodeGroup>
+
+### 4. **Source Segmentation**
+
+If you manage multiple web properties, Ours lets you set up separate **sources** for each property. This ensures data is isolated and reported accurately. Sources also allow you to configure different destinations or mappings for each property.
+
+You can also whitelist domains for each Web SDK source you setup. And, enable/disable them at anytime.
+
+***
+
+## Debugging the Web SDK
+
+If the Web SDK is not tracking events as expected:
+
+1. **Verify Installation**:
+   * Confirm the script is in the `<head>` section of your website.
+2. **Check the Dashboard**:
+   * Look for tracked events in the [Recent Events Dashboard](/docs/tracking-and-debugging-events).
+
+***
+
+## Privacy and Compliance
+
+The Web SDK adheres to privacy-forward principles, ensuring compliance with HIPAA, GDPR, and other privacy laws:
+
+* **Data Security**:
+  * Automatically hashes or redacts sensitive user properties before forwarding them to destinations.
+* **Customizable Settings**:
+  * Use the [Data Mapping](/docs/data-mapping) tool to configure how collected data is handled.
+* **Signed Compliance**:
+  * Ours offers signed BAAs for HIPAA compliance.
+
+***
+
+## Best Practices for Using the Web SDK
+
+1. **Place the Script in the`<head>`** :
+   * Ensure the script loads before any user interaction occurs.
+2. **Use Sources for Multiple Properties**:
+   * Set up separate sources for each web property to manage data independently.
+3. **Track Key Events**:
+   * Identify important events (e.g., `PageView`, `Purchase`) and ensure they are tracked consistently.
+4. **Minimize Sensitive Data**:
+   * Use `identify` sparingly and hash sensitive fields like `email` where possible.
+5. **Monitor Data**:
+   * Regularly review collected events in the dashboard to verify accuracy and compliance.
+
+***
+
+## Summary
+
+The Ours Privacy Web SDK is a powerful and easy-to-use tool for tracking events, collecting visitor data, and maintaining privacy compliance. By leveraging its built-in features and customizability, you can create a reliable source for first-party data on your web properties.
+
+To get started:
+
+* Install the script using the [Installation Guide](/docs/installation).
+* Explore [Data Mapping](/docs/data-mapping) to customize how data is forwarded to destinations.
+* Monitor events using the [Recent Events Dashboard](/docs/tracking-and-debugging-events).
+
+***
+
+[Ours Sources](/docs/Ours)
+
+[Server API Integration](/docs/server-to-server-integration)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Why Use the Web SDK?](#why-use-the-web-sdk)
+
+  * [Installing the Ours Privacy Web SDK](#installing-the-ours-privacy-web-sdk)
+
+  * [Features of the Web SDK](#features-of-the-web-sdk)
+
+  * * [1. Default Data Collection](#1-default-data-collection)
+    * [2. Custom Event Tracking](#2-custom-event-tracking)
+    * [3. User Property Identification](#3-user-property-identification)
+    * [4. Source Segmentation](#4-source-segmentation)
+
+  * [Debugging the Web SDK](#debugging-the-web-sdk)
+
+  * [Privacy and Compliance](#privacy-and-compliance)
+
+  * [Best Practices for Using the Web SDK](#best-practices-for-using-the-web-sdk)
+
+  * [Summary](#summary)

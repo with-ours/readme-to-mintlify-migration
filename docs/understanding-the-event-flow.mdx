@@ -1,0 +1,115 @@
+---
+title: "Understanding The Event Flow"
+description: "Explore how Ours Privacy processes events, from source to destination, with details on tracking, filtering, mapping, and forwarding data."
+---
+
+# Understanding The Event Flow
+
+The Ours Privacy platform processes events in a structured and secure manner to ensure that your data is tracked, filtered, and forwarded to the correct destinations. This guide will show you how events flow through the system, from their source to their final destination.
+
+***
+
+## Event Flow Overview
+
+Here’s a high-level view of the event flow in Ours Privacy:
+
+![](/images/docs/fdb9b5eae33b964852d977c41e766aaa770faa3ff4f14f77ab147375e00fe76a-Ours-Privacy-Data-Visualization-Event-Flow.jpg)
+
+***
+
+## Step 1: The Source
+
+### What is a Source?
+
+A **source** is where your data originates. Ours Privacy supports multiple types of sources, including:
+
+* **Pixel Script**: You can install this on your website (potentially via GTM) to track user interactions automatically or via custom events.
+* **Server API Integration**: You can use this to track events directly from your backend systems. See [Server API Integration](/docs/server-to-server-integration).
+* **Webhooks or APIs**: These are custom sources that you can use to feed data into Ours Privacy.
+
+The pixel script is one of the most common and straightforward sources. When installed on your website, it automatically tracks default properties (e.g., UTM parameters, referrers) and allows you to track custom events with the `ours('track')` function.
+
+### How the Pixel Script Works
+
+1. The pixel script is installed in the `<head>` section of your website.
+2. It initializes a global function, `ours`, which you use to track events.
+   <CodeGroup>
+     ```bash bash
+     ours('track', 'Your Event Name');
+     ```
+   </CodeGroup>
+3. As users interact with your site, the script sends event data (e.g., page views, form submissions) to Ours Privacy.
+
+To learn more about installing the pixel script, see [Installation](/docs/installation).
+
+***
+
+## Step 2: Event Allowlist
+
+After an event is received from a source, Ours Privacy checks whether it is on your **Event Allowlist**. This ensures that only approved events are processed and sent to destinations.
+
+### Key Points:
+
+* Events that are not allowlisted for a specific destination will not be forwarded to that destination.
+* You can manage your Event Allowlist in the [Event Allowlist](https://app.oursprivacy.com) section of the Ours app.
+
+For more details, see [Adding Events to Your Allowlist](/docs/allow-listing-events).
+
+***
+
+## Step 3: Optional Custom Mapper
+
+Before forwarding events to destinations, Ours Privacy allows you to customize the data through a **mapper**. Mappers enable you to:
+
+* Modify event properties (e.g., rename, transform, or redact data).
+* Apply privacy rules, such as hashing or removing PII/PHI.
+* Customize how data is formatted for specific destinations.
+
+If you do not configure a custom mapper, Ours Privacy uses default mappings to forward your event data.
+
+For more details, see [Data Mapping](/docs/data-mapping).
+
+***
+
+## Step 4: Destinations
+
+Once the event passes through the mapper, it is forwarded to your configured destinations. Destinations can include:
+
+* Analytics platforms (e.g., Google Analytics, Mixpanel).
+* Advertising platforms (e.g., Google Ads, Facebook Ads).
+* Big data tools (e.g., Amazon S3, Google BigQuery).
+
+To configure destinations, refer to the [Destinations Overview](/docs/destination-overview).
+
+***
+
+## Summary
+
+The Ours Privacy event flow ensures that your data is:
+
+1. **Tracked** from a variety of sources (e.g., pixel script, server-to-server).
+2. **Filtered** through the Event Allowlist to allow only approved events.
+3. **Customized** via mappers to fit your specific needs and maintain privacy.
+4. **Forwarded** to destinations securely.
+5. **Verified** through the Recent Events Dashboard in the Ours app for transparency.
+
+To get started, you can install the [Pixel Script](/docs/installation) or set up a [Server-to-Server Integration](/docs/server-to-server-integration). For more advanced configurations, you can explore [Custom Event Mapping](/docs/data-mapping) and [Adding Events to Your Allowlist](/docs/allow-listing-events).
+
+***
+
+[Tracking and Debugging Events](/docs/tracking-and-debugging-events)
+
+[Understanding Events](/docs/understanding-events)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Understanding The Event Flow](#understanding-the-event-flow)
+
+  * * [Event Flow Overview](#event-flow-overview)
+    * [Step 1: The Source](#step-1-the-source)
+    * [Step 2: Event Allowlist](#step-2-event-allowlist)
+    * [Step 3: Optional Custom Mapper](#step-3-optional-custom-mapper)
+    * [Step 4: Destinations](#step-4-destinations)
+    * [Summary](#summary)

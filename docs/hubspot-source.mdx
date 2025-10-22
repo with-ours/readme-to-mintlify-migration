@@ -1,0 +1,128 @@
+---
+title: "HubSpot Source Integration"
+description: "Learn how to set up HubSpot as a data source to send form submissions and meeting events from HubSpot to Ours Privacy for HIPAA-compliant analytics."
+---
+
+# HubSpot Source Integration
+
+This guide will walk you through setting up **HubSpot as a data source** to send form submissions and meeting events from your HubSpot account to **Ours Privacy**. You'll learn how to configure the integration so that HubSpot automatically sends data to Ours Privacy for **HIPAA-compliant analytics** and privacy-conscious event tracking.
+
+> **Note:** If you're looking to send data **to HubSpot from Ours Privacy** (updating contacts in HubSpot based on visitor events), please see our [HubSpot Destination Integration](/docs/hubspot) instead.
+
+## Requirements
+
+Before you begin, ensure you have:
+
+* An active HubSpot account with admin access
+* Access to HubSpot Workflows
+* An Ours Privacy Account
+
+## Setup Steps
+
+### 1. Create a Source in Ours Privacy
+
+1. Log in to your Ours Privacy dashboard
+2. Navigate to **Sources** > **Create Source**
+3. Search for "HubSpot" in the source catalog
+4. Click on the HubSpot CRM source to begin setup
+
+### 2) Authenticate with HubSpot
+
+1. In the HubSpot source setup screen, click **Authenticate with HubSpot**
+2. You'll be redirected to HubSpot's authorization page
+3. Select the HubSpot account you want to connect
+4. Grant the necessary permissions to Ours Privacy
+5. You'll be redirected back to Ours Privacy once authentication is complete
+
+![](/images/docs/fc1f96bf9aa4e36a3f4e83db0d71855bb55c5300c154a0c6a58e2b7cfe385a9d-Screenshot_2025-06-19_at_12.05.01_PM.png)
+
+### 3. Configure HubSpot Workflows
+
+1. In HubSpot, navigate to **Automation** > **Workflows**
+2. Create a new workflow or edit an existing one
+3. Under **Actions**, look for the "Integrated apps" section
+4. Find and select **Ours Privacy**
+5. Click **Add action** to add the "Send event to Ours Privacy" action
+
+![](/images/docs/b9e4755cdabcfe93c774528859530997db47dc397776ef4f604dcf0d57df2ad9-Screenshot_2025-06-19_at_12.04.08_PM.png)
+
+### 4. Configure Event Settings
+
+For each event you want to send to Ours Privacy, you'll need to configure:
+
+1. **Action Key**: A unique identifier for this specific event (e.g., "form\_submission", "meeting\_scheduled")
+
+2. **JSON Payload**: The data structure you want to send to Ours Privacy, which can include:
+
+   * Contact properties
+   * Custom fields
+   * Event metadata
+
+Example JSON payload:
+
+<CodeGroup>
+  ```bash bash
+  {
+    "email": "{{contact.email}}",
+    "firstName": "{{contact.firstname}}",
+    "eventType": "form_submission",
+    "formId": "{{form.id}}",
+    "submissionDate": "{{submission.date}}"
+  }
+  ```
+</CodeGroup>
+
+> **Note:** You will need to replace the bracketed variables above with the variables HubSpot gives you in their Workflow tool
+
+![](/images/docs/28dc6d5209b11d0205b2177e694e8642bf303d9e26408281b382090a8634ffec-Screenshot_2025-06-19_at_12.03.55_PM.png)
+
+## Data Mapping
+
+Each event sent from HubSpot can be mapped differently in Ours Privacy. When configuring your events:
+
+1. Use descriptive Action Keys to easily identify different event types
+2. Structure your JSON payload to match your data requirements
+3. Use HubSpot's property placeholders (e.g., `{{contact.email}}`) to dynamically insert data
+
+## Best Practices
+
+* Create separate workflow actions for different types of events
+* Use clear, consistent naming conventions for Action Keys
+* Test your workflow in HubSpot's test mode before activating
+* Monitor event delivery in Ours Privacy's event logs
+
+## Troubleshooting
+
+If events aren't appearing in Ours Privacy:
+
+1. Verify the workflow is activated in HubSpot
+2. Check the JSON payload syntax
+3. Ensure all required fields are included
+4. Review the authentication status in both platforms
+5. Ensure that your source is published and enabled
+
+## Limitations
+
+* Events are sent when workflow actions are triggered
+* JSON payload must be valid and well-formed
+* Some HubSpot properties may require specific formatting
+* Maximum payload size is limited (consult HubSpot's current limits)
+
+***
+
+[JotForm Integration](/docs/jot-form)
+
+[Scheduling Sources](/docs/Scheduling)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [HubSpot Source Integration](#hubspot-source-integration)
+
+  * * [Requirements](#requirements)
+    * [Setup Steps](#setup-steps)
+    * [Data Mapping](#data-mapping)
+    * [Best Practices](#best-practices)
+    * [Troubleshooting](#troubleshooting)
+    * [Limitations](#limitations)

@@ -1,0 +1,92 @@
+---
+title: "Enterprise SAML Single Sign-On (SSO)"
+description: "Learn about our robust SAML-based Single Sign-On integration for seamless enterprise authentication."
+---
+
+# Enterprise SAML Single Sign-On (SSO)
+
+Our platform offers **SAML-based Single Sign-On (SSO)** integration, enabling seamless authentication for enterprise users. We provide a streamlined, secure login experience that integrates with industry-leading identity providers (IdPs), ensuring compliance, ease of management, and scalability.
+
+## Supported Identity Providers
+
+We integrate with all major enterprise IdPs, including:
+
+* **Okta Workforce**
+* **Microsoft Entra ID (Formerly Active Directory)**
+* **Google Workspace**
+* **Any other IdP that supports the SAML protocol.**
+
+## Supported EASIE Providers
+
+EASIE SSO is a way for applications to provide enterprise-grade SSO through a multi-tenant OpenID provider. It is designed to be an easier alternative to SAML SSO.
+
+The following IdPs are supported: Google Workspace and Microsoft Entra ID.
+
+**Automatic deprovisioning**
+
+Ours Privacy supports automatic deprovisioning and prevents users from linking other account authentication methods to a deprovisioned SAML account. Before creating a new session token for an EASIE user,we verifies whether the user has been deprovisioned from their OpenID provider (e.g., suspended or deleted in Google Workspace, or deleted in Microsoft Entra). This verification process might involve a delay of up to 10 minutes.
+
+## Configuration Guide
+
+### **Step 1: Contact Sales or Your Account Manager**
+
+* **Ask your sales representative** to ensure SAML SSO is allowed on your account.
+* **Ours Privacy** provisions SAML details for you.
+
+### **Step 2: Receive SAML Connection Details**
+
+Once the connection is established, we will provide you with:
+
+* **Single Sign-On (SSO) URL**
+* **Audience URI**
+* **Metadata URL**
+
+### **Step 3: Customize Attribute Mappings (Optional)**
+
+We can customize attribute mappings as needed to ensure correct user provisioning:
+
+* `email`
+* `first_name`
+* `last_name`
+* `role` (if applicable)
+
+### **Step 4: Test & Enable**
+
+* Verify **IdP authentication**.
+* Test login across different user roles.
+* Enable SAML SSO for all users.
+
+## Frequently Asked Questions (FAQs)
+
+### **1. Do you support both IdP-initiated and SP-initiated SAML?**
+
+Yes, for SAML only. Our platform supports **both IdP-initiated** (login from your IdP dashboard) and **SP-initiated** (login from our platform) SAML flows.
+
+### **2. How do we handle user property and role mapping?**
+
+You will configure this with Ours Privacy during Step 3 after the connection details are configured.
+
+### **3. What happens when an employee leaves our organization?**
+
+If SCIM is enabled, users are **automatically deactivated** when removed from the IdP. Without SCIM, admins can revoke access manually.
+
+### **4. Do you support multiple IdPs for a single organization?**
+
+Yes, enterprises can configure **multiple IdPs**, allowing flexible authentication methods.
+
+***
+
+[Policies and Permissions](/docs/policies-and-permissions)
+
+[Ours Privacy SDK Overview](/docs/sdk-overview)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Enterprise SAML Single Sign-On (SSO)](#enterprise-saml-single-sign-on-sso)
+
+  * * [Supported Identity Providers](#supported-identity-providers)
+    * [Supported EASIE Providers](#supported-easie-providers)
+    * [Configuration Guide](#configuration-guide)
+    * [Frequently Asked Questions (FAQs)](#frequently-asked-questions-faqs)

@@ -1,0 +1,77 @@
+---
+title: "Segment"
+description: "Learn how to integrate Segment with Ours Privacy to track user events and behaviors while maintaining data privacy and compliance."
+---
+
+# Segment Integration
+
+Ours Privacy offers two methods to integrate with Segment, allowing you to leverage your existing Segment implementation without requiring a complete re-tagging of your system.
+
+There are two different modes that we support.
+
+## Device Mode Integration
+
+The device mode integration allows you to load the Ours Privacy plugin alongside your Segment web SDK. This method enables Ours to receive all events sent to Segment directly from your website or application.
+
+### Setup Steps:
+
+1. Enable the Segment device plugin in your Ours portal
+2. Copy the provided plugin code
+3. Add the plugin to your Segment initialization based on your SDK version:
+
+#### For Segment Analytics.js (Classic):
+
+<CodeGroup>
+  ```bash bash
+  analytics.register(oursPlugin);
+  ```
+</CodeGroup>
+
+#### For Segment Analytics Next (Analytics 2.0):
+
+<CodeGroup>
+  ```bash bash
+  analytics.use(oursPlugin);
+  ```
+</CodeGroup>
+
+Once configured, Ours will receive all events sent to Segment, and you can manage them through the Ours portal.
+
+![](/images/docs/fb0850ec51ba16ff7852727791ad6b20c4792c4c3e0888f57b7dd818a5a8d247-Xnapper-2025-04-10-07.44.51.jpg)
+
+## Server-Side Integration
+
+For server-side event tracking, Ours Privacy supports integration through Segment's webhook functionality.
+
+### Setup Steps:
+
+1. Enable a webhook **source** in your Ours platform
+2. Configure a webhook **destination** in your Segment platform
+3. Connect the webhook destination to your Ours webhook source
+
+This server-side integration allows you to pipe Segment events directly to the Ours privacy platform while maintaining HIPAA compliance and leveraging our auditing tools.
+
+## Benefits
+
+* No need to re-tag your entire system
+* Maintain existing Segment implementation
+* Leverage Ours Privacy's data management capabilities
+* Ensure HIPAA compliance
+* Access comprehensive auditing tools
+* Manage marketing stack integration
+
+***
+
+[Stripe Integration](/docs/stripe)
+
+[EHR](/docs/EHR)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Segment Integration](#segment-integration)
+
+  * * [Device Mode Integration](#device-mode-integration)
+    * [Server-Side Integration](#server-side-integration)
+    * [Benefits](#benefits)

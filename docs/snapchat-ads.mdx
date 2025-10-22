@@ -1,0 +1,161 @@
+---
+title: "Snapchat Ads"
+---
+
+## Snapchat Ads Features
+
+The Ours Snapchat Ads feature allows you to securely track conversions and other allowed events for Snapchat Ads in a HIPAA-compliant manner. By routing all events through our server, we ensure that Snapchat never interacts directly with your clients' browsers. We also allow you to redact and/or hash data before it is sent over to Snapchat.
+
+With Ours, you can capture meaningful engagement data while safeguarding privacy, helping your Snapchat Ads account stay compliant and optimized with actionable insights.
+
+Ours automatically captures Snapchat click ids from the URL query string and saves them for dispatching future events.
+
+The Snapchat Conversion API allows Ours to send events directly from our servers to Snapchat's servers, bypassing the client browser. This server-to-server connection enhances privacy by keeping user information secure and avoiding direct exposure of user data to Snapchat.
+
+## Configuring a Snapchat destination
+
+To add a destination, click on [Destinations](https://app.oursprivacy.com/) from your Ours platform. Click the **Add destination** button and select Snapchat as the destination type to add.
+
+Then, copy and paste your **Pixel ID** and **Snapchat Conversion API Key** into the Ours destination configuration tool. After successful configuration, you will see a message that says "Your destination is configured and ready."
+
+### Find your Pixel ID
+
+1. Go to Snapchat Ads Manager
+2. Navigate to **Settings** > **Pixel**
+3. Find your Pixel ID in the list of available pixels
+4. Copy and paste that **Pixel ID** into the Ours destination configuration tool
+
+### Find your Snapchat Conversion API Key
+
+1. In the Snapchat Ads Manager, go to **Settings** > **Pixel**
+2. Select your pixel and navigate to the **Conversion API** section
+3. Generate a new access token if you haven't already
+4. Copy the access token provided
+5. Copy and paste that **Snapchat Conversion API Key** into the Ours destination configuration tool
+
+## Standard Snapchat Events
+
+Snapchat supports a variety of standard events that you can track. If you want to use a Standard Snapchat event name, you can either:
+
+* Create an allowed event with the same name as a Standard Snapchat Event name
+
+or
+
+* Use an existing allowed event and rename for your Snapchat destination to a standard event name
+
+Below are some common standard events that Snapchat supports:
+
+### Purchase
+
+When a purchase is made or checkout flow is completed.
+
+**Properties** `currency` (required) `value` (required) `content_ids` `content_type` `contents` `num_items`
+
+**Example**
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'Purchase', { value: 100, currency: 'USD' });
+  ```
+</CodeGroup>
+
+### AddToCart
+
+When a product is added to the shopping cart.
+
+**Properties** `contents` (required for catalog ads) `content_ids` `content_type` `currency` `value`
+
+**Example**
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'AddToCart', { contents: [{ id: 'prod123', quantity: 1 }] });
+  ```
+</CodeGroup>
+
+### InitiateCheckout
+
+When a person enters the checkout flow.
+
+**Properties** `content_ids` `contents` `currency` `num_items` `value`
+
+**Example**
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'InitiateCheckout', { contents: [{ id: 'prod123', quantity: 1 }] });
+  ```
+</CodeGroup>
+
+### Lead
+
+When a sign up is completed.
+
+**Properties** `value` `currency`
+
+**Example**
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'Lead', { value: 50, currency: 'USD' });
+  ```
+</CodeGroup>
+
+### CompleteRegistration
+
+When a registration form is completed.
+
+**Properties** `currency` `value` `status`
+
+**Example**
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'CompleteRegistration', { status: 'completed' });
+  ```
+</CodeGroup>
+
+## When It Dispatches
+
+Our Snapchat integration dispatches events automatically when the required data properties are present. Specifically:
+
+1. **Necessary Properties**: An event will be dispatched if it includes both the Snapchat Pixel ID and Conversion API Key. Additionally, the visitor must have a unique identifier for the event to be valid for Snapchat.
+
+2. **Event Type**: Dispatch occurs only if the event matches a recognized action type within your Snapchat configuration.
+
+3. **Automatic Retry**: If the Snapchat API returns an error indicating a retry is required, such as an API error or temporary issue, the system will automatically attempt to re-dispatch the event.
+
+This setup ensures that events are only dispatched to Snapchat when sufficient configuration and visitor data are present, maintaining efficient and accurate ad interaction tracking.
+
+## Get Started Today
+
+Implement Ours Privacy effortlessly with our simple copy-and-paste installation script. Begin optimizing your ads and tracking analytics without compromising privacy.
+
+***
+
+[Reddit Ads Destination](/docs/reddit-ads)
+
+[Spotify Ads Destination](/docs/spotify)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Snapchat Ads Features](#snapchat-ads-features)
+
+  * [Configuring a Snapchat destination](#configuring-a-snapchat-destination)
+
+  * * [Find your Pixel ID](#find-your-pixel-id)
+    * [Find your Snapchat Conversion API Key](#find-your-snapchat-conversion-api-key)
+
+  * [Standard Snapchat Events](#standard-snapchat-events)
+
+  * * [Purchase](#purchase)
+    * [AddToCart](#addtocart)
+    * [InitiateCheckout](#initiatecheckout)
+    * [Lead](#lead)
+    * [CompleteRegistration](#completeregistration)
+
+  * [When It Dispatches](#when-it-dispatches)
+
+  * [Get Started Today](#get-started-today)

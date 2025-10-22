@@ -1,0 +1,281 @@
+---
+title: "Server API Integration"
+description: "Learn how to use the Ours server API to track events and send data directly to the platform from your backend systems, including Test Mode functionality."
+---
+
+# Server API Integration
+
+The **Ours Server API** allows you to track events directly from your backend systems. This is particularly useful for situations where the Ours JavaScript tracking script cannot be used, such as server-side applications, CRMs, or other backend-only workflows.
+
+***
+
+## Why Use Server API Tracking?
+
+Server API tracking enables you to:
+
+* **Capture Offline or Backend Events**:
+  * Track interactions and events that occur outside of the client-side, such as form submissions, database updates, or external system interactions.
+* **Ensure Data Completeness**:
+  * Maintain data accuracy even when users have disabled JavaScript or blocked tracking scripts.
+* **Enhance Privacy Compliance**:
+  * Collect and process data securely without client-side exposure.
+
+***
+
+## Server API Endpoints
+
+The Ours Server API provides two main endpoints for different purposes:
+
+### Track Events Endpoint (`/api/v1/track`)
+
+Use this endpoint to **track specific events** that occur in your system. This is the primary method for capturing user actions and behaviors.
+
+**When to use:**
+
+* Recording user actions (purchases, form submissions, page views, etc.)
+* Capturing business events (conversions, sign-ups, etc.)
+* Sending event data to configured destinations
+
+**Example:**
+
+<CodeGroup>
+  ```bash bash
+  curl -X POST https://api.oursprivacy.com/api/v1/track \
+    -H "Content-Type: application/json" \
+    -d '{
+      "event": "Purchase",
+      "userId": "user123",
+      "token": "your-api-key",
+      "properties": {
+        "amount": 99.99,
+        "product": "Premium Plan"
+      }
+    }'
+  ```
+</CodeGroup>
+
+### Identify Visitors Endpoint (`/api/v1/identify`)
+
+Use this endpoint to **define or update visitor properties** without firing an event. This is useful for setting user attributes that will be associated with future events.
+
+**When to use:**
+
+* Setting user properties (name, email, plan type, etc.)
+* Updating user profile information
+* Creating user profiles before tracking events
+
+**Important:** This endpoint does not fire an event. If you want to both identify a user and track an event, use the track endpoint and include user properties in the request.
+
+**Example:**
+
+<CodeGroup>
+  ```bash bash
+  curl -X POST https://api.oursprivacy.com/api/v1/identify \
+    -H "Content-Type: application/json" \
+    -d '{
+      "userId": "user123",
+      "token": "your-api-key",
+      "userProperties": {
+        "email": "[email protected]",
+        "firstName": "John",
+        "lastName": "Doe",
+        "plan": "premium"
+      }
+    }'
+  ```
+</CodeGroup>
+
+For detailed API specifications, refer to the [Track Events Reference](/reference/track) and [Identify Visitors Reference](/reference/identify).
+
+***
+
+## Getting Started with the Server API
+
+### 1. Add the Server API Source
+
+You first need to add the Server API source to your account:
+
+1. Go to **Sources** > **Add Source**
+2. Select the **Server API** source
+3. You'll receive an API key and example CURL commands for both endpoints
+
+### 2. Choose Your User Identification Method
+
+When sending data to either endpoint, you must include one of these identifiers to associate the data with a user:
+
+* **`userId`**: The Ours Visitor ID stored in local storage and cookies on your web properties
+* **`externalId`**: Your unique custom identifier you want to group this and other visitors together by.
+* **`email`**: The email address you either associated with the visitor during a Web session or want to associate with the visitor.
+
+**Best Practice**: Use the same identifier across your web and server implementations to ensure proper user association.
+
+### 3. Start with Simple Examples
+
+Try the basic examples from the [Server API Endpoints](#server-api-endpoints) section above. You can test these in the [API Playground](/reference/track) before implementing in your code.
+
+***
+
+## Backfilling Events
+
+You can backfill historical events that occurred in the past using the Server API. This is useful for importing data from existing systems or correcting missing events.
+
+### Event Age Limits
+
+* **Maximum Age**: Events can be backfilled up to 7 days in the past
+* **Time Format**: The `time` field must be in milliseconds since UTC epoch
+* **Validation**: The time must be in the past and within the last 7 days
+
+### Using the `time` Field
+
+The `time` field specifies when the event occurred:
+
+* **If empty**: Assumes the current time (now)
+
+* **If set**: Must be in milliseconds since UTC epoch
+
+  * If older than 7 days, it's rounded to 7 days
+  * If a string or invalid value, it's defaulted to now
+
+### Example
+
+**Backfilled event (24 hours ago):**
+
+<CodeGroup>
+  ```bash bash
+  curl -X POST https://api.oursprivacy.com/api/v1/track \
+    -H "Content-Type: application/json" \
+    -d '{
+      "event": "Purchase",
+      "userId": "user123", 
+      "token": "your-api-key",
+      "time": 1754874909594
+    }'
+  ```
+</CodeGroup>
+
+You can test these examples in the [API Playground](/reference/track).
+
+### Viewing Backfilled Events
+
+Backfilled events will appear in your [Recent Events Dashboard](/docs/tracking-and-debugging-events) with their original timestamp. The events will be ordered chronologically based on their `time` field value, not when they were sent to the API. This allows you to see the events in the correct historical sequence alongside other events from that time period.
+
+***
+
+## Test Mode in Server API Integration
+
+When using the Server API, you have the option to test your integration with a **Test Mode API Key**. Test Mode allows you to debug and validate your setup without dispatching events to configured destinations.
+
+### Setting Up Test Mode
+
+1. **Retrieve a Test API Key**:
+
+   * Navigate to the **Install** page in your dashboard.
+   * Copy the **Test Mode API Key**.
+
+2. **Use the Test API Key in API Requests**:
+
+   * Include the Test API Key in your API requests as part of the headers or body.
+
+### How Test Mode Works for Server API
+
+* **Event Storage**:
+
+  * Events sent using the Test API Key are stored in your dashboard for review.
+  * These events are processed, and dispatch objects are created, but they are not sent to the destinations.
+
+* **Dashboard View**:
+
+  * Test Mode events appear in your **Recent Events** view with a distinct visual tag (e.g., "Test").
+  * This enables you to verify that events are firing correctly and that dispatches are set up as expected.
+
+* **Switching to Live**:
+
+  * After validating your setup in Test Mode, replace the Test API Key with your live API key to begin dispatching events to their destinations.
+
+## API Key Rotation
+
+For enhanced security, we recommend regularly rotating your API keys. Here's how to safely rotate your Server API keys:
+
+1. **Create a New Source**:
+
+   * Go to **Sources** > **Add Source** and create a new Server API source
+   * This will generate a new API key while keeping your existing one active
+
+2. **Update Your Integration**:
+
+   * Update your backend systems to use the new API key
+   * Continue sending events to both destinations during the transition period
+
+3. **Monitor Event Flow**:
+
+   * Use the [Recent Events Dashboard](/docs/tracking-and-debugging-events) to verify that events are being received by the new destination
+   * Check that the event volume matches your expectations
+
+4. **Complete the Rotation**:
+
+   * Once you confirm that all events are flowing to the new destination, you can safely deactivate and delete the old destination
+   * This phased approach ensures no events are lost during the rotation process
+
+## Debugging and Troubleshooting
+
+If you encounter issues with the Server API:
+
+1. **Check the API Response**:
+
+   * The API returns clear error messages and status codes. Common issues include:
+
+     * `401 Unauthorized`: Check your API key.
+     * `400 Bad Request`: Verify required fields and JSON structure.
+
+2. **Verify Events in the Dashboard**:
+
+   * Use the [Recent Events Dashboard](/docs/tracking-and-debugging-events) to see if your events are being ingested and processed.
+
+3. **Contact Support**:
+
+   * If you're unable to resolve an issue, reach out to [\[email protected\]](/cdn-cgi/l/email-protection#30434540405f4244705f454243404259465153491e535f5d) for assistance.
+
+***
+
+## Use Cases for Server API Tracking
+
+### CRM or Backend Workflows
+
+Track events such as:
+
+* User status changes (e.g., `LeadConverted`).
+* Data imports from external systems.
+
+### Offline Conversions
+
+Capture offline interactions like:
+
+* In-person purchases.
+* Call center activity.
+
+### Secure Event Processing
+
+Send sensitive data (e.g., medical or financial) directly from a secure backend environment.
+
+***
+
+***
+
+[Ours Privacy Web SDK](/docs/web-script-source)
+
+[Pixel Tracking](/docs/pixel-api)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Server API Integration](#server-api-integration)
+
+  * * [Why Use Server API Tracking?](#why-use-server-api-tracking)
+    * [Server API Endpoints](#server-api-endpoints)
+    * [Getting Started with the Server API](#getting-started-with-the-server-api)
+    * [Backfilling Events](#backfilling-events)
+    * [Test Mode in Server API Integration](#test-mode-in-server-api-integration)
+    * [API Key Rotation](#api-key-rotation)
+    * [Debugging and Troubleshooting](#debugging-and-troubleshooting)
+    * [Use Cases for Server API Tracking](#use-cases-for-server-api-tracking)

@@ -1,0 +1,131 @@
+---
+title: "Custom Domains"
+description: "Learn how to configure custom domains to enhance security, performance and branding."
+---
+
+# Custom Domain Setup
+
+A custom domain for your analytics setup improves privacy, performance, and security—all while giving you more control.
+
+## Privacy Benefits
+
+With a custom domain, all tracking-related cookies are set on your own domain, not on ours (privacy.com) or any third-party domains like Facebook.com. This means you own and control the data collected, ensuring visitor privacy and compliance with data protection regulations.
+
+* **First-Party Cookies:** Using a custom domain allows you to leverage first-party cookies, which are generally perceived as more trustworthy by visitors and are less likely to be blocked by browsers. This leads to more accurate data collection and a better understanding of visitor behavior.
+* **Stronger Content Security Policy (CSP):** A custom domain enables you to implement a stricter CSP, further enhancing security by controlling the resources the browser is allowed to load. This helps prevent potential security vulnerabilities and protects your visitors from malicious attacks.
+
+## Performance Enhancements
+
+A custom domain can improve website performance in several ways:
+
+* **Reduced Ad Tracker Interference:** Ad trackers often block or slow down requests to third-party domains. By using your own domain, you minimize the impact of ad trackers on your website's performance, leading to faster loading times and a smoother visitor experience.
+* **Server-Side Cookie Management:** Our custom domain implementation sets cookies server-side on your domain. These cookies tend to have longer lifespans and are less susceptible to browser restrictions, resulting in more persistent and reliable tracking.
+
+## How to Set Up Your Custom Domain
+
+1. **Enable the feature** Within the Ours Privacy dashboard, navigate to **Getting Started** → **Advanced Features**, and click “Set up custom domain.”
+
+2. **Update your DNS** You'll be given two records to add to your domain's DNS settings. These point your domain to our infrastructure.
+
+3. **Adjust your install** Once DNS changes propagate, [adjust your install configuration](/docs/custom-domains#/activation-steps) (e.g., GTM or JS SDK) to start using your new domain.
+
+That's it! Your custom domain will be up and running, providing you with enhanced privacy, performance, and security.
+
+## Additional Features
+
+In addition to proxying our Web SDK, your custom domain can also be used for:
+
+* **1-pixel image tracking:** The Ours 1-pixel image tracking URL also works with custom domains. Track visitor activity with our privacy-focused 1-pixel image tracking solution, hosted on your custom domain. This provides accurate tracking without relying on 3rd cookies or other potentially intrusive methods. See our documentation for more details: [1-pixel image tracking documentation](/docs/pixel-api)
+* **Redirect tracking:** The Ours redirect tracking also works with custom domains. Track redirects originating from your website using your custom domain. This allows you to monitor the effectiveness of your marketing campaigns and understand visitor flow. See our documentation for more details: [Redirect tracking documentation](/docs/redirect-source)
+
+## GTM Proxying with a Custom Domain
+
+You can load your GTM container through your custom domain instead of directly from Google. This avoids third-party exposure and enhances privacy.
+
+💡 Note: This setup supports HIPAA compliance.
+
+### Example
+
+<CodeGroup>
+  ```bash bash
+  <script src="https://metrics.custom-domain.com/gtm.js?id=GTM-XXXX"></script>
+  ```
+</CodeGroup>
+
+Or use our managed proxy:
+
+<CodeGroup>
+  ```bash bash
+  <script src="https://cdn.oursprivacy.com/gtm.js?id=GTM-XXXX"></script>
+  ```
+</CodeGroup>
+
+### Activation Steps
+
+1. In your OursPrivacy GTM template, go to **Permissions → Inject Scripts**, and add: `https://metrics.custom-domain.com/*`
+
+2. In your GTM container, set the source to: `https://metrics.custom-domain.com`
+
+### Javascript Web SDK Custom Domain Setup
+
+<CodeGroup>
+  ```bash bash
+  <!-- Ours Pixel Code -->
+  <script>
+    // Step 1. paste script from the app here
+    // Step 2. change cdn.oursprivacy.com/main.js => metrics.custom-domain.com/main.js
+    // Step 3. Call ours('init') with the optional custom_domain parameter
+      ours("init", "{{token}}", { 
+        custom_domain: "{{custom domain}}"
+      });
+  </script>
+  ```
+</CodeGroup>
+
+**Note:** For customers using IPv4-only endpoints to improve attribution accuracy with advertising platforms, you'll need to set up an additional custom domain for IPv4 traffic. See the [Web SDK documentation](/docs/web-sdk-javascript) for details on configuring `force_ipv4` and `custom_domain_ipv4`.
+
+### IPv4 Custom Domain Setup
+
+When using the Web SDK with IPv4 support enabled (`force_ipv4: true`), you'll need to set up an additional custom domain specifically for IPv4 traffic. This ensures consistent attribution accuracy with advertising platforms while maintaining the benefits of custom domains.
+
+1. **DNS Configuration**
+
+   * Set up a subdomain (typically `ipv4.yourdomain.com`) for IPv4 traffic
+   * Add the provided DNS records for this IPv4 subdomain
+   * Ensure both your main custom domain and IPv4 subdomain are properly configured
+
+2. **SDK Configuration**
+
+   * Set `force_ipv4: true` to enable IPv4-only requests
+   * Configure `custom_domain_ipv4` with your IPv4 subdomain
+   * Keep your main `custom_domain` configuration for non-IPv4 traffic
+
+<CodeGroup>
+  ```bash bash
+  ours("init", "{{token}}", {
+    custom_domain: "https://metrics.yourdomain.com",
+    force_ipv4: true,
+    custom_domain_ipv4: "https://ipv4.yourdomain.com"
+  });
+  ```
+</CodeGroup>
+
+**Note:** When `force_ipv4` is enabled, you must configure both `custom_domain` and `custom_domain_ipv4` to ensure proper functionality across all network configurations.
+
+***
+
+[Data Retention](/docs/data-retention)
+
+[Domain Whitelisting](/docs/domain-whitelisting)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Custom Domain Setup](#custom-domain-setup)
+
+  * * [Privacy Benefits](#privacy-benefits)
+    * [Performance Enhancements](#performance-enhancements)
+    * [How to Set Up Your Custom Domain](#how-to-set-up-your-custom-domain)
+    * [Additional Features](#additional-features)
+    * [GTM Proxying with a Custom Domain](#gtm-proxying-with-a-custom-domain)

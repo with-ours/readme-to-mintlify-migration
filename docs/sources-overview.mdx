@@ -1,0 +1,110 @@
+---
+title: "Sources Overview"
+description: "Learn how sources work in Ours, including first-party and third-party data ingestion methods, and how to manage data from multiple properties."
+---
+
+# Sources Overview
+
+In Ours, **sources** are how data enters the platform. They allow you to collect, track, and organize data from multiple properties or systems, giving you full control over your visitor interactions and analytics. This guide provides an overview of the available source types and how to manage them effectively.
+
+***
+
+## Types of Sources
+
+Ours supports two primary types of sources:
+
+### 1. First-Party Sources
+
+**First-party sources** are implemented directly on your website or app to track visitor interactions in real time. These include:
+
+#### **Ours Privacy Web SDK**
+
+The script is a lightweight JavaScript snippet installed on your website. It enables you to:
+
+* Automatically capture default properties (e.g., UTM parameters, referrers, user agents).
+* Track custom events using the `ours('track', 'Event Name')` function.
+* Monitor visitor behavior across pages and sessions.
+
+For setup instructions, see the [Installation Guide](/docs/installation).
+
+#### **Server API Tracking**
+
+Server API tracking allows you to send data directly from your backend systems to Ours. This method is ideal for:
+
+* Tracking events that occur outside the user’s browser (e.g., purchases, app interactions).
+* Ensuring data reliability in cases where client-side tracking isn’t feasible.
+
+For more details, refer to [Server API Integration](/docs/server-to-server-integration).
+
+***
+
+### 2. Third-Party Sources
+
+**Third-party sources** let you ingest data from external systems, such as CRM tools or data warehouses. These integrations provide flexibility in centralizing and analyzing data from disparate systems.
+
+*Note: Third-party source support is planned for an upcoming release. Stay tuned for updates!*
+
+***
+
+## Managing Sources
+
+### Organizing Multiple Web Properties
+
+If you manage multiple websites or apps, you can configure Ours to treat each property as a separate source. This allows you to:
+
+* Track data independently for each property.
+* Assign specific destinations for events from individual sources.
+* Segment data by property for better insights and analytics.
+
+### Example Use Case:
+
+A healthcare organization with separate websites for patient onboarding and telehealth services can configure each as a distinct source. This ensures that data remains organized while enabling destination-specific configurations.
+
+***
+
+## Best Practices for Using Sources
+
+1. **Install and Verify the Pixel Script**:
+
+   * Use the pixel script for seamless tracking of web interactions. Verify its installation using the [Recent Events Dashboard](/docs/tracking-and-debugging-events).
+
+2. **Leverage Server API Tracking**:
+
+   * Use S2S tracking for backend events or to ensure redundancy in case of browser limitations.
+
+3. **Segment by Property**:
+
+   * Assign unique identifiers to your sources to maintain clarity and separation between web properties.
+
+4. **Align Sources with Destinations**:
+
+   * Ensure each source is configured to send data only to the appropriate destinations.
+
+***
+
+## Summary
+
+Sources are the entry point for data into Ours. Whether you’re using the pixel script for real-time web tracking, server-to-server integration for backend events, or third-party systems, Ours ensures your data flows securely and efficiently.
+
+To get started:
+
+* Install the [Pixel Script](/docs/installation) or set up [Server API Integration](/docs/server-to-server-integration).
+* Learn how to manage events in [Understanding Events](/docs/understanding-events).
+* Debug and verify your setup using the [Recent Events Dashboard](/docs/tracking-and-debugging-events).
+
+***
+
+[Understanding Events](/docs/understanding-events)
+
+[Destination Overview](/docs/destination-overview)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Sources Overview](#sources-overview)
+
+  * * [Types of Sources](#types-of-sources)
+    * [Managing Sources](#managing-sources)
+    * [Best Practices for Using Sources](#best-practices-for-using-sources)
+    * [Summary](#summary)

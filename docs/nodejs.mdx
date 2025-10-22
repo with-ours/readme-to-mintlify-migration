@@ -1,0 +1,57 @@
+---
+title: "Node.js SDK (server api)"
+description: "Quick start guide for the Ours Privacy Node.js SDK."
+---
+
+# Ours Privacy Node.js SDK Documentation
+
+This is a quick start guide for integrating the Ours Privacy Node.js SDK into your server-side applications.
+
+## Installation
+
+Install the SDK via npm:
+
+<CodeGroup>
+  ```bash bash
+  npm install ours-ingest-sdk
+  ```
+</CodeGroup>
+
+For more details, visit the [NPM Repo](https://www.npmjs.com/package/ours-ingest-sdk) | [Github Repo](https://github.com/with-ours/ingest-sdk-nodejs).
+
+## Usage
+
+Initialize the SDK and send events with just a few lines of code:
+
+<CodeGroup>
+  ```bash bash
+  import { OursPrivacyApi } from 'ours-ingest-sdk';
+
+  const ours = new OursPrivacyApi();
+
+  // Track an event
+  ours.track();
+  // Identify a user
+  ours.identify();
+  ```
+</CodeGroup>
+
+## Explore the API
+
+Want to see what the SDK can do? Try our [Interactive API Explorer](/reference/track#/) to experiment with endpoints and features in real time.
+
+***
+
+[OpenAPI Schema (server api)](/docs/openapi)
+
+[PHP SDK (server api)](/docs/php)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Privacy Node.js SDK Documentation](#ours-privacy-nodejs-sdk-documentation)
+
+  * * [Installation](#installation)
+    * [Usage](#usage)
+    * [Explore the API](#explore-the-api)

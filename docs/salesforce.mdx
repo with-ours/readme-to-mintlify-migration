@@ -1,0 +1,222 @@
+---
+title: "Salesforce Integration"
+description: "Learn how to integrate Ours Privacy with Salesforce to track data changes and user actions while maintaining privacy and HIPAA compliance."
+---
+
+# Ours Privacy Integration with Salesforce
+
+This guide will walk you through integrating **Ours Privacy** with your Salesforce account. You'll learn how to send events to Ours Privacy when data changes or when users take actions in Salesforce, all while ensuring **HIPAA-compliant analytics** for privacy-conscious applications.
+
+## Before You Begin
+
+To use Ours Privacy with Salesforce, you must first create a **Server API** in the Ours Privacy dashboard. This will generate a server-specific token, which is different from the token used by our Web SDK (such as those embedded in GTM or JavaScript snippets).
+
+<Info>
+  ### Tokens used with the Web SDK will not work for Salesforce or any other server-side integration.
+</Info>
+
+<Info>
+  ### For more information about server-to-server integrations, see our [Server API Integration guide](/docs/server-to-server-integration).
+</Info>
+
+To create a new API Source:
+
+1. Go to your Ours Privacy dashboard.
+2. Navigate to **Sources** and click **"Add Source"**.
+3. Choose **Server API**.
+4. Save the token that's generated – you'll use this in your Salesforce HTTP Callout.
+
+Also, make sure the JSON you send in the body of the request is valid. You can use tools like [jsonlint.com](https://jsonlint.com) to validate your payloads.
+
+## Using the Ours Privacy Salesforce Event Action in Flow
+
+Salesforce Flow Builder now allows you to create HTTP callouts without code, making it easy to send data to Ours Privacy whenever important events occur in your Salesforce instance. Here's how to use this feature:
+
+![](/images/docs/f9851cdf3b0df9b6f6bf0aa67b5e516886674e133cad0abcdbdcc0128547d4f8-Xnapper-2025-03-12-15.38.56.jpg)
+
+### What You Can Track
+
+With this integration, you can send events to Ours Privacy when:
+
+* A lead is created or updated
+* An opportunity stage changes
+* A case is closed
+* A custom object is modified
+* Users take specific actions in Salesforce
+* Any other event you can build a Flow for
+
+### Creating a Flow with Ours Privacy HTTP Callout
+
+1. **Create a New Flow in Salesforce**:
+
+   * Navigate to **Setup > Flow > New Flow**
+   * Select the appropriate flow type (Record-Triggered, Schedule-Triggered, etc.)
+
+2. **Add the Ours Privacy HTTP Callout Action**:
+
+   * In your flow, click on the **+** button to add a new element
+   * Select **Action**
+   * Choose **Create HTTP Callout**
+   * Select your Named Credential (set up as described in the setup section below)
+
+3. **Configure the HTTP Request and Body**:
+
+   * Set the **Method** to **POST**
+   * Enter your Ours Privacy endpoint URL (e.g., `https://api.oursprivacy.com/api/v1/track`)
+   * Configure the body of the request to contain all the information you would like to send back to Ours Privacy. You can [build your payload here](/reference/track#/)
+   * At a minimum, you would need this:
+   * <CodeGroup>
+       ```bash bash
+       {
+         "event": "Event Name",
+         "token": "{{ours token}}"
+       }
+       ```
+     </CodeGroup>
+
+4. **Activate Your Flow**:
+
+   * Save and activate your flow to start sending events to Ours Privacy
+   * **Note:** If you are triggering the Ours Privacy Salesforce Action off of a object event (like contact created, account updated, etc), you will need to include the action in an async logic branch of your flow statement.
+
+## How to Set Up Ours Privacy as a Salesforce Event Action
+
+Below are detailed instructions on how to enable Ours Privacy as an HTTP Callout Source in SalesForce.
+
+<Info>
+  ### Contact your account representative about helping you configure your CRM with the below settings.
+</Info>
+
+#### Additional Links
+
+* [Salesforce Documentation](https://help.salesforce.com/s/articleView?id=platform.flow_http_callout_configure.htm\&type=5)
+* [ApexHours Helpful Blog Post](https://www.apexhours.com/http-callout-into-flow-builder-without-code/)
+
+Before you can use HTTP Callouts in your flows, you need to set up the connection between Salesforce and Ours Privacy:
+
+### 1. Create an External Credential with "No Authentication"
+
+1. Navigate to **Setup > Named Credentials > External Credentials**
+
+2. Click **New**
+
+3. Enter the following details:
+
+   * **Label**: Ours Privacy API
+   * **Name**: OursPrivacyAPI
+   * **Authentication Protocol**: Custom
+   * **Authentication Type**: No Authentication
+
+4. Click **Save**
+
+![](/images/docs/03764d7601b9e7b9a4839831b47857a88795f0ae02a373090f3a15ef1dac6486-Xnapper-2025-03-12-14.19.08.jpg)
+
+### 2) Assign a Principal to the External Credential
+
+1. On the External Credential detail page, go to the **Principals** section
+2. Click **New**
+3. Enter a **Label** (e.g., "Ours Privacy Principal")
+4. Leave other fields at their default values
+5. Click **Save** and assign the users to the permission as needed
+
+### 3) Create a Named Credential that Uses the External Credential
+
+1. Navigate to **Setup > Named Credentials > Named Credentials**
+
+2. Click **New**
+
+3. Enter the following details:
+
+   * **Label**: Ours Privacy Endpoint
+   * **Name**: OursPrivacyEndpoint
+   * **URL**: Your Ours Privacy API endpoint (e.g., `https://api.oursprivacy.com/api/v1/track`)
+   * **External Credential**: Select the "Ours Privacy API" credential you created
+
+4. Click **Save**
+
+![](/images/docs/913b6a792b829d9b5dea0a500cbf0748ebc053ec0e93ab1a0ea8aaf4cf797f6d-Xnapper-2025-03-12-14.28.32.jpg)
+
+### 4) Map External Credential Principal and Permission Set
+
+1. Create a permission set for users who will use the HTTP Callout:
+
+   * Navigate to **Setup > Permission Sets**
+   * Click **New**
+   * Enter a **Label** (e.g., "Ours Privacy Integration")
+   * Click **Save**
+
+2. Assign the External Credential Principal to the Permission Set:
+
+   * On the Permission Set detail page, click **External Credential Principal Access**
+   * Click **Edit**
+   * Add the "Ours Privacy Principal" to the Selected Principals
+   * Click **Save**
+
+3. Assign the Permission Set to appropriate users:
+
+   * On the Permission Set detail page, click **Manage Assignments**
+   * Select the users who should have access to the Ours Privacy integration
+   * Click **Assign**
+
+## Example Use Cases
+
+### Track Lead Conversions
+
+Create a flow that triggers when a lead is converted and sends the conversion data to Ours Privacy for attribution analysis.
+
+### Monitor Opportunity Pipeline Changes
+
+Send events to Ours Privacy whenever an opportunity changes stage, allowing you to analyze your sales pipeline in real-time.
+
+### Capture Form Submissions
+
+When forms are submitted in Salesforce, send the submission data to Ours Privacy to track lead generation performance.
+
+### Custom Object Tracking
+
+Track changes to custom objects that represent important business processes specific to your organization.
+
+## Benefits of the Ours Privacy Salesforce Integration
+
+* **HIPAA Compliance**: Ideal for healthcare and other privacy-sensitive industries
+* **No Code Required**: Use Flow Builder's visual interface without writing Apex code
+* **Real-time Event Tracking**: Capture Salesforce events as they happen
+* **Custom Event Flexibility**: Track any event that can be captured in a Salesforce Flow
+* **Enhanced Data Security**: Server-side integration ensures secure data transmission
+
+## Frequently Asked Questions
+
+### What happens if I use a Web SDK token?
+
+The request will fail silently or be rejected. Web SDK tokens are intended for browser-based integrations. Always use a **Server API Source** token for Salesforce.
+
+### My events aren't showing up in Ours Privacy — what could be wrong?
+
+* Double-check that you are using the **correct token** from a Server API Source.
+* Make sure the JSON payload is properly formatted and valid.
+* Ensure that your HTTP Callout points to the correct API endpoint: `https://api.oursprivacy.com/api/v1/track`
+
+### Where can I test my payload format?
+
+You can validate and preview your payload using the [Track API Explorer](/reference/track#/).
+
+For further assistance, contact [\[email protected\]](/cdn-cgi/l/email-protection#12616762627d6066527d67606162607b6473716b3c717d7f).
+
+***
+
+[Lead Generation Sources](/docs/LeadGen)
+
+[Facebook Lead Ads Integration](/docs/facebook-lead-ads)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Privacy Integration with Salesforce](#ours-privacy-integration-with-salesforce)
+
+  * * [Before You Begin](#before-you-begin)
+    * [Using the Ours Privacy Salesforce Event Action in Flow](#using-the-ours-privacy-salesforce-event-action-in-flow)
+    * [How to Set Up Ours Privacy as a Salesforce Event Action](#how-to-set-up-ours-privacy-as-a-salesforce-event-action)
+    * [Example Use Cases](#example-use-cases)
+    * [Benefits of the Ours Privacy Salesforce Integration](#benefits-of-the-ours-privacy-salesforce-integration)
+    * [Frequently Asked Questions](#frequently-asked-questions)

@@ -1,0 +1,104 @@
+---
+title: "Healthie Integration"
+description: "Learn how to integrate Ours with Healthie to track patient interactions, appointments, and clinical events effortlessly while maintaining privacy and HIPAA compliance."
+---
+
+# Ours Integration with Healthie
+
+This guide will walk you through integrating **Ours** with your Healthie account. You'll learn how to track patient interactions, appointments, and clinical events seamlessly while ensuring **HIPAA-compliant analytics** for privacy-conscious healthcare applications.
+
+## Setting Up Healthie Integration
+
+Follow these steps to set up the integration:
+
+1. **Enable API Access**:
+
+   * Ensure your Healthie account has an active API membership (Enterprise plan)
+   * Contact Healthie support to enable developer access if not already enabled
+   * Navigate to Settings > Developer > Webhooks in your Healthie account
+
+2. **Create a New Source in Ours**:
+
+   * In the Ours app, navigate to **Sources** and create a new source
+   * Select **Healthie** from the options
+   * Save your **Healthie API** key for making authenticated API calls
+
+3. **Configure Webhooks in Healthie**:
+
+   * Click "Add Webhook" in the Healthie Developer settings
+
+   * Enter the Ours Webhook URL provided during source creation
+
+   * Select the following webhook events:
+
+     * `appointment.updated` - For tracking attended appointments
+     * `appointment.created` - For new appointments
+     * `appointment.deleted` - For cancelled appointments
+
+   * Note: Ours Privacy can work with any event from Healthie. We fetch additional information for the webhook payload for Appointment events.
+
+4. **Submit a Test Event**:
+
+   * Create a test appointment or patient interaction in Healthie
+   * Verify that the data is sent to Ours
+   * Check the Ours app for pre-populated variables from the event payload
+
+5. **Map Clinical Fields**:
+
+   * Use the field mapping interface in Ours to map Healthie data to Ours attributes
+   * Include essential patient identifiers while ensuring HIPAA compliance
+   * Map appointment and clinical event data for accurate tracking
+
+## Key Features
+
+### Appointment Status Tracking
+
+Track the complete appointment lifecycle:
+
+* **Appointment Status**: Monitor appointment status changes (Occurred, No-Show, Re-Scheduled, Cancelled)
+* **Post-Meeting Status**: Track `pm_status` field for attendance confirmation
+* **Provider and Patient Details**: Access complete appointment information via API
+* **Many More Events**: Healthie has 100+ events they can send to Ours Privacy
+
+### HIPAA-Compliant Data Handling
+
+Our integration ensures secure data handling:
+
+* **Secure Webhook Verification**: Validate incoming webhooks using signature verification
+* **Encrypted API Communication**: All API calls use HTTPS with proper authentication
+* **Minimal Data Exposure**: Webhook payloads contain only essential identifiers
+* **Secure Data Storage**: Sensitive information is stored according to HIPAA guidelines
+
+### Clinical Analytics
+
+Gain insights into your practice's performance:
+
+* **Appointment Analytics**: Track attendance rates and scheduling patterns
+* **Provider Performance**: Monitor provider schedules and patient interactions
+* **Patient Engagement**: Analyze appointment completion rates
+* **Resource Utilization**: Track facility and provider usage
+
+## Key Benefits of the Ours Healthie Integration
+
+* **HIPAA Compliance**: Designed specifically for healthcare applications
+* **Real-time Updates**: Instant notification of appointment status changes
+* **Secure Data Transmission**: Server-side integration with proper authentication
+* **Comprehensive Tracking**: Capture all important appointment events
+
+For further assistance, contact [\[email protected\]](/cdn-cgi/l/email-protection#61121411110e1315210e141312111308170002184f020e0c).
+
+***
+
+[EHR Integrations Overview](/docs/ehr-integrations)
+
+[Tellescope Integration](/docs/tellescope)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Integration with Healthie](#ours-integration-with-healthie)
+
+  * * [Setting Up Healthie Integration](#setting-up-healthie-integration)
+    * [Key Features](#key-features)
+    * [Key Benefits of the Ours Healthie Integration](#key-benefits-of-the-ours-healthie-integration)

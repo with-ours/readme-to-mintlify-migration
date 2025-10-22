@@ -1,0 +1,128 @@
+---
+title: "Ours Integration with WordPress"
+description: "Learn how to integrate Ours with your WordPress website for tracking page views and custom events seamlessly."
+---
+
+# Ours Integration with WordPress
+
+This guide will walk you through integrating **Ours** with your WordPress website. You’ll learn how to install the Ours tracking script, track page views, and log custom events—all while ensuring **HIPAA-compliant analytics** for privacy-conscious applications.
+
+## Integration Options
+
+The integration guide below covers using the [Ours Privacy Web SDK](/docs/web-sdk-javascript).
+
+If you want to use Google Tag Manager instead, you can ignore the code examples and use traditional [Google Tag Manager Triggers](/docs/gtm-install) to fire your events.
+
+Choose the approach that best suits your workflow.
+
+***
+
+## Install
+
+To integrate Ours with your WordPress website, you’ll need to install the Ours tracking script. Follow these steps:
+
+1. Go to the [Install Ours](https://app.oursprivacy.com/install) page in your Ours account.
+
+2. Copy the script provided on that page.
+
+3. Add the script to your WordPress site using one of these methods:
+
+   * **Using a Plugin**: We recommend using a plugin such as [Insert Headers and Footers](https://wordpress.org/plugins/insert-headers-and-footers/) or [Code Snippets](https://wordpress.org/plugins/code-snippets/).
+     * Paste the script into the **Header** section of the plugin settings.
+
+   * **Directly in the Theme**:
+
+     * Navigate to **Appearance > Theme Editor** in your WordPress admin dashboard.
+     * Open the `header.php` file of your active theme.
+     * Paste the script just before the closing `</head>` tag.
+
+Save your changes and verify the script is included on all pages of your website.
+
+***
+
+## Tracking Page Views
+
+By default, **Ours does not automatically track page views**. You need to explicitly track them by adding the following line **after the`ours('init', ...)` call** in the script:
+
+<CodeGroup>
+  ```bash bash
+  <!-- Ours Pixel Code -->
+  <script>
+   // your install code is here
+
+   ours('track', 'PageView');
+  </script>
+  <!-- End Ours Pixel Code -->
+  ```
+</CodeGroup>
+
+This ensures page views are logged correctly in Ours.
+
+***
+
+## Track Events
+
+To track custom events such as form submissions or button clicks, you can add the `ours('track', ...)` function in your WordPress code or using custom JavaScript. You can place this in the plugin settings (if using a plugin like **Insert Headers and Footers**) or directly within your site’s JavaScript files.
+
+### Example: Tracking Button Clicks
+
+<CodeGroup>
+  ```bash bash
+  <button onclick="ours('track', 'ButtonClicked');">Contact Us</button>
+  ```
+</CodeGroup>
+
+### Example: Tracking Form Submissions
+
+<CodeGroup>
+  ```bash bash
+  <form onsubmit="ours('track', 'FormSubmit');">
+    <input type="text" name="name" placeholder="Your Name" />
+    <button type="submit">Submit</button>
+  </form>
+  ```
+</CodeGroup>
+
+***
+
+## Recommended Plugins
+
+Here are some WordPress plugins that make it easy to add the Ours tracking script and manage events:
+
+1. [Insert Headers and Footers](https://wordpress.org/plugins/insert-headers-and-footers/): A simple plugin for adding custom scripts to your site.
+2. [Code Snippets](https://wordpress.org/plugins/code-snippets/): A versatile plugin for adding custom JavaScript and PHP snippets to your site.
+
+***
+
+## Why Use Ours for WordPress?
+
+Ours is a great choice for integrating **HIPAA-compliant analytics** into your WordPress site. It helps you track user interactions while maintaining privacy and security.
+
+### Key Benefits:
+
+* **HIPAA Compliance**: Built for healthcare and privacy-conscious organizations.
+* **Custom Event Flexibility**: Easily track specific interactions like form submissions or button clicks.
+* **No IP Exposure**: Ours proxies events to ensure user privacy.
+
+***
+
+If you need further assistance, contact us at [\[email protected\]](/cdn-cgi/l/email-protection#05767075756a7771456a70777675776c7364667c2b666a68).
+
+***
+
+[Ours Integration with Drupal](/docs/drupal-integration)
+
+[Ours Integration with Shopify](/docs/shopify)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Integration with WordPress](#ours-integration-with-wordpress)
+
+  * * [Integration Options](#integration-options)
+    * [Install](#install)
+    * [Tracking Page Views](#tracking-page-views)
+    * [Track Events](#track-events)
+    * [Recommended Plugins](#recommended-plugins)
+    * [Why Use Ours for WordPress?](#why-use-ours-for-wordpress)

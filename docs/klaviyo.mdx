@@ -1,0 +1,55 @@
+---
+title: "Klaviyo Integration"
+description: "Learn how to integrate Ours with Klaviyo to update contacts based on events with emails, while maintaining privacy and HIPAA compliance."
+---
+
+The Klaviyo integration allows you to create or update contacts in your Klaviyo account based on visitor events. This integration requires an email address to be associated with the visitor for proper contact identification.
+
+## Requirements
+
+* A Klaviyo account
+* Email address associated with the visitor in Ours Privacy
+* (optional) - Custom properties configured in Klaviyo (if you want to send custom data)
+
+## Setup
+
+1. Navigate to your Klaviyo Account Settings
+2. Go to "API Keys" section
+3. Create a new "Private API Key" with the necessary permissions
+4. Copy the API key into your Ours integration settings
+
+## Custom Properties
+
+You can send custom properties to Klaviyo using the property names from your Klaviyo account. To find the correct property names:
+
+1. Go to Klaviyo's Settings > Properties
+2. View or create the properties you want to use
+3. Use the property names in your Ours integration settings
+
+## Data Mapping
+
+When configuring the integration, you can map Ours events to Klaviyo contact properties. The integration will:
+
+* Create a new contact if one doesn't exist with the provided email
+* Update existing contacts if they match the email address
+* Send custom property data to the specified Klaviyo properties
+
+## Privacy and Compliance
+
+This integration is designed to send data over to Klaviyo. Please make sure you have the proper safeguards in place before sending data to Klaviyo.
+
+***
+
+[Mailchimp Integration](/docs/mailchimp)
+
+[Woopra Integration](/docs/woopra)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Requirements](#requirements)
+  * [Setup](#setup)
+  * [Custom Properties](#custom-properties)
+  * [Data Mapping](#data-mapping)
+  * [Privacy and Compliance](#privacy-and-compliance)

@@ -1,0 +1,101 @@
+---
+title: "Quora Ads Destination"
+---
+
+# Quora Ads Destination
+
+The Quora Ads destination allows you to send your event data directly to Quora using their Conversion API (CAPI). This server-side integration helps you track conversions and optimize your ad campaigns more accurately.
+
+## Getting Started
+
+1. Enable the Quora Ads destination in your dashboard
+2. Configure your settings with the required credentials
+3. Set up the appropriate event mappings
+
+## Prerequisites
+
+Before configuring the Quora Ads destination, you'll need:
+
+* A Quora Ads Account
+* Quora Ads API Token
+* Quora Ads Account ID
+
+## Configuration Settings
+
+| Setting    | Description                         |
+| ---------- | ----------------------------------- |
+| API Token  | Your Quora Ads Conversion API token |
+| Account ID | Your Quora Ads Account ID           |
+
+### How to Get Your Credentials
+
+1. Log in to your Quora Ads Manager
+2. Click on "Conversion API" in the top navigation bar
+3. Click the "Generate Token" button
+4. Copy the generated API token
+5. Your Account ID can be found in your Quora Ads account settings
+
+## Supported Events
+
+Quora Ads supports the following event types:
+
+* `Generic` - Track generic conversion events
+* `AppInstall` - Track app installation events
+* `Purchase` - Track purchase events
+* `GenerateLead` - Track lead generation events
+* `CompleteRegistration` - Track registration completion events
+* `AddPaymentInfo` - Track payment information addition events
+* `AddToCart` - Track add to cart events
+* `AddToWishlist` - Track wishlist addition events
+* `InitiateCheckout` - Track checkout initiation events
+* `Search` - Track search events
+
+## Data Mapping
+
+Our platform automatically maps your events to the corresponding Quora Ads event types. You can customize these mappings in the destination settings:
+
+1. Navigate to the "Default Mapping" tab to view standard event mappings
+2. Use the "Custom Mappings" tab to create specific event transformations
+3. Configure source event properties to match Quora's expected parameters
+
+## Additional Resources
+
+* [Quora Ads Conversion API Documentation](https://www.quora.com/ads/conversion_api_doc#)
+* [Conversion API Overview](https://quoraadsupport.zendesk.com/hc/en-us/articles/23065751885069-Conversion-API-Overview)
+
+## Best Practices
+
+* Test your integration in a development environment before enabling in production
+* Monitor your conversion events in the Quora Ads dashboard
+* Ensure your events include all required parameters
+* Use server-side tracking for more reliable conversion data
+
+## Troubleshooting
+
+If you encounter issues with your Quora Ads integration:
+
+1. Verify your API Token and Account ID are correct
+2. Check that your events match the supported event types
+3. Ensure all required parameters are included in your events
+4. Review the Quora Ads dashboard for any error messages
+
+***
+
+[Podscribe Ad Destination](/docs/podscribe)
+
+[Reddit Ads Destination](/docs/reddit-ads)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Quora Ads Destination](#quora-ads-destination)
+
+  * * [Getting Started](#getting-started)
+    * [Prerequisites](#prerequisites)
+    * [Configuration Settings](#configuration-settings)
+    * [Supported Events](#supported-events)
+    * [Data Mapping](#data-mapping)
+    * [Additional Resources](#additional-resources)
+    * [Best Practices](#best-practices)
+    * [Troubleshooting](#troubleshooting)

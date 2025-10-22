@@ -1,0 +1,89 @@
+---
+title: "LinkedIn Ads Destination"
+---
+
+## LinkedIn Ads Features
+
+The Ours LinkedIn Ads feature allows you to:
+
+* Send conversions directly to LinkedIn using the Conversions API.
+* Map event data to LinkedIn conversion actions seamlessly.
+* Comply with LinkedIn's privacy and security requirements while gaining actionable insights into your ad performance.
+
+## Configure LinkedIn Ads Destination
+
+1. **Authentication**:
+
+   * Follow the LinkedIn Authorization Flow in the Ours app to connect your account.
+   * Select the LinkedIn Ad account you want to connect in the Select drop down.
+
+2. **Add events to the Allow List**:
+
+   * Potentially rename the events specifically for LinkedIn
+
+3. **Mapping Events**:
+
+   * Review the default mapping to understand if you want to setup a custom mapping.
+
+## Tracking Events
+
+To track events in LinkedIn, you'll first need to create and allowed events you want to track. Common events include conversions such as form submissions, sign-ups, and purchases. After you enable a few allowed events and potentially rename them, you can click the "Sync" button to sync them with LinkedIn Ads.
+
+If you wish to create the conversion events in LinkedIn Ads yourself, you should create them before clicking the Sync button.
+
+## Visitor Properties
+
+LinkedIn does accept user properties via their API. By default, Ours will only send this data if:
+
+* You send properties like `first_name`, `last_name`, `company_name` and `job_title`
+* You configure the destination to send user data to LinkedIn Ads
+
+This enables you to cleanly separate sensitive user data and control what is shared with LinkedIn.
+
+## Required Identifiers
+
+To send events to LinkedIn, you must provide **either** an email address or a LinkedIn Click ID (`li_fat_id`). At least one of these identifiers is required for successful event delivery.
+
+* **Email**: The user's email address.
+* **LinkedIn Click ID (`li_fat_id`)**: A unique identifier from LinkedIn's click tracking.
+
+## Name Requirements
+
+If you send a `first_name` field, you **must also** send a `last_name` field. LinkedIn requires both first and last names to be present if either is provided.
+
+## When It Dispatches
+
+Our LinkedIn integration dispatches events automatically when the required data properties are present. Specifically:
+
+1. **Necessary Properties**: An event will be dispatched if the LinkedIn Account is authenticated and selected. And, the event is on your allowed event list.
+
+2. **User Has LinkedIn Query Param Id**: The user has a click ID from LinkedIn.
+
+3. **Automatic Retry**: If the LinkedIn API returns an error that suggests retrying (such as a temporary API issue), the system will automatically attempt to re-dispatch the event.
+
+This configuration ensures that events are only dispatched to LinkedIn when all necessary configuration and visitor data are present, providing reliable tracking of ad interactions.
+
+## Get Started Today
+
+Implement Ours Privacy effortlessly with our simple copy-and-paste installation script. Begin optimizing your ads and tracking analytics without compromising privacy.
+
+For more detailed information about LinkedIn Conversions API, visit the [official LinkedIn documentation](https://www.linkedin.com/help/lms/answer/a1655394).
+
+***
+
+[Impact.com](/docs/impact)
+
+[Nextdoor Ads](/docs/nextdoor)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [LinkedIn Ads Features](#linkedin-ads-features)
+  * [Configure LinkedIn Ads Destination](#configure-linkedin-ads-destination)
+  * [Tracking Events](#tracking-events)
+  * [Visitor Properties](#visitor-properties)
+  * [Required Identifiers](#required-identifiers)
+  * [Name Requirements](#name-requirements)
+  * [When It Dispatches](#when-it-dispatches)
+  * [Get Started Today](#get-started-today)

@@ -1,0 +1,127 @@
+---
+title: "Webhooks Integration"
+description: "Learn how to set up and use Webhooks in Ours to send and map data from your sources for seamless integration with the platform."
+---
+
+# Webhooks Integration
+
+Webhooks in Ours allow you to send data from external systems to the platform in real-time. By configuring a source, setting up your Webhook URL, and mapping the incoming data to Ours' schema, you can seamlessly integrate your existing workflows and tracking systems.
+
+***
+
+## Setting Up Webhooks
+
+To get started with Webhooks in Ours:
+
+1. Navigate to the **Sources** section in your dashboard.
+2. Select **Webhooks** as the source type.
+3. Enable the Webhook source by toggling the switch.
+4. Copy the Webhook URL provided by Ours. This URL is unique to your source and is used to send data from your external system to Ours.
+5. Save your changes to activate the Webhook source.
+
+![](/images/docs/5b29349cc28ac8a2bc5dec93be4bd3338c588b1023799fa8b8ff642f329a45bc-Xnapper-2024-12-04-14.59.40.png)
+
+***
+
+## Webhook URL
+
+The Webhook URL is the endpoint where your external system sends data to Ours. It is essential to keep this URL secure as it directly connects your external systems to the platform. If necessary, regenerate the Webhook URL to invalidate the old one and improve security.
+
+![](/images/docs/318044811ece9f8be0999d25cb60e98fe762bed683d3020ac3e161c7047024dc-Xnapper-2024-12-04-15.00.08.png)
+
+***
+
+## Mapping Webhook Data
+
+After setting up the Webhook, you need to configure how the incoming data maps to the Ours data model.
+
+You will want to specify at least one of `visitor ID`, `email`, or `external ID`. These are used to find users in our database that already have events and data associated too them. After pasting the webhook URL into your app, you should fire a few events. This will make sure Ours knows the shape of your incoming data to the webhook.
+
+From there, you just enter the variable or place we should look in the `body` of the webhook's request for each piece of data. For items like `event properties` you can either map the entire object. Or, a select number of fields.
+
+## Data Mapping UI
+
+1. Open the **Mappings** tab in the Webhook configuration.
+
+2. Use the fields provided to map your Webhook payload to Ours' schema:
+
+   * **Webhook Fields**: Define the incoming fields from your external system.
+   * **Ours Data**: Map the fields to Ours attributes, such as Event Name, Ours Visitor ID, External ID, User Email, or Event ID.
+
+3. Use variables (e.g., `{{nested.property}}`) to dynamically select data from the incoming payload, or specify static values if needed.
+
+4. Save your mappings to finalize the configuration.
+
+![](/images/docs/33b5b3901139800a7f86c10f6be524b0b767e2edf039a0b63b657cae40eb1a5d-Xnapper-2024-12-04-15.00.53.png)
+
+***
+
+## Managing Sources
+
+You can manage your Webhook sources through the **Sources** section in the dashboard. This includes:
+
+* Renaming your Webhook source for better organization.
+* Reviewing or updating your Webhook URL and mappings.
+* Deleting a source if it is no longer needed. Note: Deleting a source is irreversible.
+
+***
+
+## Best Practices for Webhooks Integration
+
+1. **Secure Your Webhook URL**:
+
+   * Treat the Webhook URL like a password. Do not share it publicly.
+   * Regenerate the URL if you suspect it has been compromised.
+
+2. **Test Your Integration**:
+
+   * Use tools or scripts to send test data to the Webhook URL and ensure mappings work as expected.
+   * Review the [Recent Events Dashboard](/docs/tracking-and-debugging-events) to verify incoming data.
+
+3. **Map Data Accurately**:
+
+   * Use the **Mappings** tab to ensure that all critical data points are correctly aligned with Ours attributes.
+   * Avoid leaving fields unmapped if they contain important information.
+
+4. **Monitor Your Source**:
+
+   * Use the reporting tools available in the dashboard to review Webhook activity and troubleshoot issues.
+   * Check error logs to identify and resolve integration problems.
+
+***
+
+## Debugging Webhooks
+
+If you encounter issues with your Webhooks integration:
+
+1. Verify that the Webhook URL is correct and accessible from your external system.
+2. Check the format and structure of the data payload being sent to Ours.
+3. Use the **Recent Events Dashboard** to identify mismatches in data or mapping issues.
+4. Review error messages in the **Compliance Report** or **Event Flow** sections for additional insights.
+
+***
+
+## Summary
+
+Webhooks provide a powerful way to connect external systems with Ours, enabling real-time data integration and event tracking. By following the setup and best practices outlined in this guide, you can ensure a seamless and secure Webhook implementation.
+
+***
+
+[Data Sources](/docs/Data)
+
+[Stripe Integration](/docs/stripe)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Webhooks Integration](#webhooks-integration)
+
+  * * [Setting Up Webhooks](#setting-up-webhooks)
+    * [Webhook URL](#webhook-url)
+    * [Mapping Webhook Data](#mapping-webhook-data)
+    * [Data Mapping UI](#data-mapping-ui)
+    * [Managing Sources](#managing-sources)
+    * [Best Practices for Webhooks Integration](#best-practices-for-webhooks-integration)
+    * [Debugging Webhooks](#debugging-webhooks)
+    * [Summary](#summary)

@@ -1,0 +1,81 @@
+---
+title: "Installation"
+description: "To install the Ours Privacy tracking script, you should consider using Google Tag Manager."
+---
+
+# Installation
+
+To start tracking with Ours Privacy, you can either:
+
+1. Use **Google Tag Manager** (recommended for most users)
+2. Use the **Ours Privacy JavaScript SDK** (recommended for engineering teams)
+
+***
+
+## Option 1: Install with Google Tag Manager (Recommended)
+
+You should consider installing Ours Privacy via Google Tag Manager (GTM). It is fast, requires no code, and integrates with your existing GTM setup.
+
+📖 [Full GTM Instructions →](/docs/gtm-install)
+
+### Benefits of GTM Install
+
+* No code required
+* Works across your entire site
+* Quick setup
+
+When installed, Ours will automatically:
+
+* Capture Advertising Click IDs (e.g., `gclid`, `fbclid`)
+* Collect UTM parameters, referrers, and user agent info
+* Attempt identity stitching across domains ([Learn more](/docs/visitor-identity-and-matching))
+
+***
+
+## Option 2: Install with JavaScript SDK
+
+If you have experience editing code, you can install the Ours Privacy SDK directly into your site.
+
+### Steps
+
+1. Go to the [Install Page](https://app.oursprivacy.com/install) in the Ours app.
+2. Click **Copy Install Code Directly**.
+3. Paste the code snippet into the `<head>` tag of every page on your site.
+
+It is recommended to place it just before the closing `</head>` tag.
+
+**Note:** For React/Vue/Next.js applications, you can also install via NPM: `npm install ours-web-sdk`. See our [Web SDK Documentation](/docs/web-sdk-javascript) for details.
+
+### Tracking Events
+
+After installation, you can track events like this:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'Appointment Booked');
+  ```
+</CodeGroup>
+
+You can use any event name you prefer.
+
+***
+
+## Need Help?
+
+You can reach out to [\[email protected\]](/cdn-cgi/l/email-protection#03707673736c7177436c76717073716a7562607a2d606c6e) if you experience any trouble with installation.
+
+***
+
+[Overview](/docs/overview)
+
+[Tracking via Google Tag Manager](/docs/gtm-install)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Installation](#installation)
+
+  * * [Option 1: Install with Google Tag Manager (Recommended)](#option-1-install-with-google-tag-manager-recommended)
+    * [Option 2: Install with JavaScript SDK](#option-2-install-with-javascript-sdk)
+    * [Need Help?](#need-help)

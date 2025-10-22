@@ -1,0 +1,107 @@
+---
+title: "Cal.com Integration"
+description: "Learn how to integrate Ours with Cal.com to track bookings and custom events effortlessly while maintaining privacy and HIPAA compliance."
+---
+
+# Ours Integration with Cal.com
+
+This guide will walk you through integrating **Ours** with your Cal.com account. You’ll learn how to track bookings and custom events seamlessly while ensuring **HIPAA-compliant analytics** for privacy-conscious applications.
+
+## Cal.com Redirect (easy integration)
+
+The simplest way to integrate Ours with Cal.com is to set up a redirect after booking. Here's how:
+
+1. Make sure your Ours tracking script is installed on your website.
+2. Link from your website to a Cal.com booking page.
+3. Set up a custom thank-you page in Cal.com to redirect back to your website.
+
+On your thank-you page, fire this Ours event:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'BookingCompleted');
+  ```
+</CodeGroup>
+
+This method requires no complex integration and provides basic tracking. Configure the redirect in your Cal.com booking page settings:
+
+![](/images/docs/da21017b5dbf1f779bcdb1e5f914dd1f1e43ac27f5c9a18fab87ba080d7d0571-Xnapper-2024-12-11-14.04.54.png)
+
+***
+
+## Ours Cal.com Source (custom integration)
+
+For more advanced tracking and to access booking details, you can set up a custom integration with Cal.com. Follow these steps:
+
+1. **Create a New Source**:
+
+   * In the Ours app, navigate to **Sources** and create a new source.
+   * Select **Cal.com** from the options and copy the Webhook URL provided.
+
+2. **Subscribe to Webhooks in Cal.com**:
+
+   * Go to your Cal.com account settings.
+   * Add a new webhook and paste the Ours Webhook URL.
+   * Subscribe to the **Booking Created** event to capture booking data.
+
+![](/images/docs/88c07dece6665fd2771a699231f16ee822323da2a9468729d4b1aa18409e3601-Xnapper-2024-12-11-14.03.11.png)
+
+3. **Submit a Test Booking**:
+
+   * Make a test booking to ensure data is sent to Ours.
+   * Check the Ours app for pre-populated variables from the booking payload.
+
+4. **Map Booking Fields**:
+
+   * Use the field mapping interface in Ours to map Cal.com booking data to Ours attributes.
+   * Include at least the **Ours visitor ID** and optionally an email address for user association.
+
+***
+
+### Advanced Source Integration
+
+To link Ours visitor data with Cal.com bookings:
+
+1. **Add a Hidden Field in Cal.com**:
+
+   * Set up a hidden field in your booking page to capture the **Ours User ID**.
+
+2. **Pass Visitor ID via URL**:
+
+   * When linking to the Cal.com booking page, append the Ours User ID as a URL parameter. Example:
+
+<CodeGroup>
+  ```bash bash
+  <a href="https://cal.com/your-booking-page?ours_user_id={{ours_user_id}}">Book Now</a>
+  ```
+</CodeGroup>
+
+3. **Map Hidden Field**:
+   * Map the hidden field in the Ours app to the visitor ID for accurate user tracking.
+
+![](/images/docs/7c85b0f14d758d4c30536927b2409e9555762b09772903dd02d5a49afe3bb137-Xnapper-2024-12-11-14.04.26.png)
+
+***
+
+### Key Benefits of the Ours Cal.com Integration
+
+* **HIPAA Compliance**: Ideal for healthcare and other privacy-sensitive industries.
+* **Custom Event Flexibility**: Track bookings, interactions, and more.
+* **Enhanced Data Accuracy**: Server-side integration ensures reliable analytics.
+
+For further assistance, contact [\[email protected\]](/cdn-cgi/l/email-protection#acdfd9dcdcc3ded8ecc3d9dedfdcdec5dacdcfd582cfc3c1).
+
+***
+
+[Calendly Integration](/docs/calendly)
+
+[OnceHub Integration](/docs/oncehub)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Integration with Cal.com](#ours-integration-with-calcom)
+
+  * * [Cal.com Redirect (easy integration)](#calcom-redirect-easy-integration)
+    * [Ours Cal.com Source (custom integration)](#ours-calcom-source-custom-integration)

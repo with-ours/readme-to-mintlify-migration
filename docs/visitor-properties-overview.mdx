@@ -1,0 +1,188 @@
+---
+title: "Visitor Properties Overview"
+description: "Learn how to track and manage visitor properties in Ours, including secure handling, supported attributes, and destination-specific configurations."
+---
+
+# Visitor Properties Overview
+
+**Visitor Properties** allow you to track detailed, visitor-specific information alongside events in Ours. These properties are securely handled and can be customized for each destination to meet privacy and compliance requirements.
+
+By default, we either hash or redact visitor properties like `email` or `phone_number` before sending them to destinations. You can also configure how visitor properties are handled for each destination.
+
+When visitors have an `external_id`, Ours can create unified user profiles that merge properties from multiple visitor sessions, providing a complete view across all devices and interactions.
+
+***
+
+## Identity via Visitor Properties
+
+The `email` and `external_id` are special properties used to identify a visitor.
+
+If you include `email` or `external_id` in the request, Ours will use them to look up the visitor in the database. If the visitor is not found, a new visitor will be created. Otherwise, the current and future events will be associated with the existing visitor.
+
+The `external_id` is particularly important as it enables Ours to create unified user profiles by merging multiple visitor sessions that share the same external identifier. This allows for seamless cross-device tracking and deduplication.
+
+***
+
+## What Are Visitor Properties?
+
+Visitor Properties are attributes that describe the visitor performing an action, such as their email address, name, or location. These properties are tracked separately from event properties and provide richer insights into visitor behavior.
+
+Ours ensures that all visitor properties are:
+
+* **Securely Handled**: By default, visitor properties are hashed, redacted, or manipulated before being forwarded to destinations.
+* **Configurable**: You can control how visitor properties are processed for each destination.
+
+***
+
+## Supported Visitor Properties
+
+Ours supports the following visitor properties:
+
+| **Property**        | **Description**                                      |
+| ------------------- | ---------------------------------------------------- |
+| `email`             | The visitor's email address.                         |
+| `first_name`        | The visitor's first name.                            |
+| `last_name`         | The visitor's last name.                             |
+| `gender`            | The visitor's gender.                                |
+| `date_of_birth`     | The visitor's birthdate.                             |
+| `phone_number`      | The visitor's phone number.                          |
+| `city`              | The visitor's city.                                  |
+| `state`             | The visitor's state.                                 |
+| `zip`               | The visitor's zip code.                              |
+| `country`           | The visitor's country.                               |
+| `external_id`       | Your unique ID for the visitor.                      |
+| `company_name`      | The visitor's company name.                          |
+| `job_title`         | The visitor's job title.                             |
+| `ip`                | The visitor's IP (overrides the default captured ip) |
+| `custom_properties` | A custom object for attaching properties             |
+| `consent`           | A place to pass the current state of consent         |
+
+***
+
+## Custom Properties
+
+The `custom_properties` field is an object where you can store custom query parameters and application-specific data that doesn't fit into the standard visitor property fields. This flexible object allows you to track any additional visitor information relevant to your application.
+
+### How Custom Properties Work
+
+Custom properties use **partial updates**, meaning that when you send multiple requests with different sets of properties, Ours will merge them together rather than overwriting the entire object. For example:
+
+* **First request**: `{ custom_properties: { plan: 'premium', signup_source: 'google' } }`
+* **Second request**: `{ custom_properties: { last_login: '2024-01-15', feature_used: 'analytics' } }`
+* **Final result**: `{ plan: 'premium', signup_source: 'google', last_login: '2024-01-15', feature_used: 'analytics' }`
+
+### Creative Use Cases
+
+**E-commerce Personalization** Track customer preferences and behavior patterns to create personalized shopping experiences:
+
+* `custom_properties: { favorite_categories: ['electronics', 'books'], price_range: '100-500', preferred_brands: ['Apple', 'Samsung'], last_purchase_value: 299.99 }`
+
+**SaaS Feature Usage Analytics** Monitor how users interact with different features to optimize product development:
+
+* `custom_properties: { active_features: ['dashboard', 'reports'], usage_tier: 'enterprise', integration_count: 5, last_feature_discovery: '2024-01-10' }`
+
+***
+
+## How to Send Visitor Properties
+
+You can send visitor properties to Ours in two ways:
+
+### 1. **Using the Identify Action**
+
+The `identify` action is used to associate visitor properties with a specific visitor. For example:
+
+`ours('identify', { email: '[email protected]', first_name: 'John', last_name: 'Doe' });`
+
+### 2. **As Part of an Event**
+
+You can include visitor properties in the fourth argument of the `track` action:
+
+`ours('track', 'EventName', { event_property: 'value' }, { email: '[email protected]' });`
+
+***
+
+## Automatically Collected Properties
+
+Ours collects some visitor device properties by default, including:
+
+* **IP address**
+* **User agent**
+* **Referrer**
+* **UTM Parameters**: `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`
+* **Ad Click IDs**: `gclid`, `fbclid`, `ttclid`, `msclkid`
+
+These default properties are included in every event without requiring additional configuration.
+
+***
+
+## Destination-Specific Handling of Visitor Properties
+
+Different destinations have unique requirements and capabilities for handling visitor properties. For example:
+
+* **Facebook Ads**: Supports all visitor properties. Sending additional properties like `email`, `phone_number`, and `city` improves match rates for ad audiences.
+* **Google Ads**: Supports `email`. This property is hashed before being forwarded.
+
+To configure how visitor properties are sent to specific destinations, refer to [Data Mapping](/docs/data-mapping).
+
+***
+
+## Privacy and Compliance
+
+Ours is a privacy-forward platform that prioritizes the secure handling of visitor properties. You can configure:
+
+* **Hashing**: Hash sensitive properties like email or phone numbers before sending them to destinations.
+* **Redaction**: Remove specific properties entirely for destinations where they're not required.
+* **Custom Transformations**: Apply additional logic to visitor properties via mappers to meet compliance needs.
+
+For more details, see [Data Access and Privacy](/docs/data-access-and-privacy).
+
+***
+
+## Best Practices for Visitor Properties
+
+1. **Limit Sensitive Data**:
+   * Avoid sending unnecessary sensitive data to destinations.
+2. **Use the Identify Action**:
+   * Track persistent visitor properties with `identify` for better visitor resolution.
+3. **Configure Destination Settings**:
+   * Customize visitor property handling for each destination to comply with privacy regulations.
+4. **Test Using the Dashboard**:
+   * Verify tracked visitor properties in the [Recent Events Dashboard](/docs/tracking-and-debugging-events).
+
+***
+
+## Debugging Visitor Properties
+
+If visitor properties are not being sent as expected:
+
+1. **Check Your Code**:
+   * Ensure that visitor properties are correctly included in the `identify` or `track` calls.
+2. **Verify Destination Requirements**:
+   * Confirm that the destination supports the visitor property you're sending.
+3. **Inspect the Dashboard**:
+   * Use the Recent Events Dashboard to debug visitor property data.
+
+***
+
+***
+
+[Published Versions](/docs/version-management)
+
+[Visitor Identity and Matching](/docs/visitor-identity-and-matching)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Visitor Properties Overview](#visitor-properties-overview)
+
+  * * [Identity via Visitor Properties](#identity-via-visitor-properties)
+    * [What Are Visitor Properties?](#what-are-visitor-properties)
+    * [Supported Visitor Properties](#supported-visitor-properties)
+    * [Custom Properties](#custom-properties)
+    * [How to Send Visitor Properties](#how-to-send-visitor-properties)
+    * [Automatically Collected Properties](#automatically-collected-properties)
+    * [Destination-Specific Handling of Visitor Properties](#destination-specific-handling-of-visitor-properties)
+    * [Privacy and Compliance](#privacy-and-compliance)
+    * [Best Practices for Visitor Properties](#best-practices-for-visitor-properties)
+    * [Debugging Visitor Properties](#debugging-visitor-properties)

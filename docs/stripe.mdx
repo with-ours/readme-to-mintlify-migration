@@ -1,0 +1,133 @@
+---
+title: "Stripe Integration"
+description: "Learn how to integrate Stripe payments with Ours Privacy to track payment events and user data while maintaining data privacy."
+---
+
+The **Stripe Integration** enables you to track payment events and user data from Stripe payments while maintaining data privacy through Ours Privacy. This integration supports both custom checkout implementations and Stripe Checkout pages.
+
+***
+
+## Integration Options
+
+### 1. Custom Checkout Implementation
+
+When using a custom checkout implementation, you can track events directly using the Ours Privacy Web SDK:
+
+<CodeGroup>
+  ```bash bash
+  // Track payment attempt
+  ours('track', 'PaymentAttempt', {
+    amount: 1000, // Amount in cents
+    currency: 'usd',
+    paymentMethod: 'card'
+  });
+
+  // Track successful payment
+  ours('track', 'PaymentSuccess', {
+    amount: 1000,
+    currency: 'usd',
+    paymentMethod: 'card',
+    transactionId: 'pi_123456789'
+  });
+
+  // Track failed payment
+  ours('track', 'PaymentFailure', {
+    amount: 1000,
+    currency: 'usd',
+    paymentMethod: 'card',
+    error: 'insufficient_funds'
+  });
+  ```
+</CodeGroup>
+
+### 2. Stripe Checkout Implementation
+
+When using Stripe Checkout pages, you can track events through the success page redirect:
+
+1. **Capture User Email Before Checkout**:
+
+   <CodeGroup>
+     ```bash bash
+     // Capture email before redirecting to Stripe Checkout
+     ours('identify', { email: '[email protected]' });
+
+     // Redirect to Stripe Checkout
+     const stripe = Stripe('your_publishable_key');
+     stripe.redirectToCheckout({
+       lineItems: [{ price: 'price_H5ggYwtDq8fqJX', quantity: 1 }],
+       mode: 'payment',
+       successUrl: 'https://your-domain.com/success?session_id={CHECKOUT_SESSION_ID}',
+       cancelUrl: 'https://your-domain.com/cancel',
+     });
+     ```
+   </CodeGroup>
+
+2. **Track Success Page Load**:
+
+   <CodeGroup>
+     ```bash bash
+       // Track successful payment
+       ours('track', 'PaymentSuccess', {
+         transactionId: sessionId,
+         source: 'stripe_checkout'
+       });
+     ```
+   </CodeGroup>
+
+***
+
+## Best Practices
+
+1. **Email Capture**:
+
+   * Capture user email before redirecting to Stripe Checkout
+   * Use `ours('identify')` to associate the email with the user
+   * This ensures the email is available for the payment event
+
+2. **Event Tracking**:
+
+   * Track payment attempts before redirecting
+   * Track successful payments on the success page
+   * Include relevant payment details in event properties
+
+3. **Error Handling**:
+
+   * Track failed payments with error details
+   * Monitor payment success rates
+   * Set up alerts for payment failures
+
+4. **Data Privacy**:
+
+   * Never track full credit card details
+   * Use hashing for sensitive data
+   * Follow PCI compliance guidelines
+
+## Summary
+
+The Stripe integration with Ours Privacy provides a secure way to track payment events and user data. Whether using custom checkout or Stripe Checkout, you can maintain data privacy while gathering valuable payment insights.
+
+To get started:
+
+* Choose your preferred checkout method
+* Implement email capture
+* Set up event tracking
+* Test and verify the integration
+
+***
+
+[Webhooks Integration](/docs/webhooks)
+
+[Segment](/docs/segment)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Integration Options](#integration-options)
+
+  * * [1. Custom Checkout Implementation](#1-custom-checkout-implementation)
+    * [2. Stripe Checkout Implementation](#2-stripe-checkout-implementation)
+
+  * [Best Practices](#best-practices)
+
+  * [Summary](#summary)

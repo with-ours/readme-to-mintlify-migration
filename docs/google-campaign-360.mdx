@@ -1,0 +1,112 @@
+---
+title: "Google Campaign Manager 360"
+description: "Send conversion events to Google Campaign Manager 360 for comprehensive advertising attribution and optimization across Search 360, Display & Video 360, and Floodlight 360."
+---
+
+# Google Campaign Manager 360
+
+Google Campaign Manager 360 is part of Google Marketing Platform and serves as the central hub for campaign management, measurement, and attribution across Google's comprehensive advertising ecosystem. With this destination, you can send conversion events to Campaign Manager 360 for unified attribution and optimization across Search 360, Display & Video 360, and Floodlight.
+
+## Overview
+
+The Ours integration with Google's Campaign Manager 360 platform enables you to track conversions and other allowed events in a HIPAA-compliant manner. We proxy all events through our server to ensure the advertising platform never directly interacts with your clients' browsers or sees their IP addresses.
+
+This setup allows your Campaign Manager 360 account to receive essential conversion data while maintaining strict privacy and compliance standards.
+
+## Prerequisites
+
+Before setting up this destination, ensure you have:
+
+* **A CM360 account that is enabled for API access** (this is the case by default for most CM360 accounts)
+* **A user profile in your CM360 account** that has access to the advertiser and Floodlight activities you would like to connect and the "Insert offline conversions" permission
+
+## Setup and Configuration
+
+### Initial Setup
+
+1. To add this destination, click on **Destinations** from your Ours platform
+2. Click the **Add destination** button and select **Google Campaign Manager 360** as the destination type
+3. Click the **Click to Authenticate Google** button and sign into your account through Google
+4. After authenticating, select your **Google Campaign Manager 360 Account**
+5. **Save or select an account** - This saves your profile ID for future use
+
+### Destination Configuration
+
+Once authenticated, you'll need to configure mappings for your events. You can pass back an array of options for each event mapping.
+
+**Note:** We automatically collect and store `gclid` and `dclid` on all users, so these parameters are available for mapping without additional configuration.
+
+### Event Mapping Options
+
+When configuring event mappings, you can specify the following options:
+
+* **Event Name**: The name of the event as it appears in your Ours platform
+* **Floodlight Activity ID**: The specific Floodlight activity ID where the conversion should be sent
+* **Floodlight Configuration ID**: The Floodlight configuration ID for the conversion
+* **Conversion Value**: The monetary value associated with the conversion (optional)
+* **Currency**: The currency code for the conversion value (optional)
+* **Custom Parameters**: Additional parameters specific to your Floodlight configuration
+
+## Implementation
+
+### Basic Event Tracking
+
+After you set up this destination, you can track conversion events using:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', "ConversionEventName");
+  ```
+</CodeGroup>
+
+This will send an event named "ConversionEventName" to the Ours platform. From there, you can allow it for this destination and configure the appropriate mappings.
+
+### Event Setup Process
+
+1. Create allowed events you want to track in your Ours platform
+2. Common events include conversions such as form submissions, sign-ups, and purchases
+3. Enable the events and configure the appropriate Floodlight mappings
+4. Save your configuration to activate the destination
+
+## Google Marketing Platform 360 Products
+
+This integration supports all major Google Marketing Platform 360 products and services:
+
+### Campaign Manager 360 Platform
+
+* **Search 360**: Advanced search advertising management with cross-account optimization and reporting capabilities
+* **Display & Video 360**: Programmatic advertising platform for display, video, and audio campaigns with advanced creative and audience tools
+* **Floodlight 360**: Conversion tracking and audience management system that provides detailed insights into campaign performance and user behavior
+* **Studio 360**: Creative management platform for building and managing advertising creatives
+* **Analytics 360**: Advanced analytics and attribution platform for comprehensive campaign measurement
+* **Tag Manager 360**: Enterprise tag management system for deploying and managing marketing tags
+* **Optimize 360**: A/B testing and personalization platform for website optimization
+* **Data Studio 360**: Data visualization and reporting platform for creating interactive dashboards
+
+## Note on Other Advertising Products
+
+For tracking conversions in Google Ads (including Performance Max campaigns), YouTube Ads, and other Google advertising products, please refer to our [Google Ads destination](/docs/destination-google) which provides comprehensive HIPAA-compliant tracking for these platforms.
+
+## Additional Information
+
+For more information about Campaign Manager 360 and the Google Marketing Platform, visit the [Google Marketing Platform website](https://marketingplatform.google.com/).
+
+***
+
+[Google Ads](/docs/destination-google)
+
+[Impact.com](/docs/impact)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Google Campaign Manager 360](#google-campaign-manager-360)
+
+  * * [Overview](#overview)
+    * [Prerequisites](#prerequisites)
+    * [Setup and Configuration](#setup-and-configuration)
+    * [Implementation](#implementation)
+    * [Google Marketing Platform 360 Products](#google-marketing-platform-360-products)
+    * [Note on Other Advertising Products](#note-on-other-advertising-products)
+    * [Additional Information](#additional-information)

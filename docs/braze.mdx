@@ -1,0 +1,84 @@
+---
+title: "Braze Integration"
+description: "Learn how to integrate Ours Privacy with Braze to send events and update users for campaign automation, while maintaining privacy and HIPAA compliance."
+---
+
+# Braze Integration
+
+Braze is a comprehensive customer engagement platform that helps brands build meaningful relationships with their customers through personalized messaging across multiple channels. With this integration, you can send events to Braze to trigger campaigns and update user profiles, enabling automated customer journeys and personalized experiences.
+
+## Requirements
+
+* A Braze account
+* API key from Braze Settings
+
+## Setup
+
+1. Navigate to your Braze Settings and find "API Keys"
+2. Create a new API key with the appropriate permissions
+3. Copy the API key into your Ours Privacy integration settings
+
+## Data Mapping Actions
+
+The Braze integration supports two main action types that you can configure in the mapper UI:
+
+### Event Actions
+
+Use Event actions to send behavioral events to Braze. This triggers:
+
+* Automated campaigns and workflows
+* Personalized messaging
+* Behavioral targeting
+
+**Required Fields:** one of
+
+* `external_id` - The unique identifier for the user in your system
+* `email` - The email of the user in your systme
+* `braze_id` - The Braze ID of the user
+
+## Common Use Cases
+
+### Profile Updates
+
+When a visitor signs up or updates their information, you can automatically update their Braze profile with details like:
+
+* Name and contact information
+* Company details
+* Subscription preferences
+* Custom attributes
+
+### Event Triggers
+
+Send events to trigger automated campaigns, such as:
+
+* Welcome messages when someone signs up
+* Abandoned cart reminders
+* Product recommendations based on browsing behavior
+* Re-engagement campaigns for inactive users
+
+## Privacy and Compliance
+
+This integration is designed to send data to Braze while maintaining privacy and HIPAA compliance standards. Please ensure you have proper safeguards in place before sending data to Braze.
+
+## Additional Information
+
+For more information about Braze and its capabilities, visit the [Braze website](https://www.braze.com/).
+
+***
+
+[ActiveCampaign Integration](/docs/active-campaign)
+
+[Customer.io Integration](/docs/customer-io)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Braze Integration](#braze-integration)
+
+  * * [Requirements](#requirements)
+    * [Setup](#setup)
+    * [Data Mapping Actions](#data-mapping-actions)
+    * [Common Use Cases](#common-use-cases)
+    * [Privacy and Compliance](#privacy-and-compliance)
+    * [Additional Information](#additional-information)

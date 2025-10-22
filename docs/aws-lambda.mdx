@@ -1,0 +1,67 @@
+---
+title: "AWS Lambda"
+description: "Send your event data to AWS Lambda functions in real-time"
+---
+
+The AWS Lambda destination allows you to send your event data directly to AWS Lambda functions in real-time. This enables serverless processing of your events using AWS's serverless compute service. With AWS Lambda, you can perform custom processing on your events such as:
+
+* Data transformation and enrichment
+* Custom hashing or encryption
+* Data validation and sanitization
+* Integration with other AWS services
+* Custom storage logic
+* Real-time analytics processing
+
+## Configuration
+
+To set up the AWS Lambda destination:
+
+1. Navigate to the Destinations section in your account
+
+2. Click "Add Destination" and select "AWS Lambda"
+
+3. Provide the following information:
+
+   * AWS Region
+   * Lambda Function Name
+
+## Event Format
+
+Events sent to your Lambda function will be in the following format:
+
+<CodeGroup>
+  ```bash bash
+  {
+    "event": {
+      "name": "Order Completed",
+      ...etc
+    },
+    "visitor": {
+      "email": "[email protected]",
+      ...etc
+    }
+  }
+  ```
+</CodeGroup>
+
+## Best Practices
+
+* Ensure your Lambda function has appropriate access policies (you will need to contact a member of the Ours Privacy team for this)
+* Consider using environment variables for configuration
+* Implement proper error handling and retry logic in your Lambda function
+* Monitor Lambda function performance and set appropriate timeouts
+* Use AWS CloudWatch for logging and monitoring
+
+***
+
+[AWS Kinesis](/docs/aws-kinesis)
+
+[AWS SNS](/docs/aws-sns)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Configuration](#configuration)
+  * [Event Format](#event-format)
+  * [Best Practices](#best-practices)

@@ -1,0 +1,68 @@
+---
+title: "Android SDK"
+description: "The Ours Privacy Android SDK brings privacy-first analytics to your Android applications. It delivers a comprehensive feature set for event tracking, user profiles, and compliance without compromising performance."
+---
+
+Key features include:
+
+* **Event Tracking** (`track`): Record custom events with optional properties.
+* **User Identification** (`identify`): Associate events with a specific user ID.
+
+## Installation
+
+Add the dependency to your app's `build.gradle`:
+
+<CodeGroup>
+  ```bash bash
+  dependencies {
+      implementation 'com.oursprivacy:android-sdk:1.0.0'
+  }
+  ```
+</CodeGroup>
+
+## Required Permissions
+
+Add these permissions to your `AndroidManifest.xml`:
+
+<CodeGroup>
+  ```bash bash
+  <!-- Required for sending events -->
+  <uses-permission android:name="android.permission.INTERNET" />
+
+  <!-- Optional but recommended for network state awareness -->
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+  <!-- Optional for Bluetooth state tracking -->
+  <uses-permission android:name="android.permission.BLUETOOTH" />
+  ```
+</CodeGroup>
+
+## Read More
+
+Please read more about the SDK [here](https://github.com/with-ours/ours-privacy-android)
+
+## Compatibility
+
+* Android API 21+ (Android 5.0 Lollipop and above)
+* Kotlin 1.5+
+* Gradle 7.0+
+
+## Getting Help
+
+For support or questions, visit our [documentation site](https://docs.oursprivacy.com) or reach out to your account representative.
+
+***
+
+[React Native SDK](/docs/react-native-sdk)
+
+[iOS SDK](/docs/ios-sdk)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Installation](#installation)
+  * [Required Permissions](#required-permissions)
+  * [Read More](#read-more)
+  * [Compatibility](#compatibility)
+  * [Getting Help](#getting-help)

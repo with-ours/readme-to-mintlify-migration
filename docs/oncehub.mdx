@@ -1,0 +1,74 @@
+---
+title: "OnceHub Integration"
+description: "Learn how to integrate Ours with OnceHub to track bookings and custom events effortlessly while maintaining privacy and HIPAA compliance."
+---
+
+# Ours Integration with OnceHub
+
+This guide will walk you through integrating **Ours** with your OnceHub account. You'll learn how to track bookings and custom events seamlessly while ensuring **HIPAA-compliant analytics** for privacy-conscious applications.
+
+## OnceHub Redirect (easy integration)
+
+The simplest way to integrate Ours with OnceHub is to set up a redirect after booking. Here's how:
+
+1. Make sure your Ours tracking script is installed on your website
+   * This ensures your visitors are properly cookied and attributed before they book
+2. Create a new [Redirect Source](/docs/redirect-source) in your Ours app and name is "Once Hub"
+3. Copy/paste the Redirect Url inside of OnceHub
+
+This method requires no complex setup and due to Ours Server-Set cookies is able to automatically attribute your events to historical website visitors. This means you don't have to pass any user ids or emails to the redirect link for it to work.
+
+### Example Redirect Source
+
+![](/images/docs/5e748de0fdb524219e1a5bc87feb75a6b6fb51512891fe57f407eee3d685d84d-Xnapper-2025-01-24-12.44.43.jpg)
+
+### Example OnceHub Configuration
+
+![](/images/docs/0302c7e37177fd48c405294fd7edf02462a264bf693d57374502b9a6c4fa854c-Xnapper-2025-01-24-12.44.27.jpg)
+
+## Advanced On-Page Tracking
+
+For more advanced tracking and to access booking details, you can set up on-page tracking using OnceHub's JavaScript function. Follow these steps:
+
+1. **Implement the`SOAfterConfirmationFunction`**:
+
+   * Add the JavaScript OnceHub requires [per their documentation](https://developers.oncehub.com/reference/embedded-booking-calendar-events)
+
+2. **Embed your OnceHub Booking Page**:
+
+3. **Track Ours Events**:
+
+   * Inside of the `SOAfterConfirmationFunction` OnceHub has you define, include a `ours('track', 'Schedule');` event.
+
+### Example
+
+<CodeGroup>
+  ```bash bash
+  function SOAfterConfirmationFunction(data) {
+     ours('track', 'Schedule', data);
+  }
+  ```
+</CodeGroup>
+
+### Key Benefits of the Ours OnceHub Integration
+
+* **HIPAA Compliance**: Ideal for healthcare and other privacy-sensitive industries.
+* **Custom Event Flexibility**: Track bookings, interactions, and more.
+* **Enhanced Data Accuracy**: Server-side integration ensures reliable analytics.
+
+For further assistance, contact [\[email protected\]](/cdn-cgi/l/email-protection#4734323737283533072832353437352e3126243e6924282a).
+
+***
+
+[Cal.com Integration](/docs/calcom)
+
+[Data Sources](/docs/Data)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Integration with OnceHub](#ours-integration-with-oncehub)
+
+  * * [OnceHub Redirect (easy integration)](#oncehub-redirect-easy-integration)
+    * [Advanced On-Page Tracking](#advanced-on-page-tracking)

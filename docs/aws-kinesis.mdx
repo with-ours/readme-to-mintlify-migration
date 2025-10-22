@@ -1,0 +1,55 @@
+---
+title: "AWS Kinesis"
+description: "Send your event data to Amazon Kinesis in real-time"
+---
+
+The Amazon Kinesis destination enables you to send your event data to Amazon Kinesis in real-time. This allows you to process and analyze high-volume event streams with low latency.
+
+## Configuration
+
+To set up the Amazon Kinesis destination:
+
+1. Navigate to the Destinations section in your account
+
+2. Click "Add Destination" and select "Amazon Kinesis"
+
+3. Provide the following information:
+
+   * AWS Region
+   * Stream Name
+
+## Event Format
+
+Events sent to your Kinesis stream will be in the following format:
+
+<CodeGroup>
+  ```bash bash
+  {
+    "event": "Order Completed",
+    "event_properties": {
+      "order_id": "12345",
+      "total": 99.99
+    },
+    ... etc
+  }
+  ```
+</CodeGroup>
+
+## Best Practices
+
+* Ensure your Kinesis stream has appropriate access policies (you will need to contact a member of the Ours Privacy team for this)
+* Consider using Kinesis Data Firehose for automatic data delivery to other AWS services
+
+***
+
+[AWS EventBridge](/docs/aws-eventbridge)
+
+[AWS Lambda](/docs/aws-lambda)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Configuration](#configuration)
+  * [Event Format](#event-format)
+  * [Best Practices](#best-practices)

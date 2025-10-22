@@ -1,0 +1,119 @@
+---
+title: "Feathery Integration"
+description: "Learn how to integrate Feathery forms with Ours Privacy to track form submissions and user data while maintaining HIPAA compliance."
+---
+
+The **Feathery Integration** enables you to track form submissions and user data from Feathery forms while maintaining HIPAA compliance through Ours Privacy. This integration supports both client-side tracking via Google Tag Manager (GTM) and server-side tracking via webhooks.
+
+***
+
+## Integration Options
+
+### 1. Google Tag Manager (GTM) Integration
+
+The GTM integration allows you to track form events directly in the browser:
+
+* **Setup Required**:
+
+  * Feathery account with GTM integration enabled
+  * Ours Privacy Web SDK token
+  * Google Tag Manager container
+
+* **Supported Events**:
+
+  * Trigger events via GTM from Feathery
+  * [Read Docs](https://www.feathery.io/integrations/google-tag-manager)
+
+* **Available Variables**:
+
+  * `userId` - The ID of the user filling out the form
+  * `formId` - The unique name of the form
+  * `stepId` - The unique name of the form step
+  * [View updated docs of available variables](https://www.feathery.io/integrations/google-tag-manager#setup)
+
+### 2. Webhook Integration
+
+The webhook integration enables server-side tracking of form submissions:
+
+* **Setup Required**:
+
+  * Feathery account with webhook integration enabled
+  * Ours Privacy Server API credentials
+  * Webhook endpoint URL from Ours
+
+* **Event Types**:
+
+  * Form submissions
+  * Step completions
+  * Integration connections (e.g., Plaid)
+  * Manual data updates
+
+***
+
+## Data Privacy and HIPAA Compliance
+
+The Feathery integration with Ours Privacy ensures:
+
+* **HIPAA Compliance**:
+
+  * Automatic hashing of sensitive data
+  * Secure data transmission
+  * Signed BAAs available
+
+* **Data Protection**:
+
+  * End-to-end encryption
+  * Secure webhook endpoints
+  * Access control and authentication
+
+* **Privacy Controls**:
+
+  * Configurable data mapping
+  * Selective field tracking
+  * Data redaction options
+
+***
+
+## Best Practices
+
+1. **Choose the Right Integration**:
+
+   * Use GTM for client-side tracking when appropriate
+   * Use webhooks for sensitive data or server-side requirements
+
+2. **Data Mapping**:
+
+   * Map sensitive fields appropriately
+   * Use hashing for PHI
+   * Configure proper data transformations
+
+3. **Testing**:
+
+   * Test both successful and error scenarios
+   * Verify data accuracy
+   * Monitor webhook reliability
+
+4. **Monitoring**:
+
+   * Set up alerts for webhook failures
+   * Monitor event tracking accuracy
+   * Review data quality regularly
+
+***
+
+[Tellescope Integration](/docs/tellescope)
+
+[Consent Overview](/docs/consent-overview)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Integration Options](#integration-options)
+
+  * * [1. Google Tag Manager (GTM) Integration](#1-google-tag-manager-gtm-integration)
+    * [2. Webhook Integration](#2-webhook-integration)
+
+  * [Data Privacy and HIPAA Compliance](#data-privacy-and-hipaa-compliance)
+
+  * [Best Practices](#best-practices)

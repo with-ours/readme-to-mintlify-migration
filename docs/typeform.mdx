@@ -1,0 +1,105 @@
+---
+title: "Typeform Integration"
+description: "Learn how to integrate Ours with Typeform to track form submissions and custom events effortlessly while maintaining privacy and HIPAA compliance."
+---
+
+# Ours Integration with Typeform
+
+This guide will walk you through integrating **Ours** with your Typeform account. You’ll learn how to track form submissions and custom events seamlessly while ensuring **HIPAA-compliant analytics** for privacy-conscious applications.
+
+## Typeform Redirect (easy integration)
+
+The simplest way to integrate Ours with Typeform is to set up a redirect within Typeform. Here's how:
+
+1. Make sure your Ours tracking script is installed on your website.
+2. Link from your website to Typeform.
+3. Set up a custom thank-you page in Typeform to redirect back to your website.
+
+On your thank-you page, fire this Ours event:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'FormSubmitted', { conversion: true });
+  ```
+</CodeGroup>
+
+This method requires no complex integration and provides basic tracking. Configure the redirect in your Typeform settings:
+
+![](/images/docs/d490b8a394b4ba35eb6a172361e1c9939ca375c52bc4fd9568da0799e9434d87-Xnapper-2024-12-11-13.25.25.jpg)
+
+***
+
+## Ours Typeform Source (custom integration)
+
+For more advanced tracking and to access form submission details, you can set up a custom integration with Typeform. Follow these steps:
+
+1. **Create a New Source**:
+
+   * In the Ours app, navigate to **Sources** and create a new source.
+   * Select **Typeform** from the options and copy the Webhook URL provided.
+
+2. **Add Webhook in Typeform**:
+
+   * Paste the Webhook URL into Typeform under the webhook settings for your form.
+
+![](/images/docs/b97b498d5da8c459f28414302fb5bfbb9b762a2395785a7f00e6b3cd8ac98e9d-Xnapper-2024-12-11-13.25.57.jpg)
+
+3. **Submit a Test Form**:
+
+   * Fill out your form to ensure data is sent to Ours.
+   * Check the Ours app for pre-populated variables from the form payload.
+
+4. **Map Form Fields**:
+
+   * Use the field mapping interface in Ours to map Typeform data to Ours attributes.
+   * Include at least the **Ours visitor ID** and optionally an email address for user association.
+
+![](/images/docs/f7c2cebab17bc86d4065067fe91d214be3442e067661583ee0e8fcae307f2519-Xnapper-2024-12-11-13.46.34.jpg)
+
+***
+
+### Advanced Source Integration
+
+To link Ours visitor data with Typeform submissions:
+
+1. **Add a Hidden Field in Typeform**:
+
+   * Set up a hidden field in your Typeform to capture the **Ours User ID**.
+
+2. **Pass Visitor ID via URL**:
+
+   * When linking to the Typeform form, append the Ours User ID as a URL parameter. Example:
+
+<CodeGroup>
+  ```bash bash
+  <a href="https://typeform.com/form/123?ours_user_id={{ours_user_id}}">Start Form</a>
+  ```
+</CodeGroup>
+
+3. **Map Hidden Field**:
+   * Map the hidden field in the Ours app to the visitor ID for accurate user tracking.
+
+![](/images/docs/f09b379e3bb70ca6e6924098161526dff845c1ff5dc87485ffd5f01eb960e81d-Xnapper-2024-12-11-13.18.05.jpg)
+
+***
+
+### Key Benefits of the Ours Typeform Integration
+
+* HIPAA Compliance: Ideal for healthcare and other privacy-sensitive industries.
+* Custom Event Flexibility: Track submissions, field interactions, and more.
+* Enhanced Data Accuracy: Server-side integration ensures reliable analytics.
+
+***
+
+[WhatConverts Integration](/docs/whatconverts)
+
+[Formsort Integration](/docs/formsort)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Integration with Typeform](#ours-integration-with-typeform)
+
+  * * [Typeform Redirect (easy integration)](#typeform-redirect-easy-integration)
+    * [Ours Typeform Source (custom integration)](#ours-typeform-source-custom-integration)

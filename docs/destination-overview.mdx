@@ -1,0 +1,129 @@
+---
+title: "Destination Overview"
+description: "Learn how destinations work in Ours, how to configure them, and how your data is securely forwarded to third-party platforms for analytics and advertising."
+---
+
+# Destination Overview
+
+Destinations in Ours are the platforms where your tracked data is sent. These include analytics tools, advertising platforms, and big data services. This guide explains how destinations work, how to configure them, and best practices for managing your data flows.
+
+***
+
+## What is a Destination?
+
+A **destination** is any third-party platform or tool that receives event data from Ours. Destinations can be:
+
+* **Analytics Platforms**: Tools like Google Analytics or Mixpanel for tracking visitor behavior.
+* **Advertising Platforms**: Services like Facebook Ads or Google Ads for campaign performance and conversion tracking.
+* **Big Data Tools**: Platforms like Amazon S3 or Google BigQuery for long-term storage and analysis.
+
+By configuring destinations, you ensure that your data flows securely and efficiently to the tools you rely on.
+
+***
+
+## Configuring Destinations
+
+### Adding a Destination
+
+To add a destination:
+
+1. Go to the Destinations section in your Ours dashboard.
+
+2. Select the desired destination (e.g., Google Analytics, Facebook Ads).
+
+3. Enter the required credentials or API keys.
+
+4. Customize the destination-specific settings, such as:
+
+   * Hashing or redacting sensitive data (e.g., email, phone number).
+   * Mapping event properties to the destination’s schema.
+
+### Destination-Specific Requirements
+
+Each destination has unique requirements for event names and properties. For example:
+
+* **Facebook Ads**: Requires specific properties like `email`, `phone_number`, and `city` for improved match rates.
+* **Google Ads**: Uses query parameters like `gclid` for conversion tracking.
+
+Refer to the individual destination guides.
+
+***
+
+## Privacy and Compliance
+
+Ours prioritizes security and compliance when forwarding data to destinations. You can configure privacy settings for each destination, including:
+
+* **Hashing**: Apply cryptographic hashing to sensitive fields like email or phone numbers.
+* **Redacting**: Remove fields that shouldn’t be sent to certain platforms.
+* **Field Selection**: Specify which properties are sent to ensure compliance with HIPAA, GDPR, or CCPA.
+
+***
+
+## Types of Destinations
+
+Ours supports a variety of destinations, organized into the following categories:
+
+### Analytics Destinations
+
+* **Google Analytics (GA4)**: Track visitor behavior and engagement metrics.
+* **Mixpanel**: Gain insights into product usage and retention.
+
+### Advertising Destinations
+
+* **Facebook Ads**: Track conversions and optimize campaigns.
+* **Google Ads**: Automate ad conversions using data like `gclid`.
+* **TikTok Ads**: Track performance on TikTok ad campaigns.
+
+### Big Data Destinations
+
+* **Amazon S3**: Export raw data for long-term storage.
+* **Google BigQuery**: Analyze event data at scale.
+
+***
+
+## Best Practices for Managing Destinations
+
+1. **Understand Destination Requirements**:
+
+   * Each platform may have specific event names, formats, or required fields.
+
+2. **Configure Privacy Settings**:
+
+   * Always hash or redact sensitive fields when sending data to destinations that handle PII or PHI.
+
+3. **Test Destination Configurations**:
+
+   * Use the [Recent Events Dashboard](/docs/tracking-and-debugging-events) to verify that events are being sent correctly.
+
+4. **Align Destinations with Business Goals**:
+
+   * Ensure your selected destinations match your analytics, advertising, or data storage needs.
+
+***
+
+## Debugging Destinations
+
+If events aren’t appearing in a destination:
+
+1. Check your destination configuration in the Ours dashboard.
+2. Verify that events are properly tracked and allowed for the destination.
+3. Use the [Tracking and Debugging Events](/docs/tracking-and-debugging-events) guide for troubleshooting.
+
+***
+
+[Sources Overview](/docs/sources-overview)
+
+[Allow Listing Events](/docs/allow-listing-events)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Destination Overview](#destination-overview)
+
+  * * [What is a Destination?](#what-is-a-destination)
+    * [Configuring Destinations](#configuring-destinations)
+    * [Privacy and Compliance](#privacy-and-compliance)
+    * [Types of Destinations](#types-of-destinations)
+    * [Best Practices for Managing Destinations](#best-practices-for-managing-destinations)
+    * [Debugging Destinations](#debugging-destinations)

@@ -1,0 +1,64 @@
+---
+title: "Taboola"
+description: "Enable HIPAA-eligible Taboola conversion tracking through server-to-server integration to optimize campaign performance while maintaining strict privacy standards."
+---
+
+## Overview
+
+The Ours Privacy Taboola destination enables you to track conversions and other key events through a HIPAA-eligible, server-to-server integration with Taboola's conversion tracking system. By routing all events through our servers, Ours ensures that Taboola scripts and pixels are not directly on your website.
+
+Ours Privacy automatically captures Taboola click IDs from the URL query string and saves them for dispatching future events to Taboola's postback URL.
+
+This setup allows you to optimize your Taboola campaigns with accurate, privacy-safe conversion data while helping maintain compliance with healthcare and privacy regulations.
+
+## Setup and Configuration
+
+### Taboola Setup Requirements
+
+Before configuring the Ours Taboola destination, you must complete the setup in your Taboola account.
+
+For detailed setup instructions, refer to [Taboola's Manual S2S Integration Documentation](https://developers.taboola.com/pixel/docs/s2s-manual-integration).
+
+### Query Parameter Mapping
+
+**Important**: Ours Privacy automatically tracks the `clid` query parameter, not the `click_id` parameter that Taboola's documentation recommends. When setting up your Taboola campaigns:
+
+In your Taboola campaign tracking URLs, use `clid={click_id}` instead of `click_id={click_id}`
+
+**Example URL format:**
+
+```
+https://yoursite.com/landing-page?utm_source=taboola&utm_medium=referral&clid={click_id}
+```
+
+### Configuring Ours Taboola Destination
+
+1. To add a Taboola destination, click on **Destinations** from your Ours platform
+2. Click the **Add destination** button and select **Taboola** as the destination type
+3. Enter your **Taboola** configuration as required
+4. Configure your allowed events and map them to your Taboola conversion rules
+5. Test the integration to ensure conversions are being received by Taboola
+
+## Get Started Today
+
+Implement Ours Privacy effortlessly with our simple copy-and-paste installation script. Begin optimizing your Taboola campaigns and tracking conversions without compromising privacy.
+
+***
+
+[StackAdapt Ads Destination](/docs/stack-adapt)
+
+[Tatari](/docs/tatari)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Overview](#overview)
+
+  * [Setup and Configuration](#setup-and-configuration)
+
+  * * [Taboola Setup Requirements](#taboola-setup-requirements)
+    * [Query Parameter Mapping](#query-parameter-mapping)
+    * [Configuring Ours Taboola Destination](#configuring-ours-taboola-destination)
+
+  * [Get Started Today](#get-started-today)

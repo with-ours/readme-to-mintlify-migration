@@ -1,0 +1,188 @@
+---
+title: "X Ads Conversion API (Twitter ads)"
+---
+
+## X Ads Features
+
+The Ours X Ads feature enables you to track conversions and other key events through a HIPAA-compliant, server-to-server Conversion API, ensuring that sensitive client data remains private. By routing all events through our servers, Ours prevents X from directly accessing clients' browsers, IP addresses, or other PII and PHI.
+
+This setup gives you the ability to optimize your X Ads campaigns with accurate, privacy-safe data, while remaining compliant with strict healthcare and privacy regulations. With Ours, you can confidently use X Ads without compromising on data protection or client confidentiality.
+
+## Setting Up X Ads
+
+To add a destination, click on [Destinations](https://app.oursprivacy.com/) from your Ours platform. Click the **Add destination** button and select X Ads as the destination type to add.
+
+### Authentication Requirements
+
+The X Ads API requires authentication with an X account that has access to the X Ads account. The authenticating user must have either **Ad Manager** or **Ad Admin** permissions to successfully configure and use the integration.
+
+### Required Configuration
+
+You'll need to provide the following information to configure your X Ads destination:
+
+1. **X Ads Pixel ID**: A short 5-digit string that identifies your X Ads account
+
+   * Example: `x0o1v`
+   * This can be found in your X Ads account settings under Tools > Events
+
+2. **Event Mappings**: For each event you want to track, you'll need to create a mapping in Ours that corresponds to a conversion event in your X Ads account. You will need to copy/paste in the Conversion ID from X Ads to Ours Privacy for each event you want to track.
+
+   * Updates to event mappings are made in the **Custom Mappings** section. This ties the name of the event `Purchase` to the corresponding Conversion Event ID `tw-q0o6v-q0o6w`
+
+### Finding Your X Ads Pixel ID
+
+1. Log into your X Ads account
+2. Navigate to **Tools** > **Events**
+3. Look for your Pixel ID in the Events Manager
+4. Copy the 5-digit Pixel ID (e.g., `x0o1v`)
+
+### Finding A Conversion ID From X Ads
+
+To find a conversion ID for an event in X Ads:
+
+1. Go to your Events Manager in X Ads
+
+2. Find your event in the list of events - the ID will be displayed in the "ID" column
+
+3. Alternatively:
+
+   * Click "Edit" on the event
+   * Scroll to the Conversion API (CAPI) installation instructions at the bottom
+   * Copy the Conversion ID shown there
+
+Once you have the ID, paste it into the corresponding event mapping field in the Ours Privacy App.
+
+### Setting Up Event Mappings
+
+Before you can send events to X Ads, you must:
+
+1. **Create conversion events in X Ads**: Set up all your desired conversion events directly in your X Ads account
+2. **Create mappings in Ours**: For each event you want to send, create a mapping that specifies the corresponding X Ads Conversion ID
+3. **Configure event properties**: Map the available data fields to your X Ads conversion events
+
+> See the X Ads documentation on how to get the [conversion ID for an event](https://developer.x.com/en/docs/x-ads-api/measurement/web-conversions/conversion-api)
+
+### Available Mapping Fields
+
+You can map the following data fields to your X Ads conversion events:
+
+* **Email**: User's email address
+* **Phone**: User's phone number
+* **Click ID**: Automatically captured by Ours from X Ads URLs
+* **IP Address**: User's IP address
+* **User Agent**: Browser/device information
+* **Description**: Custom description field
+* **Value**: Conversion value/amount. Exact dollar amount only (IE: 225, *not* 225.00)
+* **Number of Items**: Quantity of items in the conversion
+* **Distinct ID**: Unique identifier for the user
+* **Currency**: ISO 4217 code (Ex: "USD")
+
+### Required Identifiers
+
+**Important**: You must send at least one identifier for each event, otherwise the event will not be sent to X Ads. Valid identifier combinations include:
+
+* Email address
+* Phone number
+* Click ID
+* User Agent + IP Address (sent together)
+
+Ours automatically collects the X Click ID and other available information to enhance your conversion tracking.
+
+## Tracking Events
+
+To start tracking events through Ours, you'll first need to create allowed events you want to track. Common events include conversions such as form submissions, sign-ups, and purchases.
+
+After you enable your allowed events and configure the mappings to your X Ads conversion events, you can track them using:
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'EventName', { 
+    value: 100, 
+  });
+  ```
+</CodeGroup>
+
+This will send an event named "EventName" to the Ours platform, which will then be forwarded to X Ads using your configured mappings.
+
+## Common X Ads Events
+
+X Ads supports standard and custom conversion event names that you can track. Simply, track events with the [Web SDK](/docs/web-sdk-javascript), [Google Tag Manager](/docs/gtm-install), or the [Ours Privacy API](/reference/track). Then, allow these event names for your X Ads destination and configure their mapper.
+
+### Possible Example Events
+
+* **Purchase**: Track completed purchases
+* **Lead**: Track form submissions and lead generation
+* **Sign Up**: Track account creations
+* **Page View**: Track important page visits
+* **Custom Events**: Any custom conversion events you create in X Ads
+
+## Best Practices
+
+1. **Create events in X Ads first**: Always set up your conversion events in X Ads before creating mappings in Ours
+2. **Use consistent naming**: Keep event names consistent between your Ours allowed events and X Ads conversion events
+3. **Include required identifiers**: Always provide at least one identifier (email, phone, or user agent + IP) for each event
+4. **Test your setup**: Verify that events are being received in your X Ads account after configuration
+5. **Monitor conversion tracking**: Regularly check your X Ads conversion data to ensure optimal campaign performance
+
+## Troubleshooting
+
+### Events not appearing in X Ads
+
+* Verify that your X Ads Pixel ID is correct
+* Ensure you have the proper permissions (Ad Manager or Ad Admin)
+* Check that you're sending at least one required identifier
+* Confirm that your event mappings are correctly configured with valid X Ads Conversion IDs
+* Verify that your conversion events are properly set up in X Ads
+
+### Authentication issues
+
+* Make sure you're using an X account with access to the X Ads account
+* Verify that your account has the necessary permissions
+* Try re-authenticating if you encounter persistent issues
+
+### Mapping issues
+
+* Double-check that Conversion IDs are correctly copied from X Ads
+* Ensure event names match between Ours and X Ads
+* Verify that all required fields are properly configured in your mappings
+
+### Time issues
+
+* Please wait a handful of hours (typically 3-4 hours) and checkback. X Ads can sometimes take a while to reflect events within the Ads Platform
+
+***
+
+[Viant](/docs/viant)
+
+[Analytics Destinations](/docs/analytics-destinations)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [X Ads Features](#x-ads-features)
+
+  * [Setting Up X Ads](#setting-up-x-ads)
+
+  * * [Authentication Requirements](#authentication-requirements)
+    * [Required Configuration](#required-configuration)
+    * [Finding Your X Ads Pixel ID](#finding-your-x-ads-pixel-id)
+    * [Finding A Conversion ID From X Ads](#finding-a-conversion-id-from-x-ads)
+    * [Setting Up Event Mappings](#setting-up-event-mappings)
+    * [Available Mapping Fields](#available-mapping-fields)
+    * [Required Identifiers](#required-identifiers)
+
+  * [Tracking Events](#tracking-events)
+
+  * [Common X Ads Events](#common-x-ads-events)
+
+  * * [Possible Example Events](#possible-example-events)
+
+  * [Best Practices](#best-practices)
+
+  * [Troubleshooting](#troubleshooting)
+
+  * * [Events not appearing in X Ads](#events-not-appearing-in-x-ads)
+    * [Authentication issues](#authentication-issues)
+    * [Mapping issues](#mapping-issues)
+    * [Time issues](#time-issues)

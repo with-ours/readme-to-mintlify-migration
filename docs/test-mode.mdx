@@ -1,0 +1,86 @@
+---
+title: "Test Mode"
+description: "Learn how to set up and use Test Mode to debug your analytics setup."
+---
+
+# Test Mode
+
+## What is Test Mode?
+
+Test Mode is a safe environment where you can validate your analytics setup without sending actual data to your configured destinations. It allows you to:
+
+* Debug your analytics implementation
+* Verify event tracking configurations
+* Test integrations
+* Ensure everything works as expected before going live
+
+## Setting Up Test Mode
+
+### Using Test Tokens
+
+1. Log into your Ours Privacy dashboard
+2. Navigate to your source (Web SDK, GTM, or API)
+3. Copy the test token provided
+4. Use this test token in your implementation
+
+Any event sent using a test token will automatically be processed in test mode.
+
+## How Test Mode Works
+
+### Event Processing
+
+When you use Test Mode:
+
+* ✅ Events are fully captured and processed
+* ✅ Events are stored in your dashboard
+* ✅ Dispatch objects are created
+* ❌ No data is sent to external destinations
+
+### Viewing Test Events
+
+1. Go to the **Recent Events** view in your dashboard
+2. Look for events marked with a "Test" indicator
+3. Review the intended destinations (where events would be sent in live mode)
+
+## Debugging Workflow
+
+1. **Implement**: Set up your analytics with the test token
+2. **Trigger**: Generate events on your site or application
+3. **Validate**: Check the Recent Events view to confirm proper tracking
+4. **Review**: Verify event properties and intended destinations
+5. **Go Live**: Switch to your live token once everything is working correctly
+
+## Benefits
+
+* Debug without affecting production data
+* Safe testing environment
+* Full visibility into event processing
+* Real-time validation
+* Verify destination configurations
+
+## Next Steps
+
+Once you've completed testing:
+
+1. Replace the test token with your live token
+2. Verify that events are being sent to their intended destinations
+3. Monitor your live events to ensure everything continues working as expected
+
+***
+
+[Bot Detection and Filtering](/docs/bot-detection)
+
+[Data Retention](/docs/data-retention)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Test Mode](#test-mode)
+
+  * * [What is Test Mode?](#what-is-test-mode)
+    * [Setting Up Test Mode](#setting-up-test-mode)
+    * [How Test Mode Works](#how-test-mode-works)
+    * [Debugging Workflow](#debugging-workflow)
+    * [Benefits](#benefits)
+    * [Next Steps](#next-steps)

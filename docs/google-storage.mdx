@@ -1,0 +1,118 @@
+---
+title: "Google Storage"
+description: "Store your event and dispatch data in Google Cloud Storage with daily parquet file deposits"
+---
+
+## Google Cloud Storage Data Warehouse Integration
+
+The Google Cloud Storage Data Warehouse integration provides a native solution for storing your event, dispatch, and visitor data in a scalable, cost-effective manner. Ours Privacy automatically deposits daily data into your specified Google Cloud Storage bucket in parquet format, containing all events and dispatches that occurred on your account, plus visitor records that have been recently updated.
+
+## How the Integration Works
+
+* **Daily Deposits**: Events and dispatches are automatically collected and deposited into your Google Cloud Storage bucket on a daily basis
+* **Visitor Updates**: Visitor data contains records where the last seen timestamp is greater than or equal to yesterday, requiring upsert processing
+* **Parquet Format**: Data is stored in efficient parquet format, optimized for analytics and querying
+* **Complete Data**: All events and dispatches from your account are included in the daily deposits
+* **Flexible Access**: Once in your Google Cloud Storage bucket, you can process, analyze, or move the data as needed
+
+## Data Organization
+
+The data in your Google Cloud Storage bucket is organized in a partitioned structure:
+
+```
+gs://your-bucket/
+  ├── events/
+  │   └── YYYY/
+  │       └── MM/
+  │           └── DD/
+  │               └── *.parquet
+  ├── dispatches/
+  │   └── YYYY/
+  │       └── MM/
+  │           └── DD/
+  │               └── *.parquet
+  └── visitors/
+      └── YYYY/
+          └── MM/
+              └── DD/
+                  └── *.parquet
+```
+
+This partitioning by year/month/day makes it easy to:
+
+* Query specific time periods efficiently
+* Manage data retention policies
+* Process historical data in batches
+* Use partition projections for optimized querying
+
+## Data Processing Considerations
+
+### Events and Dispatches
+
+Events and dispatches are complete daily snapshots containing all data for that day. Each day's parquet files contain all events and dispatches that occurred on that specific date.
+
+### Visitors
+
+Visitor data contains records that have been recently updated. This means you'll need to implement an upsert process to merge this incremental data into your data lake, warehouse, or database:
+
+1. **Read the parquet files** from the visitors directory for the current day
+2. **Identify existing records** in your target system using visitor identifiers
+3. **Update existing records** with new information from the parquet files
+4. **Insert new records** for visitors that don't exist in your system
+5. **Handle conflicts** based on your business logic (e.g., latest timestamp wins)
+
+This incremental approach ensures you have the most up-to-date visitor information while maintaining data consistency across your analytics infrastructure.
+
+## Getting Started
+
+To set up the Google Cloud Storage Data Warehouse integration:
+
+1. Contact your account manager to enable the integration and provide you with the required policy updates for your Google Cloud Storage bucket
+2. Input your Google Cloud Storage bucket details to the Ours Privacy App
+
+Once configured, your event, dispatch, and visitor data will be automatically deposited into your Google Cloud Storage bucket daily, ready for your use in analytics, reporting, or other data processing workflows. Remember to implement the appropriate upsert logic for visitor data to maintain data consistency in your target systems.
+
+### Data Lake Integration
+
+You can also process your data with other data lake solutions:
+
+* **Big Query**: use a daily import to load your data into Big Query
+* **Databricks**: Use the path partitioning for efficient Delta Lake operations
+* **Snowflake**: External tables can leverage the partitioning structure
+* **Apache Spark**: Direct parquet reading with partition discovery
+
+## Best Practices
+
+* Ensure your Google Cloud Storage bucket has appropriate access policies (you will need to contact a member of the Ours Privacy team for this)
+* Consider setting up lifecycle policies to manage data retention
+* Use BigQuery's partition filtering for efficient querying
+* Take advantage of the partitioning structure for cost optimization
+* Consider using BigQuery's external tables for seamless integration
+* Use partition projections when querying across multiple date ranges
+
+***
+
+[Google BigQuery](/docs/google-bigquery)
+
+[Azure Blob](/docs/azure)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Google Cloud Storage Data Warehouse Integration](#google-cloud-storage-data-warehouse-integration)
+
+  * [How the Integration Works](#how-the-integration-works)
+
+  * [Data Organization](#data-organization)
+
+  * [Data Processing Considerations](#data-processing-considerations)
+
+  * * [Events and Dispatches](#events-and-dispatches)
+    * [Visitors](#visitors)
+
+  * [Getting Started](#getting-started)
+
+  * * [Data Lake Integration](#data-lake-integration)
+
+  * [Best Practices](#best-practices)

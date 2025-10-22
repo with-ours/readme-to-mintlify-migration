@@ -1,0 +1,104 @@
+---
+title: "Error Handling"
+description: "Understand how Ours handles errors, ensures multi-region data reliability, and retries failed requests to external destinations."
+---
+
+# Error Handling
+
+Ours is designed to ensure high reliability and robust error management for your data. This guide explains how Ours handles errors during event ingestion and forwarding, including multi-region redundancy for data reliability and a retry mechanism for external destination failures.
+
+***
+
+## Multi-Region Redundancy for Ingestion
+
+Ours uses a **multi-region setup** to provide fault-tolerant ingestion of your events. This ensures that your data is reliably captured, even if a regional data center experiences downtime.
+
+***
+
+## Retry Mechanism for External Destination Failures
+
+When forwarding events to external destinations (e.g., Google Ads, Facebook Ads), Ours employs a robust retry mechanism to ensure data delivery, even if the destination is temporarily unavailable.
+
+### Retry Logic:
+
+1. **Automatic Retries**:
+   * If a request to an external destination fails, Ours automatically retries the request.
+2. **Exponential Backoff**:
+   * Retries are spaced out using exponential backoff to avoid overwhelming the destination.
+3. **48-Hour Retry Window**:
+   * Ours will continue retrying failed requests for up to **48 hours**.
+4. **Error Logging**:
+   * Detailed error logs are maintained for every failed request, available in the [Recent Events Dashboard](/docs/tracking-and-debugging-events).
+
+***
+
+### Common Failure Scenarios and Resolutions
+
+| **Scenario**                       | **How Ours Handles It**                                             |
+| ---------------------------------- | ------------------------------------------------------------------- |
+| **Temporary Destination Downtime** | Retries the request until the destination becomes available.        |
+| **Rate-Limiting by Destination**   | Adapts retry intervals to avoid hitting rate limits.                |
+| **Invalid Configuration**          | Logs the error and provides debugging details for quick resolution. |
+| **Network Errors**                 | Retries with exponential backoff to handle transient issues.        |
+
+### Monitoring Retry Status:
+
+* Use the **Recent Events Dashboard** to:
+
+  * Identify failed dispatches to destinations.
+  * View detailed error messages and retry status.
+  * Confirm successful retries after issues are resolved.
+
+***
+
+## Best Practices for Error Handling
+
+1. **Configure Destinations Correctly**:
+   * Ensure API keys, credentials, and mappings are set up correctly for each destination.
+2. **Validate Events Before Sending**:
+   * Use the allowlist and data mapping tools to ensure events are properly formatted and configured.
+
+***
+
+## Debugging Errors
+
+When errors occur, follow these steps to troubleshoot:
+
+1. **Check the Recent Events Dashboard**:
+   * Identify the affected events and view error details.
+2. **Inspect Configuration**:
+   * Verify destination settings and ensure required fields are included in the event.
+3. **Reach Out for Support**:
+   * Contact [Ours Support](/cdn-cgi/l/email-protection#02717772726d7076426d77707172706b7463617b2c616d6f) if an issue persists.
+
+***
+
+## Summary
+
+Ours ensures robust error handling and data reliability with:
+
+* **Multi-Region Ingestion**: Guarantees high availability and fault tolerance for event tracking.
+* **48-Hour Retry Mechanism**: Ensures events are delivered to external destinations, even during temporary failures.
+
+To get started:
+
+* Debug failed requests using the [Recent Events Dashboard](/docs/tracking-and-debugging-events).
+* Explore [Destination Configuration](/docs/destination-overview) to optimize your setup.
+
+***
+
+[Data Access and Privacy](/docs/data-access-and-privacy)
+
+[Event Replay](/docs/event-replay)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Error Handling](#error-handling)
+
+  * * [Multi-Region Redundancy for Ingestion](#multi-region-redundancy-for-ingestion)
+    * [Retry Mechanism for External Destination Failures](#retry-mechanism-for-external-destination-failures)
+    * [Best Practices for Error Handling](#best-practices-for-error-handling)
+    * [Debugging Errors](#debugging-errors)
+    * [Summary](#summary)

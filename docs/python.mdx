@@ -1,0 +1,64 @@
+---
+title: "Python SDK (server api)"
+description: "Quick start guide for the Ours Privacy Python SDK."
+---
+
+# Ours Privacy Python SDK Documentation
+
+This is a quick start guide for integrating the Ours Privacy Python SDK into your server-side applications.
+
+## Installation
+
+Install the SDK via Pip:
+
+<CodeGroup>
+  ```bash bash
+  pip install oursprivacy-client
+  ```
+</CodeGroup>
+
+For more details, visit the [PyPi repository](https://pypi.org/project/oursprivacy-client/) | [Github Repo](https://github.com/with-ours/ingest-sdk-python)
+
+## Usage
+
+Initialize the SDK and send events with just a few lines of code:
+
+<CodeGroup>
+  ```bash bash
+  import oursprivacy_client
+
+  api_client = oursprivacy_client.OursPrivacyApi()
+
+  response = api_client.identify(oursprivacy_client.IdentifyRequest.from_dict({
+      'token': 'token_from_ours_privacy_source',
+      'userId': 'some_id',
+      'userProperties': {} # add relevant properties
+  }))
+
+  response = api_client.track(oursprivacy_client.TrackRequest.from_dict({
+    'token': 'token_from_ours_privacy_source',
+    'event': 'your_event_name',
+    'userId': 'some_id'
+  }))
+  ```
+</CodeGroup>
+
+## Explore the API
+
+Want to see what the SDK can do? Try our [Interactive API Explorer](/reference/track#/) to experiment with endpoints and features in real time.
+
+***
+
+[PHP SDK (server api)](/docs/php)
+
+[.NET SDK (server api)](/docs/dotnet)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Ours Privacy Python SDK Documentation](#ours-privacy-python-sdk-documentation)
+
+  * * [Installation](#installation)
+    * [Usage](#usage)
+    * [Explore the API](#explore-the-api)

@@ -1,0 +1,146 @@
+---
+title: "HTTP API Destination"
+description: "Learn how to use the HTTP API Destination to send data to custom endpoints, enabling advanced configurations for HIPAA-compliant integrations."
+---
+
+# HTTP API Destination
+
+The **HTTP API Destination** allows you to send data to any custom endpoint with complete control over the request format. This destination is ideal for integrations with platforms that are not directly supported by Ours. You can configure headers, HTTP methods, and URLs.
+
+***
+
+## Features of the HTTP API Destination
+
+* **Custom URL**: Specify the endpoint URL to which data should be sent.
+* **Customizable HTTP Method**: Choose between `POST` and `GET` requests.
+* **Headers Configuration**: Add custom headers for authentication or other requirements.
+* **Flexible Data Mapping**: Construct your own JSON payload and insert variables for visitor and event data, with support for value modifications.
+
+***
+
+## Configuring the HTTP API Destination
+
+### 1. Add the Destination
+
+1. Log in to your Ours account and navigate to the **Destinations** section.
+2. Click **Add Destination** and select **HTTP API Destination**.
+3. Provide a **Name** for the destination to distinguish it from others.
+4. Enter the **Destination URL** (e.g., `https://api.example.com/data`).
+
+***
+
+### 2. Define the Mapping
+
+After creating the destination, configure the data mapping to control how your data is structured when sent to the endpoint.
+
+#### Default Mapping
+
+1. Navigate to the **Mappings** tab of the HTTP API Destination.
+
+2. Click on **Default Mapping** to configure the default mapping for the destination.
+
+3. Use the interface to configure:
+
+   * **Headers**: Configure custom headers such as:
+
+     * Authentication headers (e.g., `Authorization: Bearer <token>`)
+     * Content type headers (e.g., `Content-Type: application/json`)
+     * Custom headers specific to your integration
+
+   * **Body**: Construct your own JSON payload using the editor. You can insert variables (e.g., `{{visitor.email}}`) into any field. These variables will be replaced with real values when the request is sent.
+
+   * **Variable Modifications**: For each variable, you can select a modification (such as hashing or normalization) to apply before sending.
+
+***
+
+## Flexible Payload Construction and Variable Modifications
+
+The HTTP API Destination provides a powerful mapping editor that lets you:
+
+* **Construct any JSON payload**: Define the exact structure and fields you want to send to your endpoint.
+* **Insert variables**: Use variables like `{{visitor.email}}`, `{{event.event}}`, or any available property. These will be dynamically replaced with real values at send time.
+* **Apply modifications**: For each variable, select a modification (e.g., Hashed, Normalized) to transform the value before it is sent.
+* **Mix static and dynamic data**: Combine hardcoded values and variables as needed.
+
+**Example payload:**
+
+<CodeGroup>
+  ```bash bash
+  {
+    "email": "{{visitor.email}}",
+    "eventName": "{{event.event}}",
+    "customField": "static value",
+    "something": null
+  }
+  ```
+</CodeGroup>
+
+**Tip:**
+
+* Open the Variable Dictionary in the mapping editor to see all available variables and click to insert them.
+* Use the Variable Modifications section to select how each variable should be transformed before sending.
+
+***
+
+### 3. Configure the HTTP Method
+
+You can choose between `POST` and `GET` for your requests:
+
+* Use `POST` for sending data in the body. This is recommended when:
+
+  * Sending large amounts of data
+  * Including sensitive information
+  * Working with complex JSON structures
+
+* Use `GET` for sending data in query parameters. This is useful when:
+
+  * Working with simple data structures
+  * Integrating with endpoints that only accept GET requests
+  * Creating bookmarkable URLs
+
+Set the HTTP method in the **Default Mapping** section or override it for specific events in the custom mapping. The method can be configured using the dropdown menu in the mapping interface.
+
+***
+
+## Example: Using with Zapier
+
+The HTTP API Destination can be easily integrated with Zapier and other tools used to automate workflows and connect with thousands of other applications. Here's how to set it up:
+
+> **Note**: This is just one example of how to use the HTTP API Destination. You can use any webhook-based automation tool or custom endpoint that accepts HTTP requests.
+
+### 1. Create a Zapier Webhook
+
+1. Log in to your Zapier account and create a new Zap
+2. Select "Webhooks by Zapier" as the trigger
+3. Choose "Catch Hook" as the trigger event
+4. Copy the webhook URL provided by Zapier
+
+### 2) Configure the HTTP API Destination
+
+1. In your Ours account, navigate to the HTTP API Destination settings
+
+2. Set the **Destination URL** to your Zapier webhook URL
+
+3. Configure the following in the Default Mapping:
+
+   * Set HTTP Method to `POST`
+   * Construct your payload as needed using variables and static values.
+
+Once the webhook is configured, you can set up various actions in Zapier.
+
+***
+
+[Google PubSub](/docs/google-pubsub)
+
+[Warehouse Destinations](/docs/warehouse-destinations)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [HTTP API Destination](#http-api-destination)
+
+  * * [Features of the HTTP API Destination](#features-of-the-http-api-destination)
+    * [Configuring the HTTP API Destination](#configuring-the-http-api-destination)
+    * [Flexible Payload Construction and Variable Modifications](#flexible-payload-construction-and-variable-modifications)
+    * [Example: Using with Zapier](#example-using-with-zapier)

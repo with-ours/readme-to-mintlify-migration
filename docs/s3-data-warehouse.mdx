@@ -1,0 +1,89 @@
+---
+title: "Amazon S3 Data Warehouse"
+description: "Store your event and dispatch data in Amazon S3 with daily parquet file deposits"
+---
+
+## Amazon S3 Data Warehouse Integration
+
+The Amazon S3 Data Warehouse integration provides a native solution for storing your event, dispatch, and visitor data in a scalable, cost-effective manner. Ours Privacy automatically deposits daily data into your specified S3 bucket in parquet format, containing all events and dispatches that occurred on your account, plus visitor records that have been recently updated.
+
+## How the Integration Works
+
+* **Daily Deposits**: Events and dispatches are automatically collected and deposited into your S3 bucket on a daily basis
+* **Visitor Updates**: Visitor data contains records where the last seen timestamp is greater than or equal to yesterday, requiring upsert processing
+* **Parquet Format**: Data is stored in efficient parquet format, optimized for analytics and querying
+* **Complete Data**: All events and dispatches from your account are included in the daily deposits
+* **Flexible Access**: Once in your S3 bucket, you can process, analyze, or move the data as needed
+
+## Data Organization
+
+The data in your S3 bucket is organized in a partitioned structure:
+
+```
+s3://your-bucket/
+  ├── events/
+  │   └── YYYY/
+  │       └── MM/
+  │           └── DD/
+  │               └── *.parquet
+  ├── dispatches/
+  │   └── YYYY/
+  │       └── MM/
+  │           └── DD/
+  │               └── *.parquet
+  └── visitors/
+      └── YYYY/
+          └── MM/
+              └── DD/
+                  └── *.parquet
+```
+
+This partitioning by event/year/month/day makes it easy to:
+
+* Query specific time periods efficiently
+* Manage data retention policies
+* Process historical data in batches
+
+## Getting Started
+
+To set up the Amazon S3 Data Warehouse integration:
+
+1. Contact your account manager to enable the integration and provide you with the IAM policy for your S3 Bucket
+2. Provide your S3 bucket details and add the policy to your bucket provided by your account manager
+3. Configure any additional processing or analytics tools you plan to use with the data
+
+Once configured, your event and dispatch data will be automatically deposited into your S3 bucket daily, ready for your use in analytics, reporting, or other data processing workflows.
+
+## Data Format
+
+The parquet files deposited in your S3 bucket contain your complete data, including:
+
+* Event names and properties
+* Dispatch details and status
+* User information
+* Timestamps
+* All associated metadata
+
+## Best Practices
+
+* Ensure your S3 bucket has appropriate access policies (you will need to contact a member of the Ours Privacy team for this)
+* Consider setting up lifecycle policies to manage data retention
+* Use AWS Athena or similar tools to query the parquet files directly
+* Take advantage of the partitioning structure for efficient querying
+
+***
+
+[Warehouse Destinations](/docs/warehouse-destinations)
+
+[Google BigQuery](/docs/google-bigquery)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Amazon S3 Data Warehouse Integration](#amazon-s3-data-warehouse-integration)
+  * [How the Integration Works](#how-the-integration-works)
+  * [Data Organization](#data-organization)
+  * [Getting Started](#getting-started)
+  * [Data Format](#data-format)
+  * [Best Practices](#best-practices)

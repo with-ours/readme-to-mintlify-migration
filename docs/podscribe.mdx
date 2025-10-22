@@ -1,0 +1,133 @@
+---
+title: "Podscribe Ad Destination"
+---
+
+## Podscribe Destination Setup Guide
+
+This guide will walk you through setting up the Podscribe destination. Podscribe is a podcast advertising attribution platform. You can send conversion data to Podscribe from the events that already exist in your Ours account.
+
+***
+
+## Step 1: Add the Podscribe Destination
+
+1. Navigate to the **Destinations** section in your platform.
+2. Search for **Podscribe** in the list of available destinations.
+3. Click **Add Destination** to include Podscribe in your active destinations.
+
+***
+
+## Step 2: Enter Your Advertiser ID
+
+1. In the Podscribe destination settings, locate the **Advertiser ID** field.
+2. Retrieve your Advertiser ID from your Podscribe account (found under the "Pixel Configuration" section).
+3. Enter the ID in the field provided and click **Save**.
+
+***
+
+## Step 3: Configure Event Mappings
+
+The default mapper is preconfigured to handle typical events such as visits, sign ups, leads and purchases. You can customize these mappings to fit your specific needs directly through the UI.
+
+**Please ensure that in the Podscribe dashboard you have enabled all the actions to track that you plan to send to Podscribe from Ours.**
+
+![](/images/docs/dc0ccd8d4ef4ef32954fec25f7625ff7eb26361b413fa9f451e89a2df3f80ade-Xnapper-2025-01-17-12.44.10.jpg)
+
+### How to Customize Mappings:
+
+1. Open the **Mapper Configuration** section for Podscribe.
+
+2. Review the default fields such as:
+
+   * **Action**: Define the type of event (e.g., `view`, `signup`, `purchase`).
+   * **IP Address**: Ensure the visitor’s IP address is mapped correctly per your organization's policies.
+   * **User Agent**: Map the visitor’s user agent string.
+   * **Timestamp**: Ensure accurate event timestamps are included.
+   * **Additional Properties**: Customize fields like `email`, `order number`, `value`, and `currency`.
+
+3. Use the provided UI tools to:
+
+   * Set or modify mappings for each field.
+   * Add fallback values for missing data.
+   * Apply modifications (e.g., masking IP addresses or setting fake IPs).
+
+4. Save your changes to apply the customizations.
+
+***
+
+## Step 4: Allow Events
+
+Once the mappings are configured, ensure that events are enabled for the Podscribe destination:
+
+1. Navigate to the **Allowed Events** section within the destination settings.
+2. Select which events you want to send to Podscribe.
+3. Save your settings.
+
+***
+
+## Step 5: Validate the Setup
+
+After completing the configuration:
+
+1. Test a few events to ensure data is being sent correctly.
+2. Check the Podscribe dashboard to verify that the events are appearing as expected.
+3. Adjust mappings if any data appears misaligned.
+
+***
+
+## FAQs
+
+### How do I handle sensitive data like IP addresses?
+
+Podscribe recommends mapping the **real, Not modified IP address** to ensure accurate conversion tracking. By default, Ours Privacy sets the IP address to a placeholder value (e.g., `1.1.1.1`) in order to comply with HIPAA and other privacy requirements. However, this placeholder prevents Podscribe from registering conversions.
+
+* **Recommendation:** In the **Default Mapping** configuration, set the `IP Address` field to **Not modified** to send the user's actual IP address.
+
+  ![](/images/docs/a2cb7f1970b565b70a5a2daa5ede5c9257d059a0bd5a7dd0348cea01bfb44a00-image.png)
+
+<Warning>
+  ### Before enabling this, make sure your organization has the appropriate legal agreements in place with Podscribe, such as a Business Associate Agreement (BAA) or equivalent.
+</Warning>
+
+Additionally, in **Custom Mappings**, the `action` field for each allowed event is often hashed by default, which can prevent Podscribe from recognizing and attributing the event correctly.
+
+* **Recommendation:** For all allowed events, set the `action` field to **Not modified** to ensure Podscribe receives the original event name (e.g., `signup`, `purchase`, `view`).
+
+![](/images/docs/912c62e119a3380c1bcbcef75658929d14578252f55cbaa14e997591dabfd967-image.png)
+
+### What happens if I don’t map a required field?
+
+Unmapped fields will fall back to the default value or be omitted if no fallback is provided.
+
+### Can I create custom events?
+
+Yes, you can define custom events by adding them to the allowed events and mapping them in the configuration.
+
+***
+
+[Pinterest Ads Destination](/docs/pinterest)
+
+[Quora Ads Destination](/docs/quora-ads-capi)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Podscribe Destination Setup Guide](#podscribe-destination-setup-guide)
+
+  * [Step 1: Add the Podscribe Destination](#step-1-add-the-podscribe-destination)
+
+  * [Step 2: Enter Your Advertiser ID](#step-2-enter-your-advertiser-id)
+
+  * [Step 3: Configure Event Mappings](#step-3-configure-event-mappings)
+
+  * * [How to Customize Mappings:](#how-to-customize-mappings)
+
+  * [Step 4: Allow Events](#step-4-allow-events)
+
+  * [Step 5: Validate the Setup](#step-5-validate-the-setup)
+
+  * [FAQs](#faqs)
+
+  * * [How do I handle sensitive data like IP addresses?](#how-do-i-handle-sensitive-data-like-ip-addresses)
+    * [What happens if I don’t map a required field?](#what-happens-if-i-dont-map-a-required-field)
+    * [Can I create custom events?](#can-i-create-custom-events)

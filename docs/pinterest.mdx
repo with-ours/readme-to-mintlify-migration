@@ -1,0 +1,154 @@
+---
+title: "Pinterest Ads Destination"
+---
+
+## Pinterest Ads Features
+
+The Ours Pinterest Ads feature enables you to securely track conversions and other allowed events for Pinterest Ads in a privacy-compliant manner. By routing events through our server, we ensure that Pinterest never interacts directly with your clients' browsers, preventing exposure of IP addresses and maintaining user privacy.
+
+Ours automatically captures Pinterest click ids from the URL query string and saves them for dispatching future events.
+
+Using Pinterest's Conversion API (CAPI), Ours sends events directly from our servers to Pinterest's servers. This server-to-server setup enhances privacy by keeping user information secure and avoiding direct exposure of user data to Pinterest.
+
+## Configuring a Pinterest Destination
+
+To add a Pinterest destination, go to your Ours platform's [Destinations](https://app.oursprivacy.com/destinations) page. Click **Add destination** and select Pinterest as the destination type.
+
+Next, copy and paste your **Pinterst Ad Account ID** and **Pinterest Conversion API Key** into the Ours destination configuration tool. Once configured, you'll see a message confirming "Your destination is configured and ready."
+
+To find the information you see, you can also see more detail from Pinterest: [https://developers.pinterest.com/docs/api-features/tracking-conversions/](https://developers.pinterest.com/docs/api-features/tracking-conversions/)
+
+### How to Find Your Pinterst Ad Account ID
+
+1. Go to [Pinterest Ads Manager](https://ads.pinterest.com/) and log in to your account.
+
+2. In the top-right corner, click the dropdown menu and select the ad account you're working with.
+
+3. You'll see your Pinterst Ad Account ID listed in that dropdown next to the account name.
+
+4. You can also find the Tag ID in the URL—when you're on the **Conversions** page, look for the string of numbers that appears after `/advertiser/` in the address bar.
+
+   ![](/images/docs/5976832955a8f30de96758aa7f182acefadc9a689ab4b4418db3b0bb196f4679-image.png)
+
+5. Copy the Tag ID and paste it into the Ours Dashboard under your destination configuration.
+
+### Find your Pinterest Conversion API Key
+
+1. Still in the [Pinterest Ads Manager](https://ads.pinterest.com/), navigate to your Pinterest Tag's **API Settings**.
+2. In the left-hand sidebar, go to **Conversions API > Set up API**.
+3. Click **Generate Token** to create a new access token for secure server-to-server tracking.
+4. Copy the generated access token and paste it into the Ours destination configuration tool.
+
+## Standard Pinterest Events
+
+Refer to [Pinterest's API documentation for standard events](https://developers.pinterest.com/docs/api/v5/events-create/) to see a complete list of available events and the required and optional properties for each standard event.
+
+If you want to use a Standard event name, you can either:
+
+* Create an allowed event with the same name as the Pinterest Standard Event name
+
+or
+
+* Use an existing allowed event and rename it for your Pinterest destination to a standard event name
+
+Below are just a few common/standard events Pinterest has special additional event properties defined for.
+
+***
+
+### Checkout
+
+Triggered when a user completes a purchase or checkout process. For instance, when someone reaches a confirmation page after a successful purchase.
+
+**Properties**
+
+* `currency` (required)
+* `value` (required)
+* `order_id`
+* `product_id`
+* `quantity`
+
+***
+
+### AddToCart
+
+When a product is added to the shopping cart. This event helps track interest in products that haven't yet converted into sales.
+
+**Properties**
+
+* `currency`
+* `value`
+* `product_id`
+* `quantity`
+
+***
+
+### SignUp
+
+Triggered when a user completes a signup process, such as registering for an account.
+
+**Properties**
+
+* `value`
+* `currency`
+
+***
+
+### PageVisit
+
+When a user visits a specific page on your website, such as a product page.
+
+**Properties**
+
+* `page_url`
+* `referrer`
+
+***
+
+### Custom Event
+
+You can configure custom events that are unique to your business needs. When implementing custom events, ensure no personally identifiable information (PII) or protected health information (PHI) is included in event properties.
+
+***
+
+## When It Dispatches
+
+Our Pinterest integration dispatches events automatically when required data properties are available, ensuring privacy compliance and accurate ad tracking.
+
+1. Required Properties: An event will be dispatched if a valid Pinterst Ad Account ID and Conversion API Key are provided in the destination configuration. Additionally, at least one identifier (such as Pinterest click id or email) must be present, though multiple identifiers improve match rates. Ours hashes all user properties before sending to Pinterest.
+
+2. Event Type: Dispatches occur for any standard or custom event type, including checkout events. If a Checkout event lacks a specified value, a default of 100 USD is assigned.
+
+3. Automatic Retry: If the Pinterest API returns a retryable error, the system will attempt to re-dispatch the event. Non-retryable errors, such as permission issues, prevent further retry attempts. This configuration ensures events only dispatch when sufficient visitor data and valid destination configuration are in place, helping with accurate Pinterest Ads tracking and compliance.
+
+## Get Started Today
+
+Implement Ours Privacy with our simple copy-and-paste installation script, and start optimizing your Pinterest Ads without compromising privacy.
+
+***
+
+[Partnerize Destination](/docs/partnerize)
+
+[Podscribe Ad Destination](/docs/podscribe)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Pinterest Ads Features](#pinterest-ads-features)
+
+  * [Configuring a Pinterest Destination](#configuring-a-pinterest-destination)
+
+  * * [How to Find Your Pinterst Ad Account ID](#how-to-find-your-pinterst-ad-account-id)
+    * [Find your Pinterest Conversion API Key](#find-your-pinterest-conversion-api-key)
+
+  * [Standard Pinterest Events](#standard-pinterest-events)
+
+  * * [Checkout](#checkout)
+    * [AddToCart](#addtocart)
+    * [SignUp](#signup)
+    * [PageVisit](#pagevisit)
+    * [Custom Event](#custom-event)
+
+  * [When It Dispatches](#when-it-dispatches)
+
+  * [Get Started Today](#get-started-today)

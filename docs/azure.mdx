@@ -1,0 +1,134 @@
+---
+title: "Azure Blob"
+description: "Store your event and dispatch data in Azure Blob Storage with daily parquet file deposits"
+---
+
+## Azure Blob Integration
+
+The Azure Blob integration provides a native solution for storing your event, dispatch, and visitor data in a scalable, cost-effective manner using Azure Blob Storage. Ours Privacy will automatically deposit daily data into your specified Azure Blob Storage container in parquet format, containing all events and dispatches that occurred on your account, plus visitor records that have been recently updated.
+
+> **Coming Soon**: This integration is currently in development and will be available soon. Contact your account manager for early access and updates.
+
+## How the Integration Will Work
+
+* **Daily Deposits**: Events and dispatches will be automatically collected and deposited into your Azure Blob Storage container on a daily basis
+* **Visitor Updates**: Visitor data contains records where the last seen timestamp is greater than or equal to yesterday, requiring upsert processing
+* **Parquet Format**: Data will be stored in efficient parquet format, optimized for analytics and querying
+* **Complete Data**: All events and dispatches from your account will be included in the daily deposits
+* **Flexible Access**: Once in your Azure Blob Storage container, you can process, analyze, or move the data as needed
+
+## Data Organization
+
+The data in your Azure Blob Storage container will be organized in a partitioned structure:
+
+```
+https://your-storage-account.blob.core.windows.net/your-container/
+  ├── events/
+  │   └── YYYY/
+  │       └── MM/
+  │           └── DD/
+  │               └── *.parquet
+  ├── dispatches/
+  │   └── YYYY/
+  │       └── MM/
+  │           └── DD/
+  │               └── *.parquet
+  └── visitors/
+      └── YYYY/
+          └── MM/
+              └── DD/
+                  └── *.parquet
+```
+
+This partitioning by year/month/day will make it easy to:
+
+* Query specific time periods efficiently
+* Manage data retention policies
+* Process historical data in batches
+* Use partition projections for optimized querying
+
+## Data Processing Considerations
+
+### Events and Dispatches
+
+Events and dispatches are complete daily snapshots containing all data for that day. Each day's parquet files contain all events and dispatches that occurred on that specific date.
+
+### Visitors
+
+Visitor data contains records that have been recently updated. This means you'll need to implement an upsert process to merge this incremental data into your data lake, warehouse, or database:
+
+1. **Read the parquet files** from the visitors directory for the current day
+2. **Identify existing records** in your target system using visitor identifiers
+3. **Update existing records** with new information from the parquet files
+4. **Insert new records** for visitors that don't exist in your system
+5. **Handle conflicts** based on your business logic (e.g., latest timestamp wins)
+
+This incremental approach ensures you have the most up-to-date visitor information while maintaining data consistency across your analytics infrastructure.
+
+## Azure Services Integration
+
+Once the integration is available, you'll be able to leverage various Azure services:
+
+### Azure Data Lake Storage Gen2
+
+* Hierarchical namespace support for efficient data organization
+* Integration with Azure Databricks for advanced analytics
+* Support for multiple data processing frameworks
+
+### Azure Data Factory
+
+* Automated data pipelines for processing and transformation
+* Integration with other Azure services and external systems
+* Data movement and orchestration capabilities
+
+## Getting Started
+
+To prepare for the Azure Blob integration:
+
+1. Contact your account manager to express interest and get on the early access list
+2. Ensure you have an Azure subscription with Blob Storage capabilities
+3. Prepare your Azure Blob Storage container and access policies
+4. Consider your data processing and analytics requirements
+
+Once the integration is available, your event, dispatch, and visitor data will be automatically deposited into your Azure Blob Storage container daily, ready for your use in analytics, reporting, or other data processing workflows. Remember to implement the appropriate upsert logic for visitor data to maintain data consistency in your target systems.
+
+## Data Format
+
+The parquet files deposited in your Azure Blob Storage container will contain your complete data, including:
+
+* Event names and properties
+* Dispatch details and status
+* Visitor information and updates
+* User information
+* Timestamps
+* All associated metadata
+
+***
+
+[Google Storage](/docs/google-storage)
+
+[Databricks](/docs/databricks)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Azure Blob Integration](#azure-blob-integration)
+
+  * [How the Integration Will Work](#how-the-integration-will-work)
+
+  * [Data Organization](#data-organization)
+
+  * [Data Processing Considerations](#data-processing-considerations)
+
+  * * [Events and Dispatches](#events-and-dispatches)
+    * [Visitors](#visitors)
+
+  * [Azure Services Integration](#azure-services-integration)
+
+  * * [Azure Data Lake Storage Gen2](#azure-data-lake-storage-gen2)
+    * [Azure Data Factory](#azure-data-factory)
+
+  * [Getting Started](#getting-started)
+
+  * [Data Format](#data-format)

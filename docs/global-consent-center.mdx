@@ -1,0 +1,169 @@
+---
+title: "Global Consent Center"
+description: "Configure centralized consent rules to control event dispatch to destinations based on visitor and event consent properties."
+---
+
+# Global Consent Center
+
+The **Global Consent Center** provides centralized consent management for controlling event dispatch to destinations. Instead of configuring consent logic individually in each destination, you can create category-based rules that evaluate consent properties and control dispatch across multiple destinations simultaneously.
+
+***
+
+## Overview
+
+The Global Consent Center allows you to:
+
+* **Create consent categories** (e.g., "Ads", "Analytics", "Marketing") with custom logic rules
+* **Assign destinations to categories** to control which platforms are affected by each rule
+* **Use the same logic builder** as destination mappers to evaluate visitor and event properties
+* **Set rule priorities** to control the order of evaluation
+* **Centralize consent management** instead of configuring individual destination mappers
+
+![]()
+
+***
+
+## How It Works
+
+The Global Consent Center operates in the event dispatch flow:
+
+**Event → Allow List → Global Consent Center → Destination Mapping → Dispatch**
+
+1. **Event Processing**: Events are first checked against your allow list
+2. **Consent Evaluation**: The Global Consent Center evaluates consent rules in priority order
+3. **Dispatch Control**: If an event matches a category's logic (evaluates to TRUE), dispatch is stopped for all destinations assigned to that category
+4. **Normal Dispatch**: Events that don't match any opt-out category logic dispatch normally to all allowed destinations
+
+***
+
+## Use Cases
+
+### Marketing Consent Control
+
+Create an "Ads" category that stops dispatch to Facebook Ads, Google Ads, and TikTok Ads when marketing consent is not granted:
+
+* **Category**: "Ads"
+* **Logic**: `visitor.consent.marketing` is falsy
+* **Destinations**: Facebook Ads, Google Ads, TikTok Ads
+
+### Analytics Consent Management
+
+Set up an "Analytics" category to control data flow to analytics platforms:
+
+* **Category**: "Analytics"
+* **Logic**: `visitor.consent.analytics` is falsy
+* **Destinations**: Google Analytics, Mixpanel, Amplitude
+
+### Event-Specific Consent
+
+Use event properties to control dispatch based on consent passed with individual events:
+
+* **Category**: "Event Marketing"
+* **Logic**: `event.consent_marketing` is falsy
+* **Destinations**: Marketing automation platforms
+
+***
+
+## Configuration
+
+### Enabling the Global Consent Center
+
+1. Navigate to the **Global Consent Center** in your Ours Privacy dashboard
+2. Toggle **"Enable Consent Center"** to activate the feature
+3. Begin creating categories and rules
+
+### Creating Categories
+
+1. Click **"+ Add Category"** to create a new consent category
+2. **Name your category** (e.g., "Ads", "Analytics", "Marketing")
+3. **Set priority** using the up/down arrows (lower numbers = higher priority)
+4. **Configure logic** using the logic builder to define when dispatch should be stopped
+
+### Logic Builder
+
+The Global Consent Center uses the same logic builder as destination mappers. You can evaluate:
+
+* **Visitor properties**: `visitor.consent.marketing`, `visitor.consent.analytics`
+* **Event properties**: `event.consent_marketing`, `event.consent_analytics`
+* **Complex conditions**: Multiple properties with AND/OR logic
+
+**Important**: Write conditions that evaluate to TRUE when you want to STOP dispatch. For example:
+
+* `visitor.consent.ads` is falsy → Stops dispatch when ads consent is not granted
+* `event.consent_marketing` is falsy → Stops dispatch when marketing consent is not provided
+
+***
+
+## Rule Priority and Evaluation
+
+### Priority System
+
+* Rules are evaluated in priority order (lower numbers first)
+* If an event matches multiple categories, the first matching rule takes precedence
+* You can reorder priorities using the up/down arrows in the interface
+
+### Default Behavior
+
+* **Matched events**: Stop dispatch to destinations assigned to the matching category
+* **Unmatched events**: Dispatch normally to all allowed destinations
+* **Unassigned destinations**: Always dispatch normally (not affected by Global Consent Center)
+
+***
+
+## Integration with Consent Management Platforms
+
+### Ours Privacy CMP
+
+When using the Ours Privacy Cookie Consent Management Platform, consent properties are automatically populated and available for use in Global Consent Center rules.
+
+### Third-Party CMPs
+
+For other consent management platforms, continue passing consent status as event or visitor properties.
+
+***
+
+## Testing and Debugging
+
+### Dispatch Reasons
+
+When events are stopped by the Global Consent Center, you can see which rule matched in the dispatch logs. This helps with testing and debugging your consent configuration.
+
+### Testing Workflow
+
+1. **Configure rules** in the Global Consent Center
+2. **Test events** with different consent properties
+3. **Review dispatch logs** to verify rules are working correctly
+4. **Check destination data** to confirm events are being stopped appropriately
+
+***
+
+## Best Practices
+
+### Rule Design
+
+* **Use clear category names** that reflect the type of consent being managed
+* **Write conditions that evaluate TRUE for opt-out scenarios** (when you want to stop dispatch)
+* **Test thoroughly** with different consent combinations before going live
+
+***
+
+***
+
+[Allow Listing Events](/docs/allow-listing-events)
+
+[Published Versions](/docs/version-management)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Global Consent Center](#global-consent-center)
+
+  * * [Overview](#overview)
+    * [How It Works](#how-it-works)
+    * [Use Cases](#use-cases)
+    * [Configuration](#configuration)
+    * [Rule Priority and Evaluation](#rule-priority-and-evaluation)
+    * [Integration with Consent Management Platforms](#integration-with-consent-management-platforms)
+    * [Testing and Debugging](#testing-and-debugging)
+    * [Best Practices](#best-practices)

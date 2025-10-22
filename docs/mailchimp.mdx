@@ -1,0 +1,51 @@
+---
+title: "Mailchimp Integration"
+description: "Learn how to integrate Ours with Mailchimp to add contacts to your mailing lists based on events with emails, while maintaining privacy and HIPAA compliance."
+---
+
+The Mailchimp integration allows you to add contacts to your Mailchimp mailing lists based on visitor events. This integration requires an email address to be associated with the visitor for proper contact identification.
+
+## Requirements
+
+* A Mailchimp account
+* Email address associated with the visitor in Ours Privacy
+* API key from Mailchimp
+* List ID from your Mailchimp account
+
+## Setup
+
+1. Navigate to your Mailchimp account settings
+2. Generate an API key from the "Extras" → "API keys" section
+3. Find your List ID in the "Settings" → "Audience" → "All Contacts" section
+4. Copy both the API key and List ID into your Ours integration settings
+
+![](/images/docs/1f3ba92654b26f62cc22c0562b6516cbcfab320beaf1c55bd35ce8df827ee8ef-Xnapper-2025-03-31-13.16.56.jpg)
+
+## Data Mapping
+
+When configuring the integration, you can map Ours events to Mailchimp contact properties. The integration will:
+
+* Add the contact to your specified mailing list if they have an email address
+* Update existing contacts if they match the email address
+* Send custom field data to the specified Mailchimp merge fields
+
+![](/images/docs/6ed26495dc761214508ef691091437e3051af31b286f859f05fc559e067cf4bb-Xnapper-2025-03-31-13.17.34.jpg)
+
+## Privacy and Compliance
+
+This integration is designed to send data over to Mailchimp. Please make sure you have the proper safeguards in place before sending data to Mailchimp.
+
+***
+
+[HubSpot Integration](/docs/hubspot)
+
+[Klaviyo Integration](/docs/klaviyo)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Requirements](#requirements)
+  * [Setup](#setup)
+  * [Data Mapping](#data-mapping)
+  * [Privacy and Compliance](#privacy-and-compliance)

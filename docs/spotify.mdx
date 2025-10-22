@@ -1,0 +1,101 @@
+---
+title: "Spotify Ads Destination"
+description: "Learn how to integrate Ours Privacy with Spotify Ads to send events via their Conversions API for audio advertising attribution and optimization, while maintaining privacy and HIPAA compliance."
+---
+
+# Spotify Ads Integration
+
+Spotify Ads is a leading audio advertising platform that enables brands to reach engaged listeners across Spotify's music and podcast ecosystem. With this integration, you can send events to Spotify Ads via their Conversions API to track conversions and optimize your audio advertising campaigns while maintaining privacy and compliance standards.
+
+## Overview
+
+This feature lets you configure Spotify Ads as a destination to send conversion events and user behavior data via their Conversions API, enabling server-to-server tracking for enhanced privacy and accurate attribution.
+
+## Use Cases
+
+* Track conversions from audio advertising campaigns
+* Monitor user engagement with Spotify ad content
+* Optimize audio advertising performance with conversion data
+* Measure ROI from Spotify advertising investments
+* Track app installs and user registrations from audio ads
+* Monitor e-commerce conversions from audio advertising
+
+## Requirements
+
+* A Spotify Ads Manager account
+* Business Admin permissions in Spotify Ads Manager
+* Authentication token from Spotify Events page
+* Connection ID from Spotify Events page
+
+## Setup
+
+### Getting Your Credentials
+
+To create a direct server-to-server integration and access the Conversions API, you need to generate credentials from the Events page in Spotify Ads Manager:
+
+1. **Access Spotify Ads Manager**:
+
+   * Log into your Spotify Ads Manager account
+   * Ensure you have Business Admin permissions
+
+2. **Navigate to Events Page**:
+
+   * Go to the Events section in your Spotify Ads Manager dashboard
+   * This is where you'll generate your authentication credentials
+
+3. **Generate Authentication Token**:
+
+   * Create an authentication token for server-to-server integration
+   * Copy the generated token for use in Ours Privacy
+
+4. **Get Connection ID**:
+
+   * Generate a connection ID from the Events page
+   * This ID is required for the Conversions API integration
+
+5. **Configure in Ours Privacy**:
+
+   * Enter your authentication token and connection ID in the Ours Privacy destination settings
+   * Configure event mappings for the data you want to send
+
+## Data Mapping Actions
+
+The Spotify Ads integration supports sending various event types through their Conversions API:
+
+### Event Actions
+
+Use Event actions to send conversion and behavioral events to Spotify Ads. This enables:
+
+* Audio advertising conversion tracking
+* User engagement measurement
+* Campaign performance optimization
+* Attribution analysis for audio ads
+* Cross-platform conversion tracking
+
+**Required Fields:**
+
+* `authentication_token` - Your Spotify authentication token
+* `connection_id` - Your Spotify connection ID
+
+## Additional Information
+
+For more information about Spotify Ads and their Conversions API, visit the [Spotify Ads Help Center](https://adshelp.spotify.com/s/article/Spotify-Conversions-API-US?language=en_US) or contact your Spotify Ads representative.
+
+***
+
+[Snapchat Ads](/docs/snapchat-ads)
+
+[StackAdapt Ads Destination](/docs/stack-adapt)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Spotify Ads Integration](#spotify-ads-integration)
+
+  * * [Overview](#overview)
+    * [Use Cases](#use-cases)
+    * [Requirements](#requirements)
+    * [Setup](#setup)
+    * [Data Mapping Actions](#data-mapping-actions)
+    * [Additional Information](#additional-information)

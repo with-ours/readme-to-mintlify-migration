@@ -1,0 +1,170 @@
+---
+title: "Facebook Ads (Meta)"
+---
+
+## Facebook Ads Features
+
+The Ours Facebook Ads feature allows you to securely track conversions and other allowed events for Facebook Ads in a HIPAA-compliant manner. By routing all events through our server, we ensure that Facebook never interacts directly with your clients' browsers. We also allow you to redact and/or hash data before it is sent over to Facebook.
+
+With Ours, you can capture meaningful engagement data while safeguarding privacy, helping your Facebook Ads account stay compliant and optimized with actionable insights.
+
+Ours automatically captures Facebook click ids from the URL query string and saves them for dispatching future events.
+
+The Facebook Conversion API (CAPI) allows Ours to send events directly from our servers to Facebook's servers, bypassing the client browser. This server-to-server connection enhances privacy by keeping user information secure and avoiding direct exposure of user data to Facebook.
+
+## Enhanced Attribution: Ad, Campaign, and Ad Set IDs
+
+Ours now automatically collects Facebook Ad ID, Campaign ID, and Ad Set ID for every tracked event. This means you can map back attribution data parameters and see detailed metadata for your ad sets, campaigns, and individual ads—not just event conversion data.
+
+**How to use:** To take advantage of this feature, simply update your mappers to include the new attribution fields. No additional setup is required—Ours handles the collection and association of these IDs for you.
+
+**Benefits:**
+
+* Attribute conversions and events to specific ads, campaigns, and ad sets
+* Gain deeper insights into which creatives and campaigns drive results
+* Unlock more granular reporting and optimization in your analytics
+
+**Available fields:**
+
+* `ad_id`
+* `campaign_id`
+* `adset_id`
+
+These fields are automatically included in the event payloads sent to Facebook, making it easy to analyze performance at every level of your ad structure.
+
+## Configuring a Facebook destination
+
+To add a destination, click on [Destinations](https://app.oursprivacy.com/) from your Ours platform. Click the **Add destination** button and select Facebook as the destination type to add.
+
+Then, copy and paste your **Pixel ID** and **Facebook Conversion API Key** into the Ours destination configuration tool. After successful configuration, you will see a message that says "Your destination is configured and ready."
+
+### Find your Pixel ID
+
+1. Go to Facebook Business Manager
+2. Look for the **Menu** icon (usually a grid icon in the top-left corner) and click on it
+3. From the dropdown menu, select **Business Settings**. This will take you to a page where you can manage various aspects of your business account
+4. In the left-hand sidebar, under **Accounts**, find and click on **Data Sources**
+5. Under **Data Sources**, click on **Pixels**. This section lists all the Pixels associated with your account
+6. Click on the Pixel you want to use. This will bring up detailed information about that specific Pixel. Look for the **Pixel ID** which is typically displayed right underneath the name of your Pixel. It should be a numeric code and look something like 1090401615075844
+7. Copy and paste that **Pixel ID** into the Ours destination configuration tool
+
+### Find your Facebook Conversion API Key
+
+1. On the same pixel that you copied the Pixel ID for, navigate to the **Settings** tab within the Events Manager for that specific data source
+2. Scroll down until you find the **Conversions API** section
+3. In the Conversions API setup section, you will find an option to generate an access token
+4. Click on **Generate Access Token**
+5. Copy the access token provided. This token is a unique identifier that allows your server to communicate securely with Facebook's servers
+6. Copy and paste that **Facebook Conversion API Key** into the Ours destination configuration tool
+
+### Enabling custom events in Facebook
+
+Under **Events Manager**, you may need to review the custom events that you send to Facebook and acknowledge that you agree to send data that follows your Meta Business Tools terms.
+
+![](/images/docs/d2764e9eae2302b9fbddb00be226e602e1f720d5814042bb7df12c2db17bd725-image.png) ![](/images/docs/b165dbf195d70c4d86a2fc8b854bc54749ddd50d40368b2bbc24758c80cf8224-image.png)
+
+## Frequently Asked Questions
+
+### Do I need to format Facebook IDs (fbp/fbc) manually?
+
+**Short answer:** Only if you're remapping data or sending custom customer click IDs. The Ours web SDK automatically handles Facebook ID formatting.
+
+**Detailed explanation:** Facebook requires specific formatting for `fbp` and `fbc` parameters when sending data via the Conversions API:
+
+* **`fbc` format:** `fb.subdomainIndex.creationTime.fbclid`
+* **`fbp` format:** `fb.subdomainIndex.creationTime.randomnumber`
+
+Where:
+
+* `subdomainIndex` is the domain level (0 for 'com', 1 for 'example.com', 2 for '[www.example.com](http://www.example.com)')
+* `creationTime` is the UNIX timestamp in milliseconds when the cookie was created
+* `fbclid` is the Facebook click ID from the URL parameter
+* `randomnumber` is a unique identifier generated by Facebook's Pixel SDK
+
+**When you need manual formatting:**
+
+* Using custom data mappings that override default Facebook ID handling
+* Sending customer click IDs through server-to-server integrations
+* Building custom integrations outside of the Ours web SDK
+
+**When formatting is automatic:**
+
+* Using the standard Ours web SDK installation
+* Standard event tracking through the web SDK
+* Default Facebook destination configurations
+
+For complete formatting requirements, see [Facebook's fbp and fbc Parameters documentation](https://developers.facebook.com/docs/marketing-api/conversions-api/parameters/fbp-and-fbc/).
+
+***
+
+## Standard Facebook Events
+
+See [Facebook's documentation on Standard Events](https://developers.facebook.com/docs/meta-pixel/reference) to see the full list of specific events that Meta takes and each optional and required parameter.
+
+If you want to use a Standard Facebook event name, you can either:
+
+* Create an allowed event with the same name as a Standard Facebook Event name
+
+or
+
+* Use an existing allowed event and rename for your Facebook destination to a standard event name
+
+Below are just a few common/standard events Facebook has special additional event properties defined for.
+
+# Common Facebook events and their properties
+
+Unless otherwise noted, the properties listed below are not required for these events. Including optional properties, even though they are not required, can improve the effectiveness and value of your event data.
+
+<Warning>
+  ### **IMPORTANT**: When implementing Facebook events in a privacy forward context, ensure that no PII/PHI is included in any event properties. Ours can be configured to modify all visitor properties sent in events, but we do not expect you to include such sensitive data in your event properties.
+</Warning>
+
+***
+
+### Purchase
+
+When a purchase is made or checkout flow is completed. For example, a person has finished the purchase or checkout flow and lands on thank you or confirmation page.
+
+**Properties** `currency` (required) `value` (required) `content_ids` `content_type` `contents` `num_items`
+
+**Example**
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'Purchase');
+  ```
+</CodeGroup>
+
+***
+
+### AddToCart
+
+When a product is added to the shopping cart. For example, a person clicks on an add to cart button.
+
+**Properties** `contents` (required for Advantage+ catalog ads) `content_ids` `content_type` `currency` `value`
+
+**Example**
+
+<CodeGroup>
+  ```bash bash
+  ours('track', 'AddToCart');
+  ```
+</CodeGroup>
+
+***
+
+[Bing Ads Offline Conversions](/docs/bing-ads)
+
+[Google Ads](/docs/destination-google)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * * [Facebook Ads Features](#facebook-ads-features)
+    * [Enhanced Attribution: Ad, Campaign, and Ad Set IDs](#enhanced-attribution-ad-campaign-and-ad-set-ids)
+    * [Configuring a Facebook destination](#configuring-a-facebook-destination)
+    * [Frequently Asked Questions](#frequently-asked-questions)
+    * [Standard Facebook Events](#standard-facebook-events)
+
+  * [Common Facebook events and their properties](#common-facebook-events-and-their-properties)

@@ -1,0 +1,64 @@
+---
+title: "Mixpanel Destination"
+---
+
+## Mixpanel Features
+
+The Ours Mixpanel feature lets you track user engagement and behavior analytics in a HIPAA-compliant way. With Ours, you can control exactly how much personally identifiable information (PII) and protected health information (PHI) you send to Mixpanel.
+
+Our platform allows you to redact PHI entirely or customize the data fields sent, ensuring compliance with privacy regulations while still capturing essential insights. With this setup, you can confidently use Mixpanel to understand user actions, trends, and retention without compromising client privacy.
+
+## Adding Mixpanel as a destination
+
+To add a destination, click on [Destinations](https://app.oursprivacy.com/) from your Ours platform. Click the **Add destination** button and select Mixpanel as the destination type to add.
+
+Then, copy and paste your **project token** into the Ours destination configuration tool and press **Save**.
+
+### Find your Mixpanel project token
+
+1. Log into your Mixpanel project
+2. Navigate to **Settings**
+3. On the Setup Guide, you should see the option to **Copy project token**
+
+![](/images/docs/28889a12fd024d40408aa7bc2ceb14867e4716670fa685f563f83a4ef3caa366-image.png)
+
+### Sending User Properties
+
+All events in your Allow List configured to send to this destination will be sent with their event data, including any tracked event properties. Toggling this ON will also send any tracked [user properties](/docs/visitor-properties-overview). Toggling this OFF will not send any tracked user properties.
+
+## When It Dispatches
+
+Our Mixpanel integration dispatches events automatically when the required data properties are present. Specifically:
+
+1. **Necessary Properties**: An event will be dispatched if it includes a valid Mixpanel Project Token and configuration for the destination. Additionally, the visitor information must be present to ensure the event can be processed by Mixpanel.
+
+2. **Event Type**: Dispatch occurs for all event types configured within your Mixpanel setup, allowing flexible tracking of various user interactions.
+
+3. **Automatic Retry**: If the Mixpanel API encounters an error suggesting a temporary issue, the system will automatically attempt to re-dispatch the event. Non-retryable errors, such as missing configurations, will prevent additional attempts.
+
+This configuration ensures that events are only dispatched to Mixpanel when sufficient data is present, enabling precise tracking of user interactions within your Mixpanel dashboard.
+
+## Get Started Today
+
+Implement Ours Privacy effortlessly with our simple copy-and-paste installation script. Begin optimizing your ads and tracking analytics without compromising privacy.
+
+***
+
+[Google Analytics Measurement Protocol](/docs/google-analytics-measurement-protocol)
+
+[Enrichment Destinations](/docs/enrichment)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Mixpanel Features](#mixpanel-features)
+
+  * [Adding Mixpanel as a destination](#adding-mixpanel-as-a-destination)
+
+  * * [Find your Mixpanel project token](#find-your-mixpanel-project-token)
+    * [Sending User Properties](#sending-user-properties)
+
+  * [When It Dispatches](#when-it-dispatches)
+
+  * [Get Started Today](#get-started-today)

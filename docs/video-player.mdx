@@ -1,0 +1,129 @@
+---
+title: "Video Player"
+description: "A HIPAA-compliant video platform for secure video playback, transcripts, and SEO optimization."
+---
+
+## Overview
+
+The Ours Privacy Video Platform allows you to upload videos and play them back in a **HIPAA-compliant** way. If you are building a marketing site or any webpage requiring **sensitive video playback**, Ours Privacy ensures that your videos remain secure while still being accessible.
+
+You can either:
+
+1. **Use Ours Privacy Video Embed** – A fully featured embed system that handles **playback, transcripts, and SEO metadata**.
+2. **Build Your Own Player** – Retrieve the **raw video file, transcript, and poster** and use your favorite video playback library.
+
+## Uploading Videos
+
+You can upload videos in the following formats:
+
+* **MP4**
+* **WebM**
+* **MOV**
+* **WEBM**
+
+After uploading, Ours Privacy will **encode and transcode** your videos to ensure compatibility across all browsers. Additionally, Ours Privacy will **automatically generate transcripts and a poster image**, which can be customized in the app.
+
+If you require assistance importing a large number of existing videos, contact us for support.
+
+## Using Ours Privacy Video Embed
+
+The Ours Privacy embed system provides:
+
+* **Automatic transcript handling**
+
+* **SEO metadata optimization** (enhancing search visibility)
+
+* **Customizable embed options**
+
+  * **Branding colors**
+  * **Autoplay settings**
+  * **Aspect Ratio** - The video embed player defaults to 16:9 aspect ratio. But, you can customize this in the embed settings and upload vertical video (9:16) if you want.
+
+Using Ours Privacy's embed helps compliance with HIPAA regulations, preventing unauthorized tracking and avoiding potential exposure of **PII (Personally Identifiable Information) or PHI (Protected Health Information)** to third-party video platforms.
+
+### How to Embed a Video
+
+1. Upload your video to Ours Privacy.
+2. Customize the embed options using the form builder.
+3. Copy the **embed code** and paste it into your site.
+
+The embed system **leverages a CDN** for fast delivery and has **no rate limits**.
+
+![](/images/docs/e1dc964a5f6b90db1f2578c3e92f5242a2d67a6d0f11988b5caba72256d7e2ff-Xnapper-2025-02-17-14.14.44.jpg)
+
+## Getting Started
+
+1. **Create a new video** in the Ours Privacy platform.
+
+2. **Upload your file** (MP4, WebM, or MOV).
+
+3. Choose whether to:
+
+   * **Embed using Ours Privacy Embed System** (recommended for most users)
+   * **Build a custom player** (for advanced use cases)
+
+With Ours Privacy, your videos are **secure, optimized, and easy to integrate** into any website while staying HIPAA-compliant.
+
+![](/images/docs/e6c786b7f2e347e3aa56b0ad6efdc5a22bd04194b4da5f809a77943e23279efc-Xnapper-2025-02-17-14.23.09.jpg)
+
+### Analytics Events
+
+Ours Privacy automatically tracks video analytics events that can be integrated with Google Analytics 4 (GA4):
+
+* **video\_start** - Triggered when a video begins playing
+* **video\_progress** - Triggered at specific completion milestones (10%, 25%, 50%, and 75%)
+* **video\_complete** - Triggered when a video finishes playing
+
+These events follow GA4's event tracking format for consistency. If you have GA4's automatic page view tracking enabled, Ours Privacy will automatically forward all video events to your GA4 instance.
+
+Each video event includes the following data:
+
+* **current\_time** - Current playback position in seconds
+* **video\_duration** - Total duration of the video in seconds
+* **video\_percent** - Percentage of video completed
+* **video\_url** - URL of the video being played
+
+This analytics data helps you understand viewer engagement and optimize your video content. If you create a custom player, you will have to implement these analytics yourself.
+
+## Building Your Own Player
+
+If you prefer to use a custom video player, you can retrieve:
+
+* The **raw video file** (in various formats)
+* The **transcript file**
+* The **poster image**
+
+Then, use your preferred video playback library (e.g., **Video.js**, **HLS.js**, **React Player**).
+
+### Example Workflow for a Custom Player:
+
+1. Copy the video file URL from Ours Privacy.
+2. Copy the transcript file (optional).
+3. Copy the poster image (optional).
+4. Use a video player library to display the video.
+
+![](/images/docs/a5357fc33060a50736bbe89612f88cb618e0202e5e7dab896f8d30985442085d-Xnapper-2025-02-17-14.13.31.jpg)
+
+## Uploading Video Example
+
+![](/images/docs/cd05975e692ce45a9246b9a3ab1b398dca19ac83d0be9e56d203ef8a5326af68-Xnapper-2025-02-17-14.09.53.jpg)
+
+***
+
+[Translation Widget HIPAA Compliant](/docs/translate)
+
+[Web Analytics](/docs/web-analytics)
+
+Ask AI
+
+* [Table of Contents](#)
+
+* * [Overview](#overview)
+  * [Uploading Videos](#uploading-videos)
+  * [Using Ours Privacy Video Embed](#using-ours-privacy-video-embed)
+  * * [How to Embed a Video](#how-to-embed-a-video)
+  * [Getting Started](#getting-started)
+  * * [Analytics Events](#analytics-events)
+  * [Building Your Own Player](#building-your-own-player)
+  * * [Example Workflow for a Custom Player:](#example-workflow-for-a-custom-player)
+  * [Uploading Video Example](#uploading-video-example)
