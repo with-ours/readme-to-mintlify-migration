@@ -509,6 +509,7 @@
       },
       {
         "tab": "API Documentation",
+        "openapi": "https://api.oursprivacy.com/api/v1/openapi",
         "groups": [
           {
             "group": "Ours",
