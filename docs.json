@@ -515,12 +515,7 @@
             "group": "Ours",
             "pages": [
               "reference/track",
-              {
-                "group": "OursPrivacy",
-                "pages": [
-                  "reference/track"
-                ]
-              }
+              "reference/identify"
             ]
           }
         ]
