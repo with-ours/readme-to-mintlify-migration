@@ -525,5 +525,8 @@
       }
     ]
   },
-  "logo": "/images/3707b86915633be8516015893cc242e6db810456e1f6e045104005d0a4d54ffc-8b45caa22dbe4635cdb442b4496caa5c75ec2573dddfb06120ccbe8e3ab071e3-Ours-Privacy-Logo-Full-Color-Rgb-2000px-w-144ppi.png"
+  "logo": {
+    "light": "/images/ours-privacy-logo.svg",
+    "dark": "/images/ours-privacy-logo.svg"
+  }
 }
